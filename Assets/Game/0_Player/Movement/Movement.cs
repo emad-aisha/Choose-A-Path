@@ -1,3 +1,4 @@
+using System.IO;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,10 +13,14 @@ public class MovementController : Input {
     float internalSprint;
     [SerializeField] float sprintTimer;
     float internalSprintTimer;
-    bool isSprinting;
+
 
     [Header("Jump Stats")]
     [SerializeField] float jumpSpeed;
+    [SerializeField] float jumpMod;
+    [SerializeField] float jumpTimer;
+    float internalJumpTimer;
+
     [SerializeField] float gravity;
     bool isJumping = false;
 
@@ -30,15 +35,19 @@ public class MovementController : Input {
         jumpAction = InputManager.instance.GetAction(actionName, "Jump");
 
         internalSprint = 1;
+        internalJumpTimer = 0;
     }
 
     Vector3 moveInput;
     void Update() {
         moveInput = moveAction.ReadValue<Vector2>();
+        JumpHeightLogic();
+        JumpLogic();
+
+        moveDirection = moveInput.x * transform.right + 0 * transform.forward + jumpVelocity.y * transform.up;
 
         SprintLogic();
         MoveLogic();
-        JumpLogic();
     }
 
     void SprintLogic() {
@@ -47,29 +56,36 @@ public class MovementController : Input {
         }
         else {
             internalSprintTimer = 0;
-            isSprinting = false;
         }
 
         if (internalSprintTimer >= sprintTimer) {
-            isSprinting = true;
-        }
-    }
-
-    void MoveLogic() {
-        moveDirection = moveInput.x * transform.right + 0 * transform.forward + jumpVelocity.y * transform.up;
-
-        if (isSprinting) {
             if (internalSprint < maxSprint) internalSprint += Time.deltaTime;
             if (internalSprint > maxSprint) internalSprint = maxSprint;
 
             moveDirection.x *= internalSprint;
         }
-        else if (internalSprint > 1) {
+        else {
             internalSprint -= Time.deltaTime;
             if (internalSprint < 1) internalSprint = 1;
         }
+    }
 
+    void MoveLogic() {
         controller.Move(moveDirection * (speed * Time.deltaTime));
+    }
+
+    void JumpHeightLogic() {
+        if (jumpAction.IsPressed() && !controller.isGrounded) {
+            if (internalJumpTimer < jumpTimer) {
+                internalJumpTimer += Time.deltaTime;
+            }
+
+            if (jumpVelocity.y > 0 && internalJumpTimer <= jumpTimer) {
+                // TODO: needs polish?
+                jumpVelocity.y += Time.deltaTime * jumpMod;
+            }
+        }
+
     }
 
     void JumpLogic() {
@@ -82,6 +98,7 @@ public class MovementController : Input {
         if (controller.isGrounded) {
             isJumping = false;
             jumpVelocity = Vector3.zero;
+            internalJumpTimer = 0;
         }
         else {
             jumpVelocity.y -= gravity * Time.deltaTime;
