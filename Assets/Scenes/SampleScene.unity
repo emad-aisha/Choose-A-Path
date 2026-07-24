@@ -779,10 +779,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Movement
   actionName: Player
   speed: 5
-  sprintMod: 2
-  jumpSpeed: 2
-  gravity: 8
+  maxSprint: 2
   sprintTimer: 0.5
+  jumpSpeed: 2.5
+  gravity: 8
 --- !u!54 &1685656770
 Rigidbody:
   m_ObjectHideFlags: 0

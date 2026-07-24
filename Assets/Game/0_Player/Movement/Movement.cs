@@ -1,4 +1,3 @@
-using System.Threading;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,28 +6,22 @@ public class MovementController : Input {
     InputAction moveAction;
     InputAction jumpAction;
 
-    [Header("Stats")]
+    [Header("Walk Stats")]
     [SerializeField] int speed;
-    [SerializeField] float sprintMod;
-    float sprint;
-
-    [SerializeField] float jumpSpeed;
-    [SerializeField] float gravity;
-
-
-    [Header("data")]
+    [SerializeField] float maxSprint;
+    float internalSprint;
     [SerializeField] float sprintTimer;
-    float internalTimer;
+    float internalSprintTimer;
     bool isSprinting;
 
+    [Header("Jump Stats")]
+    [SerializeField] float jumpSpeed;
+    [SerializeField] float gravity;
+    bool isJumping = false;
 
     Vector3 moveDirection;
-    Vector3 moveInput;
     Vector3 jumpVelocity;
 
-
-
-    bool isJumping = false;
 
     void Start() {
         controller = GetComponent<CharacterController>();
@@ -36,47 +29,47 @@ public class MovementController : Input {
         moveAction = InputManager.instance.GetAction(actionName, "Move");
         jumpAction = InputManager.instance.GetAction(actionName, "Jump");
 
-        sprint = 1;
+        internalSprint = 1;
     }
 
+    Vector3 moveInput;
     void Update() {
+        moveInput = moveAction.ReadValue<Vector2>();
+
+        SprintLogic();
         MoveLogic();
         JumpLogic();
     }
 
-
-    void MoveLogic() {
-        // moving logic
-        moveInput = moveAction.ReadValue<Vector2>();
-        // dont move on the z axis
-        moveDirection = moveInput.x * transform.right + 0 * transform.forward + jumpVelocity.y * transform.up;
-
-        // sprint
-        if (!moveAction.IsPressed()) {
-            internalTimer = 0;
-            isSprinting = false;
+    void SprintLogic() {
+        if (moveAction.IsPressed()) {
+            internalSprintTimer += Time.deltaTime;
         }
         else {
-            internalTimer += Time.deltaTime;
+            internalSprintTimer = 0;
+            isSprinting = false;
         }
 
-        if (internalTimer >= sprintTimer) { // if moving for long enough
+        if (internalSprintTimer >= sprintTimer) {
             isSprinting = true;
         }
+    }
 
+    void MoveLogic() {
+        moveDirection = moveInput.x * transform.right + 0 * transform.forward + jumpVelocity.y * transform.up;
 
         if (isSprinting) {
-            if (sprint < sprintMod) sprint += Time.deltaTime;
-            if (sprint > sprintMod) sprint = sprintMod;
-            moveDirection.x *= sprint;
-            moveDirection.z *= sprint;
-        }
-        else if (sprint > 1) {
-            sprint -= Time.deltaTime;
-            if (sprint < 1) sprint = 1;
-        }
-        controller.Move(moveDirection * speed * Time.deltaTime);
+            if (internalSprint < maxSprint) internalSprint += Time.deltaTime;
+            if (internalSprint > maxSprint) internalSprint = maxSprint;
 
+            moveDirection.x *= internalSprint;
+        }
+        else if (internalSprint > 1) {
+            internalSprint -= Time.deltaTime;
+            if (internalSprint < 1) internalSprint = 1;
+        }
+
+        controller.Move(moveDirection * (speed * Time.deltaTime));
     }
 
     void JumpLogic() {
