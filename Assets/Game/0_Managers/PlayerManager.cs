@@ -3,23 +3,22 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour {
     public static PlayerManager instance;
 
-    GameObject player;
     Transform playerTransform;
 
 
     void Awake() {
         if (instance == null) instance = this;
-        player = GameObject.FindGameObjectWithTag("Player");
-
-        playerTransform = player.transform;
+        SetUpdates();
     }
 
     void Update() {
-        playerTransform = player.transform;
+        SetUpdates();
     }
 
-    public Transform GetPlayerTransform() {
-        return playerTransform;
+    void SetUpdates() {
+        playerTransform = transform;
     }
+
+    public Transform GetPlayerTransform() { return playerTransform; }
 
 }
