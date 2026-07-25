@@ -17,12 +17,13 @@ public class MovementController : Input {
 
     [Header("Jump Stats")]
     [SerializeField] float jumpSpeed;
+    [SerializeField] float gravity;
+    bool isJumping;
+
+    [Header("Jump Variation")]
     [SerializeField] float jumpMod;
     [SerializeField] float jumpTimer;
     float internalJumpTimer;
-
-    [SerializeField] float gravity;
-    bool isJumping = false;
 
     Vector3 moveDirection;
     Vector3 jumpVelocity;
@@ -36,18 +37,23 @@ public class MovementController : Input {
 
         internalSprint = 1;
         internalJumpTimer = 0;
+        isJumping = false;
     }
 
-    Vector3 moveInput;
+    Vector2 moveInput;
     void Update() {
         moveInput = moveAction.ReadValue<Vector2>();
-        JumpHeightLogic();
+
+        //jump
         JumpLogic();
+        JumpHeightLogic();
 
-        moveDirection = moveInput.x * transform.right + 0 * transform.forward + jumpVelocity.y * transform.up;
-
+        // walk
         SprintLogic();
-        MoveLogic();
+        moveDirection = new Vector3(moveInput.x, jumpVelocity.y, 0); // moveInput.x * transform.right + 0 * transform.forward + jumpVelocity.y * transform.up;
+        controller.Move(moveDirection * (speed * Time.deltaTime));
+
+        GravityLogic();
     }
 
     void SprintLogic() {
@@ -62,16 +68,12 @@ public class MovementController : Input {
             if (internalSprint < maxSprint) internalSprint += Time.deltaTime;
             if (internalSprint > maxSprint) internalSprint = maxSprint;
 
-            moveDirection.x *= internalSprint;
+            moveInput.x *= internalSprint;
         }
         else {
             internalSprint -= Time.deltaTime;
             if (internalSprint < 1) internalSprint = 1;
         }
-    }
-
-    void MoveLogic() {
-        controller.Move(moveDirection * (speed * Time.deltaTime));
     }
 
     void JumpHeightLogic() {
@@ -81,7 +83,6 @@ public class MovementController : Input {
             }
 
             if (jumpVelocity.y > 0 && internalJumpTimer <= jumpTimer) {
-                // TODO: needs polish?
                 jumpVelocity.y += Time.deltaTime * jumpMod;
             }
         }
@@ -89,11 +90,13 @@ public class MovementController : Input {
     }
 
     void JumpLogic() {
-        if (jumpAction.IsPressed() && !isJumping) {
+        if (jumpAction.WasPressedThisFrame() && !isJumping) {
             jumpVelocity.y = jumpSpeed;
             isJumping = true;
         }
+    }
 
+    void GravityLogic() {
         // gravity logic
         if (controller.isGrounded) {
             isJumping = false;
