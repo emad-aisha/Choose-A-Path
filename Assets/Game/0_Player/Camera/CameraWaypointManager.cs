@@ -7,8 +7,7 @@ public class CameraWaypointManager : MonoBehaviour {
     [SerializeField] GameObject waypoint;
 
     [Header("Tween")]
-    [SerializeField, Range(0, 0.02f)] float movePercentage;
-    [SerializeField, Range(0, 0.02f)] float moveTimeIncrements;
+    [SerializeField, Range(0, 0.05f)] float movePercentage;
 
     Vector3 playerPosition;
     Vector3 movePosition;
