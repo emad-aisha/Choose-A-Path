@@ -22,5 +22,7 @@ public class PlayerManager : MonoBehaviour {
 
     public Transform GetPlayerTransform() { return playerTransform; }
     public void ResetJumpVelocity() { playerMovementController.ResetJumpVelocity(); }
+    public void LockPlayerMovement() { playerMovementController.LockMovement(); }
+    public void UnlockPlayerMovement() { playerMovementController.UnlockMovement(); }
 
 }
