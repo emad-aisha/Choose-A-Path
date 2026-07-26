@@ -1,8 +1,7 @@
 using UnityEngine;
 
-public class Dash : MonoBehaviour {
+public class Dash : BasicAttack {
     [SerializeField] float speed;
-    [SerializeField] float distanceRange;
 
     void Start() {
 
@@ -10,5 +9,9 @@ public class Dash : MonoBehaviour {
 
     void Update() {
         // if withing range, dash to attack
+    }
+
+    public override void Attack() {
+
     }
 }

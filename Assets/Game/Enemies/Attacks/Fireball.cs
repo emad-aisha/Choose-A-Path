@@ -1,8 +1,6 @@
 using UnityEngine;
 
-public class Fireball : MonoBehaviour {
-    [SerializeField] float distanceRange;
-    [SerializeField] float damage;
+public class Fireball : BasicAttack {
     [SerializeField] float speed;
     [SerializeField] bool isHoning;
 
@@ -13,5 +11,9 @@ public class Fireball : MonoBehaviour {
     void Update() {
         // if within range, throw fireball towards player
         // if isHoning, following towards player
+    }
+
+    public override void Attack() {
+
     }
 }

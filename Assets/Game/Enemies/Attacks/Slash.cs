@@ -1,8 +1,6 @@
 using UnityEngine;
 
-public class BasicAttack : MonoBehaviour {
-    [SerializeField] float damage;
-    [SerializeField] float attackRange;
+public class Slash : BasicAttack {
 
     void Start() {
 
@@ -10,5 +8,9 @@ public class BasicAttack : MonoBehaviour {
 
     void Update() {
         // if within range, basic slash player
+    }
+
+    public override void Attack() {
+
     }
 }
