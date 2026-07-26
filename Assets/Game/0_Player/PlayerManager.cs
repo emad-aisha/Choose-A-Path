@@ -6,7 +6,6 @@ public class PlayerManager : MonoBehaviour {
     Transform playerTransform;
     MovementController playerMovementController;
 
-
     void Awake() {
         if (instance == null) instance = this;
         playerMovementController = GetComponent<MovementController>();
