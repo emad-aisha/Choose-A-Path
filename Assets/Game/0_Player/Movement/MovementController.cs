@@ -129,7 +129,7 @@ public class MovementController : Input {
             internalJumpTimer = 0;
             jumps = 0;
         }
-        else {
+        else if (!resetMovement) {
             jumpVelocity.y -= gravity * Time.deltaTime;
         }
     }

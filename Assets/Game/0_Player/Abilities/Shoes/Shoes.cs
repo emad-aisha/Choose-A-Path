@@ -5,7 +5,7 @@ public class Shoes : MonoBehaviour {
     public enum Type { Dash, Jump };
 
     [Header("Powerup Stats")]
-    [SerializeField] Type shoeType;
+    [SerializeField] Type type;
     [SerializeField, Range(0, 0.1f)] float distanceIncrement;
 
     bool interacted = false;
@@ -36,5 +36,5 @@ public class Shoes : MonoBehaviour {
         pointToHit = Vector3.zero;
     }
 
-    public bool CompareShoeType(Type compare) { return shoeType == compare; }
+    public bool CompareShoeType(Type compare) { return type == compare; }
 }
