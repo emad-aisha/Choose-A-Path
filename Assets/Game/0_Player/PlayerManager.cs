@@ -27,14 +27,13 @@ public class PlayerManager : MonoBehaviour {
     public void SetMaxJumps(int newJumps) { playerMovementController.SetMaxJumps(newJumps); }
 
     bool hitSomething = false;
-    public bool MoveToPoint(Vector3 pointToHit, float time) {
+    public bool MoveToPoint(Vector3 pointToHit, float distance) {
         if (hitSomething) {
             hitSomething = false;
             return false;
         }
-
-        Vector3 movePosition = (pointToHit - transform.position) * (time / 30);
-        transform.position += movePosition;
+        Vector3 endPoint = (pointToHit - transform.position) * distance;
+        transform.position += endPoint;
 
         Vector3 roundedPlayerPosition = math.abs(transform.position);
         Vector3 roundedPoint = math.abs(pointToHit);

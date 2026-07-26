@@ -6,29 +6,27 @@ public class Shoes : MonoBehaviour {
 
     [Header("Powerup Stats")]
     [SerializeField] Type shoeType;
+    [SerializeField, Range(0, 0.1f)] float distanceIncrement;
 
     bool interacted = false;
     Vector3 pointToHit;
-    float time;
 
     void Update() {
         if (!interacted) return;
         UseAbility();
     }
 
-    public void Interact(Vector3 _pointToHit, float _time) {
+    public void Interact(Vector3 _pointToHit, float time) {
         pointToHit = _pointToHit;
-        time = _time;
         interacted = true;
         StartCoroutine(Ability(time));
     }
 
     void UseAbility() {
-        interacted = PlayerManager.instance.MoveToPoint(pointToHit, time);
+        interacted = PlayerManager.instance.MoveToPoint(pointToHit, distanceIncrement);
         if (!interacted) {
             interacted = false;
             pointToHit = Vector3.zero;
-            time = 0;
         }
     }
 
@@ -36,7 +34,6 @@ public class Shoes : MonoBehaviour {
         yield return new WaitForSeconds(waitTime);
         interacted = false;
         pointToHit = Vector3.zero;
-        time = 0;
     }
 
     public bool CompareShoeType(Type compare) { return shoeType == compare; }

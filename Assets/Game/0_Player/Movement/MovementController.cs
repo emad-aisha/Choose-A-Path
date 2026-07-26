@@ -104,11 +104,6 @@ public class MovementController : Input {
     }
 
     void JumpLogic() {
-        //if (jumpAction.WasPressedThisFrame() && !isJumping && (controller.isGrounded || internalCoyoteTimer < coyoteTime || jumps < maxJumps)) {
-        //    jumpVelocity.y = jumpSpeed;
-        //    isJumping = true;
-        //    jumps++;
-        //}
         bool canDoubleJump = maxJumps > 1 && jumps < maxJumps;
 
         if (canDoubleJump && jumpAction.WasPressedThisFrame()) {
