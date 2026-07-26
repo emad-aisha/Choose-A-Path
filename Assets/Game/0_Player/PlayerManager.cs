@@ -26,15 +26,25 @@ public class PlayerManager : MonoBehaviour {
     public void LockPlayerMovement() { playerMovementController.LockMovement(); }
     public void UnlockPlayerMovement() { playerMovementController.UnlockMovement(); }
 
+    bool hitSomething = false;
+    public bool MoveToPoint(Vector3 pointToHit, float time) {
+        if (hitSomething) {
+            hitSomething = false;
+            return false;
+        }
 
-    public bool Dash(Vector3 pointToHit, float time) {
         Vector3 movePosition = (pointToHit - transform.position) * (time / 30);
         transform.position += movePosition;
 
-        // if reached point
         Vector3 roundedPlayerPosition = math.abs(transform.position);
         Vector3 roundedPoint = math.abs(pointToHit);
         return roundedPlayerPosition != roundedPoint;
+    }
+
+    void OnTriggerEnter(Collider other) {
+        if (!other.CompareTag("Player") && !other.CompareTag("Enemy")) {
+            hitSomething = true;
+        }
     }
 
 

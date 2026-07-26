@@ -11,32 +11,25 @@ public class Shoes : MonoBehaviour {
     Vector3 pointToHit;
     float time;
 
-    void Start() {
-
-    }
-
     void Update() {
         if (!interacted) return;
-
-        switch (shoeType) {
-            case Type.Dash: Dash(); break;
-            case Type.Jump: Jump(); break;
-        }
+        UseAbility();
     }
 
     public void Interact(Vector3 _pointToHit, float _time) {
         pointToHit = _pointToHit;
         time = _time;
         interacted = true;
-    }
-
-    void Dash() {
-        PlayerManager.instance.Dash(pointToHit, time);
         StartCoroutine(Ability(time));
     }
 
-    void Jump() {
-        //StartCoroutine(PlayerManager.instance.TemporarilyBoostJumpMod(boost, time));
+    void UseAbility() {
+        interacted = PlayerManager.instance.MoveToPoint(pointToHit, time);
+        if (!interacted) {
+            interacted = false;
+            pointToHit = Vector3.zero;
+            time = 0;
+        }
     }
 
     IEnumerator Ability(float waitTime) {

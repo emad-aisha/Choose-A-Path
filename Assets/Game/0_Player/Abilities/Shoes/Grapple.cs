@@ -22,7 +22,6 @@ public class Grapple : Input {
         interactAction = InputManager.instance.GetAction(actionName, "Interact");
         internalTimer = cooldown;
         shoes = GetComponent<Shoes>();
-        Debug.Log(shoes);
     }
 
     void Update() {
@@ -51,14 +50,14 @@ public class Grapple : Input {
         RaycastHit dashHit, jumpHit;
 
         // if hit smth
-        bool canDash = Physics.Raycast(transform.position, FacingDirectionManager.instance.GetFacingDirection(), out dashHit, distance, ~playerLayer | ~enemyLayer);
-        bool canJump = Physics.Raycast(transform.position, FacingDirectionManager.instance.GetUpwardsDirection(), out jumpHit, distance, ~playerLayer | ~enemyLayer);
+        bool canDash = Physics.Raycast(transform.position, FacingDirectionManager.instance.GetFacingDirection(), out dashHit, distance, ~(playerLayer | enemyLayer));
+        bool canJump = Physics.Raycast(transform.position, FacingDirectionManager.instance.GetUpwardsDirection(), out jumpHit, distance, ~(playerLayer | enemyLayer));
 
         if (shoes.CompareShoeType(Shoes.Type.Dash) && canDash) {
             shoes.Interact(dashHit.point, time);
         }
         else if (shoes.CompareShoeType(Shoes.Type.Jump) && canJump) {
-            shoes.Interact(dashHit.point, time);
+            shoes.Interact(jumpHit.point, time);
         }
 
         yield return new WaitForSeconds(time);
