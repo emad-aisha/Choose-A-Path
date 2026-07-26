@@ -7,21 +7,21 @@ public class Weapon : Input {
     [SerializeField] GameObject hitbox;
     [SerializeField] float cooldown;
     [SerializeField] float damageImage;
-    [SerializeField] float damage;
+    [SerializeField] int damage;
     bool isAttacking;
 
     InputAction attackAction;
 
     void Start() {
         attackAction = InputManager.instance.GetAction(actionName, "Attack");
+        hitbox.GetComponent<Hitbox>().SetDamage(damage);
     }
 
 
     void Update() {
         if (!isAttacking) StartCoroutine(AttackCooldown());
-
-
     }
+
 
     IEnumerator AttackCooldown() {
         if (!attackAction.WasPressedThisFrame()) yield break;
