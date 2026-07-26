@@ -26,6 +26,8 @@ public class PlayerManager : MonoBehaviour {
     public void LockPlayerMovement() { playerMovementController.LockMovement(); }
     public void UnlockPlayerMovement() { playerMovementController.UnlockMovement(); }
 
+    public bool IsPlayerGrounded() { return playerMovementController.GetComponent<CharacterController>().isGrounded; }
+
     bool hitSomething = false;
     public bool MoveToPoint(Vector3 pointToHit, float time) {
         if (hitSomething) {

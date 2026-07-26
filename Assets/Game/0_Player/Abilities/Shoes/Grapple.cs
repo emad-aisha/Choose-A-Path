@@ -7,8 +7,6 @@ public class Grapple : Input {
     [Header("Interaction")]
     [SerializeField] LayerMask playerLayer;
     [SerializeField] LayerMask enemyLayer;
-    [SerializeField] float cooldown;
-    float internalTimer;
     bool canInteract = true;
 
     [Header("Grapple Stats")]
@@ -20,18 +18,10 @@ public class Grapple : Input {
 
     void Start() {
         interactAction = InputManager.instance.GetAction(actionName, "Interact");
-        internalTimer = cooldown;
         shoes = GetComponent<Shoes>();
     }
 
     void Update() {
-        if (internalTimer >= cooldown) {
-            canInteract = true;
-        }
-        else if (internalTimer < cooldown) {
-            internalTimer += Time.deltaTime;
-        }
-
         Debug.DrawRay(transform.position, FacingDirectionManager.instance.GetFacingDirection() * distance, Color.blue); // dash raycast
         Debug.DrawRay(transform.position, FacingDirectionManager.instance.GetUpwardsDirection() * distance, Color.yellow); // jump raycast
         StartCoroutine(Interact());
@@ -39,12 +29,15 @@ public class Grapple : Input {
         if (isGrappling) {
             PlayerManager.instance.ResetJumpVelocity();
         }
+
+        if (PlayerManager.instance.IsPlayerGrounded()) canInteract = true;
     }
 
     IEnumerator Interact() {
         if (!interactAction.WasPressedThisFrame()) yield break; // if not interacted
         if (isGrappling || !canInteract || !shoes) yield break; // if not allowed to interact
         isGrappling = true;
+        canInteract = false;
 
         PlayerManager.instance.LockPlayerMovement();
         RaycastHit dashHit, jumpHit;
@@ -63,7 +56,6 @@ public class Grapple : Input {
         yield return new WaitForSeconds(time);
         PlayerManager.instance.UnlockPlayerMovement();
         isGrappling = false;
-        canInteract = false;
     }
 
 }
