@@ -41,41 +41,15 @@ public class PlayerManager : MonoBehaviour {
 
     public bool MoveToPoint(Vector3 pointToHit, float distance) {
         if (hitSomething) {
+            originalPosition = Vector3.zero;
             hitSomething = false;
             return false;
         }
-        Vector3 endPoint = (pointToHit - originalPosition) * distance;
 
+        Vector3 endPoint = (pointToHit - originalPosition) * distance;
         transform.position += endPoint;
 
-        // TODO: cleanup
-        // if past point
-        float radius = playerMovementController.GetComponent<CharacterController>().radius;
-        if (endPoint.normalized.x != 0) {
-            if (pointToHit.x - transform.position.x < 0 && transform.position.x < pointToHit.x - radius) {
-                Debug.Log("X - too far to left");
-                originalPosition = Vector3.zero;
-                return false;
-            }
-            else if (pointToHit.x - transform.position.x > 0 && transform.position.x > pointToHit.x - radius) {
-                Debug.Log("X - too far to right");
-                originalPosition = Vector3.zero;
-                return false;
-            }
-        }
-        else if (endPoint.normalized.y != 0) {
-            if (pointToHit.y - transform.position.y < 0 && transform.position.y < pointToHit.y) {
-                Debug.Log("Y - too far to down");
-                originalPosition = Vector3.zero;
-                return false;
-            }
-            else if (pointToHit.y - transform.position.y > 0 && transform.position.y > pointToHit.y) {
-                Debug.Log("Y - too far to up");
-                originalPosition = Vector3.zero;
-                return false;
-            }
-        }
-
+        if (!IsInRange(endPoint, pointToHit)) originalPosition = Vector3.zero;
         return true;
     }
 
@@ -85,5 +59,32 @@ public class PlayerManager : MonoBehaviour {
         }
     }
 
+
+    bool IsInRange(Vector3 endPoint, Vector3 pointToHit) {
+        float radius = playerMovementController.GetComponent<CharacterController>().radius;
+
+        if (endPoint.normalized.x != 0) {
+            if (pointToHit.x - transform.position.x < 0 && transform.position.x < pointToHit.x - radius) {
+                Debug.Log("X - too far to left");
+                return false;
+            }
+            else if (pointToHit.x - transform.position.x > 0 && transform.position.x > pointToHit.x - radius) {
+                Debug.Log("X - too far to right");
+                return false;
+            }
+        }
+        else if (endPoint.normalized.y != 0) {
+            if (pointToHit.y - transform.position.y < 0 && transform.position.y < pointToHit.y) {
+                Debug.Log("Y - too far to down");
+                return false;
+            }
+            else if (pointToHit.y - transform.position.y > 0 && transform.position.y > pointToHit.y) {
+                Debug.Log("Y - too far to up");
+                return false;
+            }
+        }
+
+        return true;
+    }
 
 }

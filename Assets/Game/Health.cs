@@ -13,7 +13,7 @@ public class Health : MonoBehaviour {
     void Update() {
         if (isDead) {
             // TODO: do somethign when the player dies
-            Debug.Log(gameObject + " died");
+            Debug.Log(name + " died");
             // TODO: play a flashy animation idk
             if (gameObject.CompareTag("Enemy")) Destroy(gameObject);
         }
@@ -21,6 +21,7 @@ public class Health : MonoBehaviour {
 
 
     public void Hurt(int damangeAmount) {
+        Debug.Log(name + " got hurt " + damangeAmount);
         currentHealth -= damangeAmount;
         if (currentHealth < 0) {
             currentHealth = 0;
@@ -29,6 +30,7 @@ public class Health : MonoBehaviour {
     }
 
     public void Heal(int healAmount) {
+        Debug.Log(name + " got healed " + healAmount);
         currentHealth += healAmount;
         if (currentHealth > maxHealth) {
             currentHealth = maxHealth;
