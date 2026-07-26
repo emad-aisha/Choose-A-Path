@@ -4,10 +4,12 @@ public class PlayerManager : MonoBehaviour {
     public static PlayerManager instance;
 
     Transform playerTransform;
+    MovementController playerMovementController;
 
 
     void Awake() {
         if (instance == null) instance = this;
+        playerMovementController = GetComponent<MovementController>();
         SetUpdates();
     }
 
@@ -20,5 +22,6 @@ public class PlayerManager : MonoBehaviour {
     }
 
     public Transform GetPlayerTransform() { return playerTransform; }
+    public void ResetJumpVelocity() { playerMovementController.ResetJumpVelocity(); }
 
 }

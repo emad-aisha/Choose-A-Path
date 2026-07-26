@@ -1,4 +1,3 @@
-using System.IO;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -106,6 +105,10 @@ public class MovementController : Input {
         else {
             jumpVelocity.y -= gravity * Time.deltaTime;
         }
+    }
+
+    public void ResetJumpVelocity() {
+        jumpVelocity = Vector3.zero;
     }
 
 
