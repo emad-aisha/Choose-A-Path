@@ -22,7 +22,7 @@ public class Grapple : Input {
     }
 
     void Update() {
-        Debug.DrawRay(transform.position, FacingDirectionManager.instance.GetFacingDirection() * distance, Color.blue); // dash raycast
+        Debug.DrawRay(transform.position, FacingDirectionManager.instance.GetHorizontalDirection() * distance, Color.blue); // dash raycast
         Debug.DrawRay(transform.position, FacingDirectionManager.instance.GetUpwardsDirection() * distance, Color.yellow); // jump raycast
         StartCoroutine(Interact());
 
@@ -43,7 +43,7 @@ public class Grapple : Input {
         RaycastHit dashHit, jumpHit;
 
         // if hit smth
-        bool canDash = Physics.Raycast(transform.position, FacingDirectionManager.instance.GetFacingDirection(), out dashHit, distance, ~(playerLayer | enemyLayer));
+        bool canDash = Physics.Raycast(transform.position, FacingDirectionManager.instance.GetHorizontalDirection(), out dashHit, distance, ~(playerLayer | enemyLayer));
         bool canJump = Physics.Raycast(transform.position, FacingDirectionManager.instance.GetUpwardsDirection(), out jumpHit, distance, ~(playerLayer | enemyLayer));
 
         if (shoes.CompareShoeType(Shoes.Type.Dash) && canDash) {

@@ -7,6 +7,9 @@ public class FacingDirectionManager : Input {
 
     InputAction mousePos;
     Vector2 moveDirection;
+
+    Vector3 horizontalPosition;
+    Vector3 verticalPosition;
     bool locked;
 
     void Awake() {
@@ -32,11 +35,16 @@ public class FacingDirectionManager : Input {
         else if (moveDirection.y > 0) moveDirection.y = 1;
 
         // save last facing direction
-        if (!locked && moveDirection != Vector2.zero) transform.position = new Vector3(moveDirection.x, moveDirection.y, 0) + playerPosition;
+        if (!locked && moveDirection != Vector2.zero) {
+            transform.position = new Vector3(moveDirection.x, moveDirection.y, 0) + playerPosition;
+            horizontalPosition = new Vector3(moveDirection.x, 0, 0) + playerPosition;
+            verticalPosition = new Vector3(0, moveDirection.y, 0) + playerPosition;
+        }
     }
 
 
     public Vector3 GetFacingDirection() { return (transform.position - PlayerManager.instance.GetPlayerTransform().position).normalized; }
+    public Vector3 GetHorizontalDirection() { return (horizontalPosition - PlayerManager.instance.GetPlayerTransform().position).normalized; }
     public Vector3 GetUpwardsDirection() { return PlayerManager.instance.GetPlayerTransform().up.normalized; }
 
     public void LockDirection() { locked = true; }

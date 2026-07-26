@@ -32,7 +32,7 @@ public class Top : Input {
         distanceVisualizer.transform.position = pointToDash;
 
         if (canDash && !isDashing) {
-            pointToDash = transform.position + (FacingDirectionManager.instance.GetFacingDirection() * distance);
+            pointToDash = transform.position + (FacingDirectionManager.instance.GetHorizontalDirection() * distance);
             StartCoroutine(Dash());
         }
 

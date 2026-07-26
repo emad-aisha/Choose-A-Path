@@ -19,6 +19,7 @@ public class Weapon : Input {
 
 
     void Update() {
+        Debug.DrawRay(transform.position, transform.position + FacingDirectionManager.instance.GetFacingDirection(), Color.red);
         if (!isAttacking) StartCoroutine(AttackCooldown());
     }
 

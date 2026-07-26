@@ -45,6 +45,10 @@ public class PlayerManager : MonoBehaviour {
             hitSomething = false;
             return false;
         }
+        if (originalPosition == Vector3.zero) {
+            Debug.Log("did you forget to set the original position?");
+            return false;
+        }
 
         Vector3 endPoint = (pointToHit - originalPosition) * distance;
         transform.position += endPoint;
