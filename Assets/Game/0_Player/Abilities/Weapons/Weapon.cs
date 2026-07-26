@@ -9,6 +9,7 @@ public class Weapon : Input {
     [SerializeField] float damageImage;
     [SerializeField] int damage;
     bool isAttacking;
+    [SerializeField] float distance;
 
     InputAction attackAction;
 
@@ -19,7 +20,7 @@ public class Weapon : Input {
 
 
     void Update() {
-        Debug.DrawRay(transform.position, transform.position + FacingDirectionManager.instance.GetFacingDirection(), Color.red);
+        Debug.DrawRay(transform.position, FacingDirectionManager.instance.GetFacingDirection() * distance, Color.red);
         if (!isAttacking) StartCoroutine(AttackCooldown());
     }
 
@@ -28,7 +29,7 @@ public class Weapon : Input {
         if (!attackAction.WasPressedThisFrame()) yield break;
         isAttacking = true;
 
-        hitbox.transform.position = transform.position + FacingDirectionManager.instance.GetFacingDirection();
+        hitbox.transform.position = transform.position + (FacingDirectionManager.instance.GetFacingDirection() * distance);
         hitbox.SetActive(true);
         yield return new WaitForSeconds(damageImage);
         hitbox.SetActive(false);

@@ -1265,6 +1265,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Weapon
       objectReference: {fileID: 0}
+    - target: {fileID: 6438438336999259699, guid: b67be319b2838984095c01ab079a7e09, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1410,7 +1414,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6236950163933328367, guid: ddee9cc0d9ad18f418b58e86ffb731b4, type: 3}
       propertyPath: m_Name
-      value: Dash
+      value: Grapple Dash
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1677,7 +1681,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7496413186263139670, guid: 8319585027dffdb4d9fb5d87e0d79595, type: 3}
       propertyPath: m_Name
-      value: Top Grapple
+      value: Top
+      objectReference: {fileID: 0}
+    - target: {fileID: 7496413186263139670, guid: 8319585027dffdb4d9fb5d87e0d79595, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

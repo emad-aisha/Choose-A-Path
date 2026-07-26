@@ -50,6 +50,7 @@ MonoBehaviour:
   cooldown: 1
   damageImage: 0.2
   damage: 2
+  distance: 1
 --- !u!1 &8079788790296840581
 GameObject:
   m_ObjectHideFlags: 0

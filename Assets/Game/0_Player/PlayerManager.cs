@@ -46,7 +46,7 @@ public class PlayerManager : MonoBehaviour {
             return false;
         }
         if (originalPosition == Vector3.zero) {
-            Debug.Log("did you forget to set the original position?");
+            //Debug.Log("did you forget to set the original position?");
             return false;
         }
 
