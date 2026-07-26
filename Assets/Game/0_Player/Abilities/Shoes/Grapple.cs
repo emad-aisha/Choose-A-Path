@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Grapple : Input {
-
     InputAction interactAction;
     [Header("Interaction")]
     [SerializeField] LayerMask playerLayer;
@@ -12,17 +11,18 @@ public class Grapple : Input {
     float internalTimer;
     bool canInteract = true;
 
-    [SerializeField] string shoeType = "Dash";
-
     [Header("Grapple Stats")]
     [SerializeField] float distance;
     [SerializeField] float time;
 
+    Shoes shoes;
     bool isGrappling;
 
     void Start() {
         interactAction = InputManager.instance.GetAction(actionName, "Interact");
         internalTimer = cooldown;
+        shoes = GetComponent<Shoes>();
+        Debug.Log(shoes);
     }
 
     void Update() {
@@ -44,18 +44,21 @@ public class Grapple : Input {
 
     IEnumerator Interact() {
         if (!interactAction.WasPressedThisFrame()) yield break; // if not interacted
-        if (isGrappling || !canInteract) yield break; // if not allowed to interact
+        if (isGrappling || !canInteract || !shoes) yield break; // if not allowed to interact
         isGrappling = true;
 
         PlayerManager.instance.LockPlayerMovement();
-        RaycastHit hit;
-        // if hit smth
-        bool hitDash = Physics.Raycast(transform.position, FacingDirectionManager.instance.GetFacingDirection(), out hit, distance, ~playerLayer | ~enemyLayer);
-        bool hitJump = Physics.Raycast(transform.position, FacingDirectionManager.instance.GetUpwardsDirection(), out hit, distance, ~playerLayer | ~enemyLayer);
+        RaycastHit dashHit, jumpHit;
 
-        if (hitDash || hitJump) {
-            Debug.Log("shoes Interact");
-            //hit.GetComponent<Shoes>().Interact();
+        // if hit smth
+        bool canDash = Physics.Raycast(transform.position, FacingDirectionManager.instance.GetFacingDirection(), out dashHit, distance, ~playerLayer | ~enemyLayer);
+        bool canJump = Physics.Raycast(transform.position, FacingDirectionManager.instance.GetUpwardsDirection(), out jumpHit, distance, ~playerLayer | ~enemyLayer);
+
+        if (shoes.CompareShoeType(Shoes.Type.Dash) && canDash) {
+            shoes.Interact(dashHit.point, time);
+        }
+        else if (shoes.CompareShoeType(Shoes.Type.Jump) && canJump) {
+            shoes.Interact(dashHit.point, time);
         }
 
         yield return new WaitForSeconds(time);

@@ -7,7 +7,7 @@ public class MovementController : Input {
     InputAction jumpAction;
 
     [Header("Walk Stats")]
-    [SerializeField] int speed;
+    [SerializeField] float speed;
     [SerializeField] float maxSprint;
     float internalSprint;
     [SerializeField] float sprintTimer;
@@ -40,6 +40,7 @@ public class MovementController : Input {
     }
 
     bool resetMovement;
+    bool fullyResetMovement;
     Vector2 moveInput;
     void Update() {
         moveInput = moveAction.ReadValue<Vector2>();
@@ -50,9 +51,9 @@ public class MovementController : Input {
 
         // walk
         SprintLogic();
-        if (resetMovement) moveInput = Vector2.zero;
         moveDirection = new Vector3(moveInput.x, jumpVelocity.y, 0); // moveInput.x * transform.right + 0 * transform.forward + jumpVelocity.y * transform.up;
-        controller.Move(moveDirection * (speed * Time.deltaTime));
+        if (!resetMovement) controller.Move(moveDirection * (speed * Time.deltaTime));
+
 
         GravityLogic();
     }
@@ -115,6 +116,10 @@ public class MovementController : Input {
 
     public void LockMovement() { resetMovement = true; }
     public void UnlockMovement() { resetMovement = false; }
+
+
+    public float GetMovementSpeed() { return speed; }
+    public void SetMovementSpeed(float newSpeed) { speed = newSpeed; }
 
 
 }
