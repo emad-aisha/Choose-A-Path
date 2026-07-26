@@ -1042,12 +1042,13 @@ GameObject:
   m_Component:
   - component: {fileID: 1917367626}
   - component: {fileID: 1917367628}
+  - component: {fileID: 1917367629}
   - component: {fileID: 1917367625}
   - component: {fileID: 1917367624}
   - component: {fileID: 1917367623}
   - component: {fileID: 1917367627}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1185,7 +1186,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a5d1d047818f344791224399b06528f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  maxHealth: 1
+  maxHealth: 2
+--- !u!114 &1917367629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1917367622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5e4ffcc8851d2e42b8788d690060db6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FollowPlayer
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  hoverDistance: 1
+  speed: 1
+  cooldown: 1
 --- !u!33 &1438539667144869795
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1431,6 +1450,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6528133154177306294}
   - component: {fileID: 3878155795440589097}
+  - component: {fileID: 7908090682633702158}
   - component: {fileID: 3097134723476664753}
   - component: {fileID: 7908090682633702157}
   - component: {fileID: 1438539667144869795}
@@ -1537,6 +1557,19 @@ CharacterController:
   m_SkinWidth: 0.0001
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7908090682633702158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6337029642692560550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5d1d047818f344791224399b06528f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  maxHealth: 5
 --- !u!1001 &7940115367569686391
 PrefabInstance:
   m_ObjectHideFlags: 0

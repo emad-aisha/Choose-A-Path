@@ -5,23 +5,34 @@ public class FacingDirectionManager : Input {
     public static FacingDirectionManager instance;
     Vector3 playerPosition;
 
-    InputAction moveAction;
-    float moveDirection;
+    InputAction mousePos;
+    Vector2 moveDirection;
     bool locked;
 
     void Awake() {
         if (instance == null) instance = this;
-        moveAction = InputManager.instance.GetAction(actionName, "Move");
+        mousePos = InputManager.instance.GetAction(actionName, "Mouse Position");
         playerPosition = PlayerManager.instance.GetPlayerTransform().position;
         locked = false;
     }
 
     void Update() {
         playerPosition = PlayerManager.instance.GetPlayerTransform().position;
-        moveDirection = moveAction.ReadValue<Vector2>().x;
+        moveDirection = mousePos.ReadValue<Vector2>();
+        moveDirection.x -= Screen.width / 2;
+        moveDirection.x /= Screen.width;
+
+        moveDirection.y -= Screen.height / 2;
+        moveDirection.y /= Screen.height;
+
+        if (moveDirection.x < 0) moveDirection.x = -1;
+        else if (moveDirection.x > 0) moveDirection.x = 1;
+
+        if (moveDirection.y < 0) moveDirection.y = -1;
+        else if (moveDirection.y > 0) moveDirection.y = 1;
 
         // save last facing direction
-        if (!locked && moveDirection != 0) transform.position = new Vector3(moveDirection, 0, 0) + playerPosition;
+        if (!locked && moveDirection != Vector2.zero) transform.position = new Vector3(moveDirection.x, moveDirection.y, 0) + playerPosition;
     }
 
 
