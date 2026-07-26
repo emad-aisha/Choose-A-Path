@@ -451,7 +451,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &344913505
 Transform:
   m_ObjectHideFlags: 0
@@ -484,8 +484,8 @@ MonoBehaviour:
   type: 0
   distanceVisualizer: {fileID: 520600377}
   cooldown: 1
-  distance: 2
-  distanceIncrement: 0.042
+  distance: 5
+  distanceIncrement: 0.019
 --- !u!1 &355950345
 GameObject:
   m_ObjectHideFlags: 0

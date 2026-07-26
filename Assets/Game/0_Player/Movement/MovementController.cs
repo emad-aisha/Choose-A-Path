@@ -17,7 +17,6 @@ public class MovementController : Input {
     [Header("Jump Stats")]
     [SerializeField] float jumpSpeed;
     [SerializeField] float gravity;
-    bool isJumping;
 
     [Header("Jump Variation")]
     [SerializeField] float jumpMod;
@@ -42,7 +41,6 @@ public class MovementController : Input {
 
         internalSprint = 1;
         internalJumpTimer = 0;
-        isJumping = false;
     }
 
     bool resetMovement;
@@ -110,12 +108,10 @@ public class MovementController : Input {
             // dont allow double jump off air
             if (!(controller.isGrounded || internalCoyoteTimer < coyoteTime)) jumps++;
             jumpVelocity.y = jumpSpeed;
-            isJumping = true;
             jumps++;
         }
         else if (jumpAction.WasPressedThisFrame() && (controller.isGrounded || internalCoyoteTimer < coyoteTime)) {
             jumpVelocity.y = jumpSpeed;
-            isJumping = true;
             jumps++;
         }
 
@@ -124,13 +120,16 @@ public class MovementController : Input {
     void GravityLogic() {
         // gravity logic
         if (controller.isGrounded) {
-            isJumping = false;
             jumpVelocity = Vector3.zero;
             internalJumpTimer = 0;
             jumps = 0;
         }
-        else if (!resetMovement) {
+        else {
             jumpVelocity.y -= gravity * Time.deltaTime;
+        }
+
+        if (resetMovement) {
+            jumpVelocity = Vector3.zero;
         }
     }
 

@@ -12,16 +12,18 @@ public class Top : Input {
     [SerializeField] float distance;
     [SerializeField, Range(0, 0.1f)] float distanceIncrement;
     bool isDashing;
+    bool canDash;
 
     InputAction sprintAction;
     Vector3 pointToDash;
-    Coroutine dash;
+
 
     void Start() {
         if (type == Type.Wings) PlayerManager.instance.SetMaxJumps(2);
         else {
             sprintAction = InputManager.instance.GetAction(actionName, "Sprint");
             isDashing = false;
+            canDash = true;
         }
     }
 
@@ -29,16 +31,15 @@ public class Top : Input {
         if (sprintAction == null) return;
         distanceVisualizer.transform.position = pointToDash;
 
-        if (!isDashing) {
+        if (canDash && !isDashing) {
             pointToDash = transform.position + (FacingDirectionManager.instance.GetFacingDirection() * distance);
-            dash = StartCoroutine(Dash());
+            StartCoroutine(Dash());
         }
 
         if (isDashing) {
             isDashing = PlayerManager.instance.MoveToPoint(pointToDash, distanceIncrement);
             if (!isDashing) {
                 PlayerManager.instance.UnlockPlayerMovement();
-                StopCoroutine(dash);
             }
         }
 
@@ -46,11 +47,14 @@ public class Top : Input {
 
     IEnumerator Dash() {
         if (!sprintAction.WasPressedThisFrame()) yield break;
-        isDashing = true;
+        PlayerManager.instance.SetStartPoint();
         PlayerManager.instance.LockPlayerMovement();
+        canDash = false;
+        isDashing = true;
         yield return new WaitForSeconds(cooldown);
         PlayerManager.instance.UnlockPlayerMovement();
         isDashing = false;
+        canDash = true;
     }
 
 

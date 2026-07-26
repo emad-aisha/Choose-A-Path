@@ -19,6 +19,7 @@ public class Shoes : MonoBehaviour {
     public void Interact(Vector3 _pointToHit, float time) {
         pointToHit = _pointToHit;
         interacted = true;
+        PlayerManager.instance.SetStartPoint();
         StartCoroutine(Ability(time));
     }
 

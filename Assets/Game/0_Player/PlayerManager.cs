@@ -1,8 +1,8 @@
 using System;
-using Unity.Mathematics;
 using UnityEngine;
 
 // TODO: break up into an ability manager
+// TODO: please
 public class PlayerManager : MonoBehaviour {
     public static PlayerManager instance;
 
@@ -30,32 +30,53 @@ public class PlayerManager : MonoBehaviour {
     }
 
     public bool IsPlayerGrounded() { return playerMovementController.GetComponent<CharacterController>().isGrounded; }
-
     public void SetMaxJumps(int newJumps) { playerMovementController.SetMaxJumps(newJumps); }
 
     bool hitSomething = false;
-    Vector3 lastRoundedPlayerPosition = Vector3.zero;
+    Vector3 originalPosition = Vector3.zero;
+
+    public void SetStartPoint() {
+        originalPosition = transform.position;
+    }
+
     public bool MoveToPoint(Vector3 pointToHit, float distance) {
         if (hitSomething) {
             hitSomething = false;
             return false;
         }
-        Vector3 endPoint = (pointToHit - transform.position) * distance;
+        Vector3 endPoint = (pointToHit - originalPosition) * distance;
 
         transform.position += endPoint;
-        Vector3 roundedPlayerPosition = new Vector3((float)Math.Round(transform.position.x, 2), (float)Math.Round(transform.position.y, 2), (float)Math.Round(transform.position.z, 2));
-        Debug.Log(roundedPlayerPosition);
-        Debug.Log(lastRoundedPlayerPosition);
 
-        if (roundedPlayerPosition == lastRoundedPlayerPosition) {
-            lastRoundedPlayerPosition = Vector3.zero;
-            return false;
+        // TODO: cleanup
+        // if past point
+        float radius = playerMovementController.GetComponent<CharacterController>().radius;
+        if (endPoint.normalized.x != 0) {
+            if (pointToHit.x - transform.position.x < 0 && transform.position.x < pointToHit.x - radius) {
+                Debug.Log("X - too far to left");
+                originalPosition = Vector3.zero;
+                return false;
+            }
+            else if (pointToHit.x - transform.position.x > 0 && transform.position.x > pointToHit.x - radius) {
+                Debug.Log("X - too far to right");
+                originalPosition = Vector3.zero;
+                return false;
+            }
         }
-        if (roundedPlayerPosition != lastRoundedPlayerPosition) {
-            lastRoundedPlayerPosition = roundedPlayerPosition;
-            return true;
+        else if (endPoint.normalized.y != 0) {
+            if (pointToHit.y - transform.position.y < 0 && transform.position.y < pointToHit.y) {
+                Debug.Log("Y - too far to down");
+                originalPosition = Vector3.zero;
+                return false;
+            }
+            else if (pointToHit.y - transform.position.y > 0 && transform.position.y > pointToHit.y) {
+                Debug.Log("Y - too far to up");
+                originalPosition = Vector3.zero;
+                return false;
+            }
         }
-        return false;
+
+        return true;
     }
 
     void OnTriggerEnter(Collider other) {
