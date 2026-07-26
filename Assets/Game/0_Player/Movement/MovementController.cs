@@ -106,7 +106,7 @@ public class MovementController : Input {
 
         if (canDoubleJump && jumpAction.WasPressedThisFrame()) {
             // dont allow double jump off air
-            if (!(controller.isGrounded || internalCoyoteTimer < coyoteTime)) jumps++;
+            if (!controller.isGrounded && internalCoyoteTimer > coyoteTime) jumps++;
             jumpVelocity.y = jumpSpeed;
             jumps++;
         }
