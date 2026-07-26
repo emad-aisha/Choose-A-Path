@@ -1,6 +1,7 @@
 using Unity.Mathematics;
 using UnityEngine;
 
+// TODO: break up into an ability manager
 public class PlayerManager : MonoBehaviour {
     public static PlayerManager instance;
 
@@ -9,14 +10,9 @@ public class PlayerManager : MonoBehaviour {
     void Awake() {
         if (instance == null) instance = this;
         playerMovementController = GetComponent<MovementController>();
-        SetUpdates();
     }
 
     void Update() {
-        SetUpdates();
-    }
-
-    void SetUpdates() {
     }
 
     public Transform GetPlayerTransform() { return transform; }
@@ -27,6 +23,8 @@ public class PlayerManager : MonoBehaviour {
     public void UnlockPlayerMovement() { playerMovementController.UnlockMovement(); }
 
     public bool IsPlayerGrounded() { return playerMovementController.GetComponent<CharacterController>().isGrounded; }
+
+    public void SetMaxJumps(int newJumps) { playerMovementController.SetMaxJumps(newJumps); }
 
     bool hitSomething = false;
     public bool MoveToPoint(Vector3 pointToHit, float time) {

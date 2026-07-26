@@ -27,6 +27,9 @@ public class MovementController : Input {
     [SerializeField] float coyoteTime;
     float internalCoyoteTimer;
 
+    float maxJumps = 1;
+    float jumps;
+
     Vector3 moveDirection;
     Vector3 jumpVelocity;
 
@@ -101,10 +104,26 @@ public class MovementController : Input {
     }
 
     void JumpLogic() {
-        if (jumpAction.WasPressedThisFrame() && !isJumping && (controller.isGrounded || internalCoyoteTimer < coyoteTime)) {
+        //if (jumpAction.WasPressedThisFrame() && !isJumping && (controller.isGrounded || internalCoyoteTimer < coyoteTime || jumps < maxJumps)) {
+        //    jumpVelocity.y = jumpSpeed;
+        //    isJumping = true;
+        //    jumps++;
+        //}
+        bool canDoubleJump = maxJumps > 1 && jumps < maxJumps;
+
+        if (canDoubleJump && jumpAction.WasPressedThisFrame()) {
+            // dont allow double jump off air
+            if (!(controller.isGrounded || internalCoyoteTimer < coyoteTime)) jumps++;
             jumpVelocity.y = jumpSpeed;
             isJumping = true;
+            jumps++;
         }
+        else if (jumpAction.WasPressedThisFrame() && (controller.isGrounded || internalCoyoteTimer < coyoteTime)) {
+            jumpVelocity.y = jumpSpeed;
+            isJumping = true;
+            jumps++;
+        }
+
     }
 
     void GravityLogic() {
@@ -113,6 +132,7 @@ public class MovementController : Input {
             isJumping = false;
             jumpVelocity = Vector3.zero;
             internalJumpTimer = 0;
+            jumps = 0;
         }
         else {
             jumpVelocity.y -= gravity * Time.deltaTime;
@@ -129,6 +149,8 @@ public class MovementController : Input {
 
     public float GetMovementSpeed() { return speed; }
     public void SetMovementSpeed(float newSpeed) { speed = newSpeed; }
+
+    public void SetMaxJumps(int newJumps) { maxJumps = newJumps; }
 
 
 }
