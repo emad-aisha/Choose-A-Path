@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 74179680}
   m_Layer: 3
   m_Name: Facing Direction
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -223,7 +223,7 @@ GameObject:
   - component: {fileID: 265748515}
   m_Layer: 3
   m_Name: Head Hit Collider
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -855,7 +855,7 @@ GameObject:
   - component: {fileID: 607208954}
   m_Layer: 3
   m_Name: Grapple + Shoes
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1355,6 +1355,7 @@ MonoBehaviour:
   gravity: 8
   jumpMod: 6
   jumpTimer: 0.2
+  coyoteTime: 0.18
 --- !u!4 &3666235994835858097
 Transform:
   m_ObjectHideFlags: 0
@@ -1397,8 +1398,8 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5

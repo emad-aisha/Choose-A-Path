@@ -24,6 +24,9 @@ public class MovementController : Input {
     [SerializeField] float jumpTimer;
     float internalJumpTimer;
 
+    [SerializeField] float coyoteTime;
+    float internalCoyoteTimer;
+
     Vector3 moveDirection;
     Vector3 jumpVelocity;
 
@@ -40,10 +43,16 @@ public class MovementController : Input {
     }
 
     bool resetMovement;
-    bool fullyResetMovement;
     Vector2 moveInput;
     void Update() {
         moveInput = moveAction.ReadValue<Vector2>();
+
+        if (!controller.isGrounded) {
+            internalCoyoteTimer += Time.deltaTime;
+        }
+        else {
+            internalCoyoteTimer = 0;
+        }
 
         //jump
         JumpLogic();
@@ -92,7 +101,7 @@ public class MovementController : Input {
     }
 
     void JumpLogic() {
-        if (jumpAction.WasPressedThisFrame() && !isJumping) {
+        if (jumpAction.WasPressedThisFrame() && !isJumping && (controller.isGrounded || internalCoyoteTimer < coyoteTime)) {
             jumpVelocity.y = jumpSpeed;
             isJumping = true;
         }
