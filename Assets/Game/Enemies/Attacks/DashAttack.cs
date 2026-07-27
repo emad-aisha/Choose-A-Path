@@ -4,7 +4,8 @@ using UnityEngine;
 public class Dash : BasicAttack {
     [Header("Dash Stats")]
     [SerializeField] float speed;
-    [SerializeField] float dashCooldown;
+    [SerializeField] float dashDuration;
+    float currentSeed;
 
     Vector3 originalPosition;
     Vector3 playerPosition;
@@ -14,20 +15,22 @@ public class Dash : BasicAttack {
     void Start() {
         originalPosition = transform.position;
         canAttack = true;
+        currentSeed = speed;
     }
 
     void Update() {
         if (!isDashing) { originalPosition = transform.position; return; }
 
-        speed += speed * Time.deltaTime;
+        currentSeed += speed * Time.deltaTime;
 
-        Vector3 endPoint = (playerPosition - originalPosition).normalized * (speed * Time.deltaTime);
+        Vector3 endPoint = (playerPosition - originalPosition).normalized * (currentSeed * Time.deltaTime);
         transform.position += endPoint;
     }
 
     public override void Attack() {
         if (!canAttack) return;
         Debug.Log("dash");
+        currentSeed = speed;
         playerPosition = PlayerManager.instance.GetPlayerTransform().position;
 
         StartCoroutine(DashCooldown());
@@ -36,7 +39,7 @@ public class Dash : BasicAttack {
 
     IEnumerator DashCooldown() {
         isDashing = true;
-        yield return new WaitForSeconds(dashCooldown);
+        yield return new WaitForSeconds(dashDuration);
         isDashing = false;
     }
 
