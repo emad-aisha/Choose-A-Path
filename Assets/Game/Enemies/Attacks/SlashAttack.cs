@@ -1,16 +1,26 @@
+using System.Collections;
 using UnityEngine;
 
 public class Slash : BasicAttack {
+    [Header("Slash Stats")]
+    [SerializeField] GameObject hurtBox;
+    [SerializeField] float timeOnScreen;
 
     void Start() {
-
-    }
-
-    void Update() {
-        // if within range, basic slash player
+        canAttack = true;
+        hurtBox.GetComponent<Hurtbox>().SetDestroyOnHit(false);
     }
 
     public override void Attack() {
+        if (!canAttack) return;
 
+        StartCoroutine(OnScreen());
+        StartCoroutine(AttackCooldown());
+    }
+
+    IEnumerator OnScreen() {
+        hurtBox.SetActive(true);
+        yield return new WaitForSeconds(timeOnScreen);
+        hurtBox.SetActive(false);
     }
 }

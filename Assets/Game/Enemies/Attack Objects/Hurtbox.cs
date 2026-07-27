@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class Hurtbox : MonoBehaviour {
     int damage;
+    bool isDestroyedOnHit = true;
+
+    public void SetDestroyOnHit(bool onHit) { isDestroyedOnHit = onHit; }
 
     public void SetDamage(int newDamage) { damage = newDamage; }
 
@@ -13,7 +16,7 @@ public class Hurtbox : MonoBehaviour {
 
 
             playerHealth.Hurt(damage);
-            Destroy(gameObject);
+            if (isDestroyedOnHit) Destroy(gameObject);
         }
     }
 
