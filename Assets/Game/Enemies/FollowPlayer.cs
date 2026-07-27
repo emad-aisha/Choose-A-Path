@@ -10,7 +10,7 @@ public class FollowPlayer : MonoBehaviour {
     [SerializeField] float hoverDistance;
     [SerializeField] float hoverTime;
     [SerializeField] float radius;
-    float time = 0;
+    float hoverSeed = 0;
     Vector3 centerpoint;
 
     [Header("Speed Stats")]
@@ -39,9 +39,14 @@ public class FollowPlayer : MonoBehaviour {
         if (distance_from_player < triggerRange) {
             if (canAttack && distance_from_player < attackRange) TryAttack();
             if (distance_from_player > hoverDistance) Follow();
+            else if (!isHovering) StartHover();
+        }
+        else {
+            if (!isHovering) StartHover();
         }
 
         if (isHovering) Hover();
+        else Debug.Log("not hovering");
     }
 
     void TryAttack() {
@@ -51,16 +56,18 @@ public class FollowPlayer : MonoBehaviour {
     void Follow() {
         Vector3 endPoint = (PlayerManager.instance.GetPlayerTransform().position - transform.position) * (speed * Time.deltaTime);
         transform.position += endPoint;
-        Debug.Log(endPoint);
 
-        if (endPoint.x == 0 && endPoint.y == 0) StartCoroutine(HoverTimer());
-        else isHovering = false;
+        Vector2 roundedPoints = new Vector2((float)Math.Round(endPoint.x, 2), (float)Math.Round(endPoint.x, 2));
+        roundedPoints = math.abs(roundedPoints);
+
+        if (!isHovering && (roundedPoints.x < 0.02 || roundedPoints.y < 0.02)) StartHover();
+        else if (isHovering && (roundedPoints.x > 0.05 || roundedPoints.y > 0.05)) isHovering = false;
     }
 
     void Hover() {
-        float sin = math.sin(time);
-        float cos = math.cos(time);
-        time += Time.deltaTime;
+        float sin = math.sin(hoverSeed);
+        float cos = math.cos(hoverSeed);
+        hoverSeed += Time.deltaTime;
 
         transform.position = centerpoint + new Vector3(cos * radius, sin * radius, 0);
     }
@@ -85,11 +92,10 @@ public class FollowPlayer : MonoBehaviour {
         canAttack = true;
     }
 
-    IEnumerator HoverTimer() {
+    void StartHover() {
+        Debug.Log("hover");
         isHovering = true;
         centerpoint = transform.position;
-        yield return new WaitForSeconds(hoverTime);
-        isHovering = false;
     }
 
 
