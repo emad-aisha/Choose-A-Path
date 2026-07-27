@@ -19,12 +19,12 @@ public class Shoes : MonoBehaviour {
     public void Interact(Vector3 _pointToHit, float time) {
         pointToHit = _pointToHit;
         interacted = true;
-        PlayerManager.instance.SetStartPoint();
+        AbilityManager.instance.SetStartPoint();
         StartCoroutine(Ability(time));
     }
 
     void UseAbility() {
-        interacted = PlayerManager.instance.MoveToPoint(pointToHit, distanceIncrement);
+        interacted = AbilityManager.instance.MoveToPoint(pointToHit, distanceIncrement);
         if (!interacted) {
             interacted = false;
             pointToHit = Vector3.zero;

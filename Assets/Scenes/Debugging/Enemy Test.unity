@@ -465,7 +465,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 3.5
-  m_Acceleration: 8
+  m_Acceleration: 10
   avoidancePriority: 50
   m_AngularSpeed: 200
   m_StoppingDistance: 4
@@ -498,8 +498,8 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -594,7 +594,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FollowPlayer
   range: 0.05
-  wait: 0.015
+  wait: 0.01
   hoverDistance: 3
   triggerRange: 10
   speed: 8
@@ -644,8 +644,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Dash
   damage: 1
   cooldown: 2
+  windup: 0.3
   speed: 6
   dashDuration: 0.5
+  disableTime: 1
 --- !u!1 &883210836
 GameObject:
   m_ObjectHideFlags: 0
@@ -1860,7 +1862,7 @@ GameObject:
   - component: {fileID: 1514830778}
   - component: {fileID: 1514830777}
   m_Layer: 0
-  m_Name: playe rfloor
+  m_Name: Player Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1968,10 +1970,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3895786588402422171, guid: b92860270a705364a9f935241e031e94, type: 3}
-      propertyPath: Iframes
-      value: 0.3
-      objectReference: {fileID: 0}
     - target: {fileID: 3934986924911256504, guid: b92860270a705364a9f935241e031e94, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.2003382

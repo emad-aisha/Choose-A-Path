@@ -19,7 +19,7 @@ public class Top : Input {
 
 
     void Start() {
-        if (type == Type.Wings) PlayerManager.instance.SetMaxJumps(2);
+        if (type == Type.Wings) AbilityManager.instance.SetMaxJumps(2);
         else {
             sprintAction = InputManager.instance.GetAction(actionName, "Sprint");
             isDashing = false;
@@ -37,7 +37,7 @@ public class Top : Input {
         }
 
         if (isDashing) {
-            isDashing = PlayerManager.instance.MoveToPoint(pointToDash, distanceIncrement);
+            isDashing = AbilityManager.instance.MoveToPoint(pointToDash, distanceIncrement);
             if (!isDashing) {
                 PlayerManager.instance.UnlockPlayerMovement();
             }
@@ -47,7 +47,7 @@ public class Top : Input {
 
     IEnumerator Dash() {
         if (!sprintAction.WasPressedThisFrame()) yield break;
-        PlayerManager.instance.SetStartPoint();
+        AbilityManager.instance.SetStartPoint();
         PlayerManager.instance.LockPlayerMovement();
         canDash = false;
         isDashing = true;

@@ -7,6 +7,9 @@ public class Dash : BasicAttack {
     [SerializeField] float dashDuration;
     float currentSeed;
 
+    [Header("Disabling")]
+    [SerializeField] float disableTime;
+
     Vector3 originalPosition;
     Vector3 playerPosition;
 
@@ -42,6 +45,12 @@ public class Dash : BasicAttack {
         isDashing = true;
         yield return new WaitForSeconds(dashDuration);
         isDashing = false;
+    }
+
+    void OnTriggerEnter(Collider other) {
+        if (other.CompareTag("Player")) {
+            StartCoroutine(AbilityManager.instance.DisableAbilities(disableTime));
+        }
     }
 
 }
