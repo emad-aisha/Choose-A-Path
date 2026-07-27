@@ -26,8 +26,11 @@ public class FollowPlayer : MonoBehaviour {
 
         if (canAttack && distance_from_player < attackRange) TryAttack();
         else if (distance_from_player > hoverDistance) Follow();
-        else BackUp();
 
+    }
+
+    void TryAttack() {
+        attack.Attack();
     }
 
     void Follow() {
@@ -35,14 +38,6 @@ public class FollowPlayer : MonoBehaviour {
         transform.position += endPoint;
     }
 
-    void BackUp() {
-
-    }
-
-
-    void TryAttack() {
-        attack.Attack();
-    }
 
     void OnTriggerEnter(Collider other) {
         if (canAttack && other.CompareTag("Player")) {
