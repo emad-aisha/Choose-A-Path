@@ -30,7 +30,7 @@ public class Health : MonoBehaviour {
         Debug.Log(name + " got hurt " + damangeAmount);
         currentHealth -= damangeAmount;
         StartCoroutine(IFrames());
-        if (currentHealth < 0) {
+        if (currentHealth <= 0) {
             currentHealth = 0;
             isDead = true;
         }

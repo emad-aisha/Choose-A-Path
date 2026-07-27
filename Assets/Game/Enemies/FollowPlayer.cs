@@ -76,13 +76,11 @@ public class FollowPlayer : MonoBehaviour {
 
     // HURT 
     void OnTriggerEnter(Collider other) {
-        if (canAttack && other.CompareTag("Player")) {
+        if (other.CompareTag("Player")) {
             Health playerHealth;
             other.TryGetComponent(out playerHealth);
-            Debug.Log("hurt?");
             if (!playerHealth) return;
             playerHealth.Hurt(1);
-            Debug.Log("hurt?");
         }
     }
 
