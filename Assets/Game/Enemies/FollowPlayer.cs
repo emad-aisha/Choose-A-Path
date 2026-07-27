@@ -24,7 +24,7 @@ public class FollowPlayer : MonoBehaviour {
         // slowly float towards player
         distance_from_player = math.distance(transform.position, PlayerManager.instance.GetPlayerTransform().position);
 
-        if (distance_from_player < attackRange && canAttack) TryAttack();
+        if (canAttack && distance_from_player < attackRange) TryAttack();
         else if (distance_from_player > hoverDistance) Follow();
         else BackUp();
 

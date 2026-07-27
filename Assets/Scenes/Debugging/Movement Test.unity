@@ -1329,6 +1329,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
   maxHealth: 2
+  Iframes: 0
 --- !u!114 &1917367629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1364,9 +1365,10 @@ MonoBehaviour:
   damage: 1
   cooldown: 3
   fireball: {fileID: 4218354466306079085, guid: 921c38fec8d0ac34f80dd5b457badf56, type: 3}
-  type: 1
+  type: 2
+  numberOfFireballs: 1
   speed: 5
-  numberOfFireballs: 4
+  lifespan: 0.5
 --- !u!33 &1438539667144869795
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1732,6 +1734,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
   maxHealth: 5
+  Iframes: 0
 --- !u!1001 &7940115367569686391
 PrefabInstance:
   m_ObjectHideFlags: 0

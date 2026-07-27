@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class Fireball : MonoBehaviour {
@@ -6,10 +7,13 @@ public class Fireball : MonoBehaviour {
     Vector3 direction;
     float speed;
 
+    float lifeSpan;
+
     Vector3 endDirection;
 
     void Start() {
         originalPosition = transform.position;
+        StartCoroutine(StartLife());
     }
 
     void Update() {
@@ -31,6 +35,13 @@ public class Fireball : MonoBehaviour {
         endDirection = new Vector3((float)Math.Round(newDirection.x, 2), (float)Math.Round(newDirection.y, 2), (float)Math.Round(newDirection.z, 2));
     }
 
+    public void SetLifeSpan(float newLifeSpan) { lifeSpan = newLifeSpan; }
     public void SetSpeed(float newSpeed) { speed = newSpeed; }
     public void SetDamage(int damage) { GetComponent<Hurtbox>().SetDamage(damage); }
+
+
+    IEnumerator StartLife() {
+        yield return new WaitForSeconds(lifeSpan);
+        Destroy(gameObject);
+    }
 }

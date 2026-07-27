@@ -7,8 +7,9 @@ public class FireballAttack : BasicAttack {
     [Header("Fireball Stats")]
     [SerializeField] GameObject fireball;
     [SerializeField] Type type;
-    [SerializeField] float speed;
     [SerializeField] int numberOfFireballs;
+    [SerializeField] float speed;
+    [SerializeField] float lifespan;
 
     Vector3 fireballDirection;
     Vector3 endDestination;
@@ -38,16 +39,6 @@ public class FireballAttack : BasicAttack {
                     UpdateEndDirections(endDestination);
                 }
                 break;
-        }
-
-
-        if (canDestroy) {
-            while (fireballs.Count > 0) {
-                GameObject fireballToDestroy = fireballs[0];
-                Destroy(fireballToDestroy);
-
-                fireballs.Remove(fireballToDestroy);
-            }
         }
     }
 
@@ -96,6 +87,7 @@ public class FireballAttack : BasicAttack {
             fireballDirection = PlayerManager.instance.GetPlayerTransform().position;
             GameObject newFireball = Instantiate(fireball, transform.position, Quaternion.identity);
             newFireball.GetComponent<Fireball>().SetDirection(fireballDirection);
+            newFireball.GetComponent<Fireball>().SetLifeSpan(lifespan);
             newFireball.GetComponent<Fireball>().SetSpeed(speed);
             newFireball.GetComponent<Fireball>().SetDamage(damage);
             if (type == Type.Boomerang) StartCoroutine(Comeback());
