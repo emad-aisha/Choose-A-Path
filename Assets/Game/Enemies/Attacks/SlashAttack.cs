@@ -19,6 +19,7 @@ public class Slash : BasicAttack {
     }
 
     IEnumerator OnScreen() {
+        yield return new WaitForSeconds(windup);
         hurtBox.SetActive(true);
         yield return new WaitForSeconds(timeOnScreen);
         hurtBox.SetActive(false);

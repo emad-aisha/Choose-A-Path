@@ -80,6 +80,7 @@ public class FireballAttack : BasicAttack {
     }
 
     IEnumerator SpawnFireballs() {
+        yield return new WaitForSeconds(windup);
         int currentNumberOfFireballs = 0;
         while (currentNumberOfFireballs < numberOfFireballs) {
             currentNumberOfFireballs++;

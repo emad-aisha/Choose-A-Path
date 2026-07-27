@@ -5,6 +5,7 @@ public abstract class BasicAttack : MonoBehaviour {
     [Header("Basic Attack Stats")]
     [SerializeField] protected int damage;
     [SerializeField] protected float cooldown;
+    [SerializeField] protected float windup;
     protected bool canAttack;
 
 
@@ -20,6 +21,7 @@ public abstract class BasicAttack : MonoBehaviour {
 
     protected IEnumerator AttackCooldown() {
         canAttack = false;
+        yield return new WaitForSeconds(windup);
         yield return new WaitForSeconds(cooldown);
         canAttack = true;
     }

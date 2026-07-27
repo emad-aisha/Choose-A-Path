@@ -38,6 +38,7 @@ public class Dash : BasicAttack {
     }
 
     IEnumerator DashCooldown() {
+        yield return new WaitForSeconds(windup);
         isDashing = true;
         yield return new WaitForSeconds(dashDuration);
         isDashing = false;

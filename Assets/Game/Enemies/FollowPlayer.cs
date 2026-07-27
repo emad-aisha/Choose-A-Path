@@ -79,9 +79,10 @@ public class FollowPlayer : MonoBehaviour {
         if (canAttack && other.CompareTag("Player")) {
             Health playerHealth;
             other.TryGetComponent(out playerHealth);
+            Debug.Log("hurt?");
             if (!playerHealth) return;
             playerHealth.Hurt(1);
-            StartCoroutine(AttackCooldown());
+            Debug.Log("hurt?");
         }
     }
 
