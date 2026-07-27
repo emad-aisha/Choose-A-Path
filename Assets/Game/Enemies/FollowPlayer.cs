@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class FollowPlayer : MonoBehaviour {
     [Header("Bob Stats")]
     [SerializeField, Range(0, 0.1f)] float range;
-    [SerializeField, Range(0, 0.02f)] float wait;
+    [SerializeField, Range(0, 0.1f)] float wait;
     float bobValue;
 
     [Header("Speed Stats")]
@@ -65,6 +65,9 @@ public class FollowPlayer : MonoBehaviour {
             bobValue -= Time.deltaTime;
             if (bobValue < -range) isUp = true;
         }
+
+        NavMeshHit hit;
+        if (!NavMesh.SamplePosition(transform.position + new Vector3(0, bobValue, 0), out hit, 0.1f, NavMesh.AllAreas)) yield return new WaitForSeconds(wait);
 
         transform.position += new Vector3(0, bobValue, 0);
         yield return new WaitForSeconds(wait);
