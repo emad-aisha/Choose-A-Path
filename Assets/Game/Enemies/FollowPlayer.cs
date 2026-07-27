@@ -6,6 +6,11 @@ using UnityEngine.AI;
 public class FollowPlayer : MonoBehaviour {
     [SerializeField] LayerMask playerMask;
 
+    [Header("Bob Stats")]
+    [SerializeField, Range(0, 0.1f)] float range;
+    [SerializeField, Range(0, 0.02f)] float wait;
+    float bobValue;
+
     [Header("Speed Stats")]
     [SerializeField] float hoverDistance;
     [SerializeField] float triggerRange;
@@ -18,6 +23,7 @@ public class FollowPlayer : MonoBehaviour {
     bool canAttack;
 
     NavMeshAgent agent;
+    bool isUp;
 
 
     void Start() {
@@ -26,7 +32,10 @@ public class FollowPlayer : MonoBehaviour {
 
         agent.speed = speed;
         agent.stoppingDistance = hoverDistance;
+        isUp = false;
     }
+
+    Coroutine hovering;
 
     void Update() {
         // slowly float towards player
@@ -37,6 +46,7 @@ public class FollowPlayer : MonoBehaviour {
             Follow();
         }
 
+        if (hovering == null && !canAttack) hovering = StartCoroutine(Hover());
     }
 
     void TryAttack() {
@@ -45,6 +55,21 @@ public class FollowPlayer : MonoBehaviour {
 
     void Follow() {
         agent.SetDestination(PlayerManager.instance.GetPlayerTransform().position);
+    }
+
+    IEnumerator Hover() {
+        if (isUp) {
+            bobValue += Time.deltaTime;
+            if (bobValue > range) isUp = false;
+        }
+        else {
+            bobValue -= Time.deltaTime;
+            if (bobValue < -range) isUp = true;
+        }
+
+        transform.position += new Vector3(0, bobValue, 0);
+        yield return new WaitForSeconds(wait);
+        hovering = null;
     }
 
     // HURT 
