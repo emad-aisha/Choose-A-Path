@@ -1,15 +1,16 @@
+using System.Collections;
 using UnityEngine;
 
 public abstract class BasicAttack : MonoBehaviour {
     [Header("Basic Attack Stats")]
-    [SerializeField] protected float range;
-    [SerializeField] protected float damage;
+    [SerializeField] protected int damage;
     [SerializeField] protected float cooldown;
-    float internalTimer;
+    protected bool canAttack;
+    protected bool canDestroy;
 
 
     void Start() {
-
+        canAttack = true;
     }
 
     void Update() {
@@ -17,4 +18,12 @@ public abstract class BasicAttack : MonoBehaviour {
     }
 
     public abstract void Attack();
+
+    protected IEnumerator AttackCooldown() {
+        canDestroy = false;
+        canAttack = false;
+        yield return new WaitForSeconds(cooldown);
+        canAttack = true;
+        canDestroy = true;
+    }
 }

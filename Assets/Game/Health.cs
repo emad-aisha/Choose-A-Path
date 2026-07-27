@@ -1,13 +1,18 @@
+using System.Collections;
 using UnityEngine;
 
 public class Health : MonoBehaviour {
     [SerializeField] int maxHealth;
+    [SerializeField] float Iframes;
     int currentHealth;
     bool isDead;
+
+    bool canBeHurt;
 
     void Start() {
         currentHealth = maxHealth;
         isDead = false;
+        canBeHurt = true;
     }
 
     void Update() {
@@ -21,8 +26,10 @@ public class Health : MonoBehaviour {
 
 
     public void Hurt(int damangeAmount) {
+        if (!canBeHurt) return;
         Debug.Log(name + " got hurt " + damangeAmount);
         currentHealth -= damangeAmount;
+        StartCoroutine(IFrames());
         if (currentHealth < 0) {
             currentHealth = 0;
             isDead = true;
@@ -35,6 +42,12 @@ public class Health : MonoBehaviour {
         if (currentHealth > maxHealth) {
             currentHealth = maxHealth;
         }
+    }
+
+    IEnumerator IFrames() {
+        canBeHurt = false;
+        yield return new WaitForSeconds(Iframes);
+        canBeHurt = true;
     }
 
 }
