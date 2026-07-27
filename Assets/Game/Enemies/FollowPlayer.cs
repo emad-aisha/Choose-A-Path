@@ -4,8 +4,6 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class FollowPlayer : MonoBehaviour {
-    [SerializeField] LayerMask playerMask;
-
     [Header("Bob Stats")]
     [SerializeField, Range(0, 0.1f)] float range;
     [SerializeField, Range(0, 0.02f)] float wait;
@@ -51,6 +49,7 @@ public class FollowPlayer : MonoBehaviour {
 
     void TryAttack() {
         attack.Attack();
+        StartCoroutine(AttackCooldown());
     }
 
     void Follow() {
