@@ -5,8 +5,16 @@ using UnityEngine;
 
 public class FollowPlayer : MonoBehaviour {
     [SerializeField] LayerMask playerMask;
-    [Header("Speed Stats")]
+
+    [Header("Hover Stats")]
     [SerializeField] float hoverDistance;
+    [SerializeField] float hoverTime;
+    [SerializeField] float radius;
+    float time = 0;
+    Vector3 centerpoint;
+
+    [Header("Speed Stats")]
+    [SerializeField] float triggerRange;
     [SerializeField, Range(0, 2)] float speed;
     float distance_from_player;
 
@@ -16,17 +24,24 @@ public class FollowPlayer : MonoBehaviour {
     [SerializeField] float cooldown;
     bool canAttack;
 
+    bool isHovering;
+
     void Start() {
         canAttack = true;
+        isHovering = true;
+        centerpoint = transform.position;
     }
 
     void Update() {
         // slowly float towards player
         distance_from_player = math.distance(transform.position, PlayerManager.instance.GetPlayerTransform().position);
 
-        if (canAttack && distance_from_player < attackRange) TryAttack();
-        if (distance_from_player > hoverDistance) Follow();
+        if (distance_from_player < triggerRange) {
+            if (canAttack && distance_from_player < attackRange) TryAttack();
+            if (distance_from_player > hoverDistance) Follow();
+        }
 
+        if (isHovering) Hover();
     }
 
     void TryAttack() {
@@ -36,9 +51,22 @@ public class FollowPlayer : MonoBehaviour {
     void Follow() {
         Vector3 endPoint = (PlayerManager.instance.GetPlayerTransform().position - transform.position) * (speed * Time.deltaTime);
         transform.position += endPoint;
+        Debug.Log(endPoint);
+
+        if (endPoint.x == 0 && endPoint.y == 0) StartCoroutine(HoverTimer());
+        else isHovering = false;
+    }
+
+    void Hover() {
+        float sin = math.sin(time);
+        float cos = math.cos(time);
+        time += Time.deltaTime;
+
+        transform.position = centerpoint + new Vector3(cos * radius, sin * radius, 0);
     }
 
 
+    // HURT 
     void OnTriggerEnter(Collider other) {
         if (canAttack && other.CompareTag("Player")) {
             Health playerHealth;
@@ -49,12 +77,20 @@ public class FollowPlayer : MonoBehaviour {
         }
     }
 
+
+    // COOLDOWN
     IEnumerator AttackCooldown() {
         canAttack = false;
         yield return new WaitForSeconds(cooldown);
         canAttack = true;
     }
 
+    IEnumerator HoverTimer() {
+        isHovering = true;
+        centerpoint = transform.position;
+        yield return new WaitForSeconds(hoverTime);
+        isHovering = false;
+    }
 
 
 }
