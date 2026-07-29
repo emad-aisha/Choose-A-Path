@@ -1,7 +1,6 @@
 using UnityEngine;
 
-// TODO: break up into an ability manager
-// TODO: please
+
 public class PlayerManager : MonoBehaviour {
     public static PlayerManager instance;
 
