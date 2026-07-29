@@ -3,8 +3,6 @@ using UnityEngine.InputSystem;
 
 public class FacingDirectionManager : Input {
     public static FacingDirectionManager instance;
-    [SerializeField] float yOffset;
-
     [SerializeField] float upperBounds;
     [SerializeField] float lowerBounds;
     Vector3 playerPosition;
@@ -22,6 +20,8 @@ public class FacingDirectionManager : Input {
         moveAction = InputManager.instance.GetAction(actionName, "Move");
 
         playerPosition = PlayerManager.instance.GetTransform().position;
+
+        //transform.position = new Vector3(1, 0, 0) + playerPosition;
     }
 
     void Update() {
@@ -41,9 +41,9 @@ public class FacingDirectionManager : Input {
 
         // TODO: check if this needs to be checked
         //if (!locked)
-        transform.position = new Vector3(moveDirection.x, moveDirection.y + yOffset, 0) + playerPosition;
+        transform.position = new Vector3(moveDirection.x, moveDirection.y, 0) + playerPosition;
         horizontalPosition = new Vector3(moveDirection.x, 0, 0) + playerPosition;
-        verticalPosition = new Vector3(0, moveDirection.y + yOffset, 0) + playerPosition;
+        verticalPosition = new Vector3(0, moveDirection.y, 0) + playerPosition;
 
     }
 
@@ -53,18 +53,14 @@ public class FacingDirectionManager : Input {
     public Vector3 GetUpwardsDirection() { return PlayerManager.instance.GetTransform().up.normalized; }
 
     public Vector3 GetAttackDirection() {
-        Vector3 returnValue;
-
         if (PlayerManager.instance.GetMovementController().GetIsGrounded()) {
-            if ((verticalPosition - playerPosition).y == 1) returnValue = PlayerManager.instance.GetTransform().up.normalized;
-            else returnValue = (horizontalPosition - playerPosition).normalized;
+            if ((verticalPosition - playerPosition).y == 1) return PlayerManager.instance.GetTransform().up.normalized;
+            else return (horizontalPosition - playerPosition).normalized;
         }
         else {
-            if ((verticalPosition - playerPosition).y == 1 || (verticalPosition - playerPosition).y == -1) returnValue = (verticalPosition - playerPosition).normalized;
-            else returnValue = (horizontalPosition - playerPosition).normalized;
+            if ((verticalPosition - playerPosition).y == 1 || (verticalPosition - playerPosition).y == -1) return (verticalPosition - playerPosition).normalized;
+            else return (horizontalPosition - playerPosition).normalized;
         }
-
-        return returnValue;
     }
 
     public void LockDirection() { /*locked = true;*/ }
