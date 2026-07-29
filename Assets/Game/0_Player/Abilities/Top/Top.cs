@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -56,7 +57,5 @@ public class Top : Input {
         isDashing = false;
         canDash = true;
     }
-
-
 
 }

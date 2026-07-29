@@ -6,6 +6,7 @@ public class FacingDirectionManager : Input {
     Vector3 playerPosition;
 
     InputAction mousePos;
+    InputAction moveAction;
     Vector2 moveDirection;
 
     Vector3 horizontalPosition;
@@ -15,24 +16,19 @@ public class FacingDirectionManager : Input {
     void Awake() {
         if (instance == null) instance = this;
         mousePos = InputManager.instance.GetAction(actionName, "Mouse Position");
+        moveAction = InputManager.instance.GetAction(actionName, "Move");
+
         playerPosition = PlayerManager.instance.GetTransform().position;
         locked = false;
     }
 
     void Update() {
         playerPosition = PlayerManager.instance.GetTransform().position;
-        moveDirection = mousePos.ReadValue<Vector2>();
-        moveDirection.x -= Screen.width / 2;
-        moveDirection.x /= Screen.width;
-
-        moveDirection.y -= Screen.height / 2;
-        moveDirection.y /= Screen.height;
+        moveDirection.y = mousePos.ReadValue<Vector2>().y;
+        if (moveAction.ReadValue<Vector2>().x != 0) moveDirection.x = moveAction.ReadValue<Vector2>().x;
 
         if (moveDirection.x < 0) moveDirection.x = -1;
         else if (moveDirection.x > 0) moveDirection.x = 1;
-
-        if (moveDirection.y < 0) moveDirection.y = -1;
-        else if (moveDirection.y > 0) moveDirection.y = 1;
 
         // save last facing direction
         if (!locked && moveDirection != Vector2.zero) {

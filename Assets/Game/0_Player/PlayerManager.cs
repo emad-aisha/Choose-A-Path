@@ -6,9 +6,13 @@ public class PlayerManager : MonoBehaviour {
 
     [SerializeField] MovementController playerMovementController;
     [SerializeField] CharacterController playerCharacterController;
+    [SerializeField] CapsuleCollider capsuleCollider;
 
     void Awake() {
         if (instance == null) instance = this;
+        capsuleCollider.radius = playerCharacterController.radius;
+        capsuleCollider.height = playerCharacterController.height;
+        capsuleCollider.center = playerCharacterController.center;
     }
 
     public Transform GetTransform() { return transform; }
