@@ -67,7 +67,7 @@ public class Health : MonoBehaviour {
     }
 
     Vector3 RandomDirection() {
-        Vector3 returnValue = new Vector3(Random.Range(-1f, 1), Random.Range(-1f, 1), 0).normalized * 3;
+        Vector3 returnValue = new Vector3(Random.Range(-1f, 1), Random.Range(-1f, 1), 0) * 3;
         return returnValue;
     }
 

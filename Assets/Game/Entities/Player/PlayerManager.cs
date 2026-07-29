@@ -1,6 +1,5 @@
 using UnityEngine;
 
-
 public class PlayerManager : MonoBehaviour {
     public static PlayerManager instance;
 
@@ -13,6 +12,12 @@ public class PlayerManager : MonoBehaviour {
         capsuleCollider.radius = playerCharacterController.radius;
         capsuleCollider.height = playerCharacterController.height;
         capsuleCollider.center = playerCharacterController.center;
+    }
+
+    void LateUpdate() {
+        Vector3 position = transform.position;
+        position.z = 0;
+        transform.position = position;
     }
 
     public Transform GetTransform() { return transform; }
