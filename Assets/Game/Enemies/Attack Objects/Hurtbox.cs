@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Hurtbox : MonoBehaviour {
@@ -13,11 +14,10 @@ public class Hurtbox : MonoBehaviour {
             Health playerHealth;
             other.TryGetComponent(out playerHealth);
             if (!playerHealth) return;
-
-
             playerHealth.Hurt(damage);
             if (isDestroyedOnHit) Destroy(gameObject);
         }
     }
+
 
 }

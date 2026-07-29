@@ -45,9 +45,6 @@ public class Weapon : Input {
             if (hitbox.GetComponent<Hitbox>().GetHitSomething() && !hit) {
                 Vector3 direction = hitbox.GetComponent<Hitbox>().GetHitDirection();
                 direction = (direction - PlayerManager.instance.GetTransform().position) * -knockback;
-                //if (math.abs(direction.y) > 1) direction = new Vector3(direction.x, direction.y * 2, direction.z);
-                Debug.Log(direction);
-                // make up boosted?
 
                 PlayerManager.instance.GetMovementController().SetKnockback(direction, knockbackTime);
                 hit = true;

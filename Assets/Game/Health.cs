@@ -29,6 +29,7 @@ public class Health : MonoBehaviour {
         if (!canBeHurt) return;
         Debug.Log(name + " got hurt " + damangeAmount);
         currentHealth -= damangeAmount;
+
         StartCoroutine(IFrames());
         if (currentHealth <= 0) {
             currentHealth = 0;
@@ -44,10 +45,27 @@ public class Health : MonoBehaviour {
         }
     }
 
+    bool isTimePaused;
     IEnumerator IFrames() {
+        if (gameObject.CompareTag("Player") && !isTimePaused) { StartCoroutine(PauseTime()); }
+        if (gameObject.CompareTag("Player")) PlayerManager.instance.GetMovementController().SetKnockback(RandomDirection(), 0.2f);
         canBeHurt = false;
         yield return new WaitForSeconds(Iframes);
         canBeHurt = true;
+    }
+
+    IEnumerator PauseTime() {
+        float originalTimeScale = Time.timeScale;
+        Time.timeScale = 0f;
+        isTimePaused = true;
+        yield return new WaitForSecondsRealtime(0.2f);
+        Time.timeScale = originalTimeScale;
+        isTimePaused = false;
+    }
+
+    Vector3 RandomDirection() {
+        Vector3 returnValue = new Vector3(Random.Range(-1f, 1), Random.Range(-1f, 1), 0).normalized * 3;
+        return returnValue;
     }
 
 }
