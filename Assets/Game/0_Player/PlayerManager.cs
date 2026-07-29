@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 // TODO: break up into an ability manager
@@ -6,14 +5,16 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour {
     public static PlayerManager instance;
 
-    MovementController playerMovementController;
+    [SerializeField] MovementController playerMovementController;
+    [SerializeField] CharacterController playerCharacterController;
 
     void Awake() {
         if (instance == null) instance = this;
-        playerMovementController = GetComponent<MovementController>();
     }
 
-    public Transform GetPlayerTransform() { return transform; }
+    public Transform GetTransform() { return transform; }
+    public CharacterController GetCharacterController() { return playerCharacterController; }
+
     public void ResetJumpVelocity() { playerMovementController.ResetJumpVelocity(); }
     public void StopPlayer() { playerMovementController.GetComponent<CharacterController>().Move(Vector3.zero); }
 

@@ -37,7 +37,7 @@ public class FollowPlayer : MonoBehaviour {
 
     void Update() {
         // slowly float towards player
-        distance_from_player = math.distance(transform.position, PlayerManager.instance.GetPlayerTransform().position);
+        distance_from_player = math.distance(transform.position, PlayerManager.instance.GetTransform().position);
 
         if (distance_from_player < triggerRange) {
             if (canAttack && distance_from_player < hoverDistance) TryAttack();
@@ -53,7 +53,7 @@ public class FollowPlayer : MonoBehaviour {
     }
 
     void Follow() {
-        agent.SetDestination(PlayerManager.instance.GetPlayerTransform().position);
+        agent.SetDestination(PlayerManager.instance.GetTransform().position);
     }
 
     IEnumerator Hover() {

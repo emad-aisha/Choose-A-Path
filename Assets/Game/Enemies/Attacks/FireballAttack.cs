@@ -28,7 +28,7 @@ public class FireballAttack : BasicAttack {
         // if isHoning, following towards player
         switch (type) {
             case Type.Honing:
-                fireballDirection = PlayerManager.instance.GetPlayerTransform().position;
+                fireballDirection = PlayerManager.instance.GetTransform().position;
                 UpdateDirections(fireballDirection);
                 break;
             case Type.Boomerang:
@@ -85,7 +85,7 @@ public class FireballAttack : BasicAttack {
         while (currentNumberOfFireballs < numberOfFireballs) {
             currentNumberOfFireballs++;
 
-            fireballDirection = PlayerManager.instance.GetPlayerTransform().position;
+            fireballDirection = PlayerManager.instance.GetTransform().position;
             GameObject newFireball = Instantiate(fireball, transform.position, Quaternion.identity);
             newFireball.GetComponent<Fireball>().SetDirection(fireballDirection);
             newFireball.GetComponent<Fireball>().SetLifeSpan(lifespan);

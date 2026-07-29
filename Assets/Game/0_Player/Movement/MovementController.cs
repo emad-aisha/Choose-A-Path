@@ -34,7 +34,7 @@ public class MovementController : Input {
 
 
     void Start() {
-        controller = GetComponent<CharacterController>();
+        controller = PlayerManager.instance.GetCharacterController();
 
         moveAction = InputManager.instance.GetAction(actionName, "Move");
         jumpAction = InputManager.instance.GetAction(actionName, "Jump");
@@ -61,6 +61,7 @@ public class MovementController : Input {
 
         // walk
         SprintLogic();
+        AnimationManager.instance.SetRunSpeed(moveInput.x);
         moveDirection = new Vector3(moveInput.x, jumpVelocity.y, 0); // moveInput.x * transform.right + 0 * transform.forward + jumpVelocity.y * transform.up;
         if (!resetMovement) controller.Move(moveDirection * (speed * Time.deltaTime));
 

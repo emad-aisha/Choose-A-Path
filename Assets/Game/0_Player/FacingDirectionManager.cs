@@ -15,12 +15,12 @@ public class FacingDirectionManager : Input {
     void Awake() {
         if (instance == null) instance = this;
         mousePos = InputManager.instance.GetAction(actionName, "Mouse Position");
-        playerPosition = PlayerManager.instance.GetPlayerTransform().position;
+        playerPosition = PlayerManager.instance.GetTransform().position;
         locked = false;
     }
 
     void Update() {
-        playerPosition = PlayerManager.instance.GetPlayerTransform().position;
+        playerPosition = PlayerManager.instance.GetTransform().position;
         moveDirection = mousePos.ReadValue<Vector2>();
         moveDirection.x -= Screen.width / 2;
         moveDirection.x /= Screen.width;
@@ -43,9 +43,9 @@ public class FacingDirectionManager : Input {
     }
 
 
-    public Vector3 GetFacingDirection() { return (transform.position - PlayerManager.instance.GetPlayerTransform().position).normalized; }
-    public Vector3 GetHorizontalDirection() { return (horizontalPosition - PlayerManager.instance.GetPlayerTransform().position).normalized; }
-    public Vector3 GetUpwardsDirection() { return PlayerManager.instance.GetPlayerTransform().up.normalized; }
+    public Vector3 GetFacingDirection() { return (transform.position - PlayerManager.instance.GetTransform().position).normalized; }
+    public Vector3 GetHorizontalDirection() { return (horizontalPosition - PlayerManager.instance.GetTransform().position).normalized; }
+    public Vector3 GetUpwardsDirection() { return PlayerManager.instance.GetTransform().up.normalized; }
 
     public void LockDirection() { locked = true; }
     public void UnlockDirection() { locked = false; }

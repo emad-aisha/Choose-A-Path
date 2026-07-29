@@ -34,7 +34,7 @@ public class Dash : BasicAttack {
         if (!canAttack) return;
         Debug.Log("dash");
         currentSeed = speed;
-        playerPosition = PlayerManager.instance.GetPlayerTransform().position;
+        playerPosition = PlayerManager.instance.GetTransform().position;
 
         StartCoroutine(DashCooldown());
         StartCoroutine(AttackCooldown());

@@ -21,7 +21,7 @@ public class CameraWaypointManager : MonoBehaviour {
     }
 
     void WaypointMovement() {
-        playerPosition = PlayerManager.instance.GetPlayerTransform().position;
+        playerPosition = PlayerManager.instance.GetTransform().position;
 
         movePosition = (playerPosition - waypoint.transform.position) * movePercentage;
         waypoint.transform.position += movePosition;
