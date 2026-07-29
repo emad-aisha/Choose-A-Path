@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 519169260386972272}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FacingDirectionManager
   actionName: Player
+  yOffset: 0.2
   upperBounds: 200
   lowerBounds: -200
 --- !u!1 &4899088838822241438
@@ -551,6 +552,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5430616893153996741, guid: ddee9cc0d9ad18f418b58e86ffb731b4, type: 3}
+      propertyPath: pause
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5430616893153996741, guid: ddee9cc0d9ad18f418b58e86ffb731b4, type: 3}
+      propertyPath: ignoreLayer.m_Bits
+      value: 72
+      objectReference: {fileID: 0}
     - target: {fileID: 6236950163933328367, guid: ddee9cc0d9ad18f418b58e86ffb731b4, type: 3}
       propertyPath: m_Name
       value: Grapple Dash
@@ -652,6 +661,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1330586222814772071}
     m_Modifications:
+    - target: {fileID: 1200985165600471869, guid: 8319585027dffdb4d9fb5d87e0d79595, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1432763151759790450, guid: 8319585027dffdb4d9fb5d87e0d79595, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -12,7 +12,10 @@ public class Shoes : MonoBehaviour {
     Vector3 pointToHit;
 
     void Update() {
-        if (!interacted) return;
+        if (!interacted) {
+            AnimationManager.instance.SetHitTarget(false);
+            return;
+        }
         UseAbility();
     }
 
@@ -26,6 +29,8 @@ public class Shoes : MonoBehaviour {
     void UseAbility() {
         interacted = AbilityManager.instance.MoveToPoint(pointToHit, distanceIncrement);
         if (!interacted) {
+            AnimationManager.instance.SetHitTarget(true);
+            AnimationManager.instance.SetIsGrappling(false);
             interacted = false;
             pointToHit = Vector3.zero;
         }

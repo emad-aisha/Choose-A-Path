@@ -5,13 +5,16 @@ using UnityEngine.InputSystem;
 public class Grapple : Input {
     InputAction interactAction;
     [Header("Interaction")]
-    [SerializeField] LayerMask playerLayer;
-    [SerializeField] LayerMask enemyLayer;
+    [SerializeField] LayerMask ignoreLayer;
     bool canInteract = true;
 
     [Header("Grapple Stats")]
     [SerializeField] float distance;
+    [SerializeField] float pause;
     [SerializeField] float time;
+
+    [Header("Tweak")]
+    [SerializeField] float yOffset = 0.2f;
 
     Shoes shoes;
     bool isGrappling;
@@ -41,11 +44,24 @@ public class Grapple : Input {
 
         PlayerManager.instance.LockPlayerMovement();
         RaycastHit dashHit, jumpHit;
+        AnimationManager.instance.SetIsGrappling(true);
 
         // if hit smth
-        bool canDash = Physics.Raycast(transform.position, FacingDirectionManager.instance.GetHorizontalDirection(), out dashHit, distance, ~(playerLayer | enemyLayer));
-        bool canJump = Physics.Raycast(transform.position, FacingDirectionManager.instance.GetUpwardsDirection(), out jumpHit, distance, ~(playerLayer | enemyLayer));
+        bool canDash = Physics.Raycast(transform.position, FacingDirectionManager.instance.GetHorizontalDirection(), out dashHit, distance, ~ignoreLayer);
+        bool canJump = Physics.Raycast(transform.position, FacingDirectionManager.instance.GetUpwardsDirection(), out jumpHit, distance, ~ignoreLayer);
 
+        if (shoes.CompareShoeType(Shoes.Type.Jump)) {
+            AnimationManager.instance.SetIsVertical(true);
+            yield return new WaitForSeconds(pause);
+            AnimationManager.instance.SetIsVertical(false);
+        }
+        else {
+            AnimationManager.instance.SetIsHorizontal(true);
+            yield return new WaitForSeconds(pause);
+            AnimationManager.instance.SetIsHorizontal(false);
+        }
+
+        AnimationManager.instance.SetIsGrappling(false);
         if (shoes.CompareShoeType(Shoes.Type.Dash) && canDash) {
             shoes.Interact(dashHit.point, time);
         }

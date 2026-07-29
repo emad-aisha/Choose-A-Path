@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 
 public class FacingDirectionManager : Input {
     public static FacingDirectionManager instance;
+    [SerializeField] float yOffset;
+
     [SerializeField] float upperBounds;
     [SerializeField] float lowerBounds;
     Vector3 playerPosition;
@@ -40,11 +42,11 @@ public class FacingDirectionManager : Input {
         else if (moveDirection.x > 0) moveDirection.x = 1;
 
         // save last facing direction
-        if (!locked) {
-            transform.position = new Vector3(moveDirection.x, moveDirection.y, 0) + playerPosition;
-            horizontalPosition = new Vector3(moveDirection.x, 0, 0) + playerPosition;
-            verticalPosition = new Vector3(0, moveDirection.y, 0) + playerPosition;
-        }
+        //if (!locked) {
+        transform.position = new Vector3(moveDirection.x, moveDirection.y + yOffset, 0) + playerPosition;
+        horizontalPosition = new Vector3(moveDirection.x, 0, 0) + playerPosition;
+        verticalPosition = new Vector3(0, moveDirection.y + yOffset, 0) + playerPosition;
+        //}
     }
 
 
