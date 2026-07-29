@@ -27,14 +27,8 @@ public class PlayerManager : MonoBehaviour {
     public void ResetJumpVelocity() { playerMovementController.ResetJumpVelocity(); }
     public void StopPlayer() { playerMovementController.GetComponent<CharacterController>().Move(Vector3.zero); }
 
-    public void LockPlayerMovement() {
-        playerMovementController.LockMovement();
-        FacingDirectionManager.instance.LockDirection();
-    }
-    public void UnlockPlayerMovement() {
-        playerMovementController.UnlockMovement();
-        FacingDirectionManager.instance.UnlockDirection();
-    }
+    public void LockPlayerMovement() { playerMovementController.LockMovement(); }
+    public void UnlockPlayerMovement() { playerMovementController.UnlockMovement(); }
 
     public bool IsPlayerGrounded() { return playerMovementController.GetComponent<CharacterController>().isGrounded; }
 

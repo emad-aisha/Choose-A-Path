@@ -18,7 +18,6 @@ public class AbilityManager : MonoBehaviour {
     // HELPERS
     void OnTriggerEnter(Collider other) {
         if (!other.CompareTag("Player") && !other.CompareTag("Enemy")) {
-            Debug.Log("hit" + other.name);
             hitSomething = true;
         }
     }

@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,7 +22,7 @@ public class FacingDirectionManager : Input {
 
         playerPosition = PlayerManager.instance.GetTransform().position;
 
-        //transform.position = new Vector3(1, 0, 0) + playerPosition;
+        moveDirection.x = 1;
     }
 
     void Update() {
@@ -39,12 +40,9 @@ public class FacingDirectionManager : Input {
         if (moveDirection.x < 0) moveDirection.x = -1;
         else if (moveDirection.x > 0) moveDirection.x = 1;
 
-        // TODO: check if this needs to be checked
-        //if (!locked)
         transform.position = new Vector3(moveDirection.x, moveDirection.y, 0) + playerPosition;
         horizontalPosition = new Vector3(moveDirection.x, 0, 0) + playerPosition;
         verticalPosition = new Vector3(0, moveDirection.y, 0) + playerPosition;
-
     }
 
 
@@ -54,15 +52,13 @@ public class FacingDirectionManager : Input {
 
     public Vector3 GetAttackDirection() {
         if (PlayerManager.instance.GetMovementController().GetIsGrounded()) {
-            if ((verticalPosition - playerPosition).y == 1) return PlayerManager.instance.GetTransform().up.normalized;
+            if (math.round((verticalPosition - playerPosition).y) == 1) return PlayerManager.instance.GetTransform().up.normalized;
             else return (horizontalPosition - playerPosition).normalized;
         }
         else {
-            if ((verticalPosition - playerPosition).y == 1 || (verticalPosition - playerPosition).y == -1) return (verticalPosition - playerPosition).normalized;
+            if ((verticalPosition - playerPosition).y != 0) return (verticalPosition - playerPosition).normalized;
             else return (horizontalPosition - playerPosition).normalized;
         }
     }
 
-    public void LockDirection() { /*locked = true;*/ }
-    public void UnlockDirection() { /*locked = false;*/ }
 }
