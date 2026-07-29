@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraWaypointManager
   waypoint: {fileID: 7579274881258564015}
-  movePercentage: 0.05
+  movePercentage: 0.121
 --- !u!1 &7579274881258564015
 GameObject:
   m_ObjectHideFlags: 0
