@@ -61,7 +61,8 @@ public class MovementController : Input {
 
         // walk
         SprintLogic();
-        AnimationManager.instance.SetRunSpeed(moveInput.x);
+        if (!resetMovement) AnimationManager.instance.SetRunSpeed(moveInput.x);
+
         moveDirection = new Vector3(moveInput.x, jumpVelocity.y, 0); // moveInput.x * transform.right + 0 * transform.forward + jumpVelocity.y * transform.up;
         if (!resetMovement) controller.Move(moveDirection * (speed * Time.deltaTime));
 
@@ -106,19 +107,26 @@ public class MovementController : Input {
         bool canDoubleJump = maxJumps > 1 && jumps < maxJumps;
 
         if (canDoubleJump && jumpAction.WasPressedThisFrame()) {
+            AnimationManager.instance.SetIsJumping(true);
             // dont allow double jump off air
             if (!controller.isGrounded && internalCoyoteTimer > coyoteTime) jumps++;
             jumpVelocity.y = jumpSpeed;
             jumps++;
         }
         else if (jumpAction.WasPressedThisFrame() && (controller.isGrounded || internalCoyoteTimer < coyoteTime)) {
+            AnimationManager.instance.SetIsJumping(true);
             jumpVelocity.y = jumpSpeed;
             jumps++;
+        }
+        else {
+            AnimationManager.instance.SetIsJumping(false);
         }
 
     }
 
     void GravityLogic() {
+        AnimationManager.instance.SetIsGrounded(controller.isGrounded);
+
         // gravity logic
         if (controller.isGrounded) {
             jumpVelocity = Vector3.zero;
