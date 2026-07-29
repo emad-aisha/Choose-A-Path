@@ -6,6 +6,8 @@ public class MovementController : Input {
     InputAction moveAction;
     InputAction jumpAction;
 
+    [SerializeField] LayerMask ignoreLayer;
+
     [Header("Walk Stats")]
     [SerializeField] float speed;
     [SerializeField] float maxSprint;
@@ -32,6 +34,8 @@ public class MovementController : Input {
     Vector3 moveDirection;
     Vector3 jumpVelocity;
 
+    bool isGrounded;
+
 
     void Start() {
         controller = PlayerManager.instance.GetCharacterController();
@@ -46,6 +50,7 @@ public class MovementController : Input {
     bool resetMovement;
     Vector2 moveInput;
     void Update() {
+        CheckGrounded();
         moveInput = moveAction.ReadValue<Vector2>();
 
         if (!controller.isGrounded) {
@@ -125,7 +130,7 @@ public class MovementController : Input {
     }
 
     void GravityLogic() {
-        AnimationManager.instance.SetIsGrounded(controller.isGrounded);
+        AnimationManager.instance.SetIsGrounded(isGrounded);
 
         // gravity logic
         if (controller.isGrounded) {
@@ -142,6 +147,10 @@ public class MovementController : Input {
         }
     }
 
+    void CheckGrounded() {
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, 1, ~ignoreLayer);
+    }
+
 
 
     public void ResetJumpVelocity() { jumpVelocity = Vector3.zero; }
@@ -149,6 +158,7 @@ public class MovementController : Input {
     public void LockMovement() { resetMovement = true; }
     public void UnlockMovement() { resetMovement = false; }
 
+    public bool GetIsGrounded() { return isGrounded; }
 
     public float GetMovementSpeed() { return speed; }
     public void SetMovementSpeed(float newSpeed) { speed = newSpeed; }

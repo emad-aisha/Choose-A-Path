@@ -7,7 +7,6 @@ public class AnimationManager : MonoBehaviour {
     [SerializeField] SpriteRenderer sprite;
 
     float runSpeed;
-    float jumpSpeed;
     bool isGrounded;
     bool isJumping;
 

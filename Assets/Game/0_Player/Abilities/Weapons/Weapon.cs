@@ -20,7 +20,7 @@ public class Weapon : Input {
 
 
     void Update() {
-        Debug.DrawRay(transform.position, FacingDirectionManager.instance.GetFacingDirection() * distance, Color.red);
+        Debug.DrawRay(transform.position, FacingDirectionManager.instance.GetAttackDirection() * distance, Color.red);
         if (!isAttacking) StartCoroutine(AttackCooldown());
     }
 
@@ -29,7 +29,7 @@ public class Weapon : Input {
         if (!attackAction.WasPressedThisFrame()) yield break;
         isAttacking = true;
 
-        hitbox.transform.position = transform.position + (FacingDirectionManager.instance.GetFacingDirection() * distance);
+        hitbox.transform.position = transform.position + (FacingDirectionManager.instance.GetAttackDirection() * distance);
         hitbox.SetActive(true);
         yield return new WaitForSeconds(damageImage);
         hitbox.SetActive(false);
