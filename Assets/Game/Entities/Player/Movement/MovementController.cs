@@ -132,8 +132,6 @@ public class MovementController : Input {
     }
 
     void GravityLogic() {
-        AnimationManager.instance.SetIsGrounded(isGrounded);
-
         // gravity logic
         if (controller.isGrounded) {
             jumpVelocity = Vector3.zero;
@@ -150,7 +148,8 @@ public class MovementController : Input {
     }
 
     void CheckGrounded() {
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, 1, ~ignoreLayer);
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.05f, ~ignoreLayer);
+        AnimationManager.instance.SetIsGrounded(isGrounded);
     }
 
     IEnumerator DecreaseKnockback(float time) {

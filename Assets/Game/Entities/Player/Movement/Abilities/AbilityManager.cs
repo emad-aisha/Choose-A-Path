@@ -18,6 +18,7 @@ public class AbilityManager : MonoBehaviour {
     // HELPERS
     void OnTriggerEnter(Collider other) {
         if (!other.CompareTag("Player") && !other.CompareTag("Enemy")) {
+            Debug.Log("hit" + other.name);
             hitSomething = true;
         }
     }
@@ -51,7 +52,10 @@ public class AbilityManager : MonoBehaviour {
 
 
     // PUBLIC 
-    public void SetStartPoint() { originalPosition = transform.position; }
+    public void SetStartPoint() {
+        hitSomething = false;
+        originalPosition = transform.position;
+    }
     public bool MoveToPoint(Vector3 pointToHit, float distance) {
         if (hitSomething) {
             originalPosition = Vector3.zero;
@@ -59,7 +63,6 @@ public class AbilityManager : MonoBehaviour {
             return false;
         }
         if (originalPosition == Vector3.zero) {
-            //Debug.Log("did you forget to set the original position?");
             return false;
         }
 

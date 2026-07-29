@@ -23,12 +23,14 @@ public class Shoes : MonoBehaviour {
         pointToHit = _pointToHit;
         interacted = true;
         AbilityManager.instance.SetStartPoint();
-        StartCoroutine(Ability(time));
+        Debug.Log("interact");
+        //StartCoroutine(Ability(time));
     }
 
     void UseAbility() {
         interacted = AbilityManager.instance.MoveToPoint(pointToHit, distanceIncrement);
         if (!interacted) {
+            Debug.Log("stop interact");
             AnimationManager.instance.SetHitTarget(true);
             AnimationManager.instance.SetIsGrappling(false);
             interacted = false;

@@ -15,7 +15,6 @@ public class FacingDirectionManager : Input {
 
     Vector3 horizontalPosition;
     Vector3 verticalPosition;
-    bool locked;
 
     void Awake() {
         if (instance == null) instance = this;
@@ -23,7 +22,6 @@ public class FacingDirectionManager : Input {
         moveAction = InputManager.instance.GetAction(actionName, "Move");
 
         playerPosition = PlayerManager.instance.GetTransform().position;
-        locked = false;
     }
 
     void Update() {
@@ -41,12 +39,12 @@ public class FacingDirectionManager : Input {
         if (moveDirection.x < 0) moveDirection.x = -1;
         else if (moveDirection.x > 0) moveDirection.x = 1;
 
-        // save last facing direction
-        //if (!locked) {
+        // TODO: check if this needs to be checked
+        //if (!locked)
         transform.position = new Vector3(moveDirection.x, moveDirection.y + yOffset, 0) + playerPosition;
         horizontalPosition = new Vector3(moveDirection.x, 0, 0) + playerPosition;
         verticalPosition = new Vector3(0, moveDirection.y + yOffset, 0) + playerPosition;
-        //}
+
     }
 
 
@@ -69,6 +67,6 @@ public class FacingDirectionManager : Input {
         return returnValue;
     }
 
-    public void LockDirection() { locked = true; }
-    public void UnlockDirection() { locked = false; }
+    public void LockDirection() { /*locked = true;*/ }
+    public void UnlockDirection() { /*locked = false;*/ }
 }

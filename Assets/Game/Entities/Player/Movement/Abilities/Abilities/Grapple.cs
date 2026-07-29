@@ -13,8 +13,8 @@ public class Grapple : Input {
     [SerializeField] float pause;
     [SerializeField] float time;
 
-    [Header("Tweak")]
-    [SerializeField] float yOffset = 0.2f;
+    //[Header("Tweak")]
+    //[SerializeField] float yOffset = 0.2f;
 
     Shoes shoes;
     bool isGrappling;
