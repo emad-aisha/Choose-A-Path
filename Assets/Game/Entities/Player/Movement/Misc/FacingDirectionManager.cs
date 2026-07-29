@@ -25,7 +25,9 @@ public class FacingDirectionManager : Input {
     }
 
     void Update() {
+        if (Time.timeScale == 0) return;
         playerPosition = PlayerManager.instance.GetTransform().position;
+
         moveDirection.y = mousePos.ReadValue<Vector2>().y;
         moveDirection.y -= Screen.height / 2;
         if (moveAction.ReadValue<Vector2>().x != 0) moveDirection.x = moveAction.ReadValue<Vector2>().x;
@@ -51,7 +53,7 @@ public class FacingDirectionManager : Input {
     public Vector3 GetUpwardsDirection() { return PlayerManager.instance.GetTransform().up.normalized; }
 
     public Vector3 GetAttackDirection() {
-        Vector3 returnValue = (transform.position - playerPosition).normalized;
+        Vector3 returnValue;
 
         if (PlayerManager.instance.GetMovementController().GetIsGrounded()) {
             if ((verticalPosition - playerPosition).y == 1) returnValue = PlayerManager.instance.GetTransform().up.normalized;

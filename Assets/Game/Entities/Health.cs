@@ -47,8 +47,11 @@ public class Health : MonoBehaviour {
 
     bool isTimePaused;
     IEnumerator IFrames() {
-        if (gameObject.CompareTag("Player") && !isTimePaused) { StartCoroutine(PauseTime()); }
-        if (gameObject.CompareTag("Player")) PlayerManager.instance.GetMovementController().SetKnockback(RandomDirection(), 0.2f);
+        if (gameObject.CompareTag("Player")) {
+            if (!isTimePaused) StartCoroutine(PauseTime());
+            PlayerManager.instance.GetMovementController().SetKnockback(RandomDirection(), 0.2f);
+        }
+
         canBeHurt = false;
         yield return new WaitForSeconds(Iframes);
         canBeHurt = true;

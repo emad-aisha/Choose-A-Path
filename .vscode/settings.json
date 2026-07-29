@@ -69,5 +69,38 @@
     },
     "dotnet.defaultSolution": "Choose-A-Path.slnx",
     "dotnet.enableWorkspaceBasedDevelopment": false,
-    "todo-tree.ripgrep.ripgrep": "C:\\ProgramData\\chocolatey\\lib\\ripgrep\\tools\\ripgrep-14.1.0-x86_64-pc-windows-msvc\\rg.exe"
+    "todo-tree.ripgrep.ripgrep": "C:\\ProgramData\\chocolatey\\lib\\ripgrep\\tools\\ripgrep-14.1.0-x86_64-pc-windows-msvc\\rg.exe",
+    "folder-customization.folders": [
+        {
+            "path": "Choose-A-Path\\Assets\\Game\\0_Managers\\"
+        },
+        {
+            "path": "Choose-A-Path\\Assets\\Game\\Entities\\Enemy\\",
+            "color": "foldercustomization.AnsiColor203"
+        },
+        {
+            "path": "Choose-A-Path\\Assets\\Game\\Entities\\Player\\",
+            "color": "foldercustomization.AnsiColor107"
+        },
+        {
+            "path": "Choose-A-Path\\Assets\\Game\\! Prefabs\\",
+            "color": "foldercustomization.AnsiColor239"
+        },
+        {
+            "path": "Choose-A-Path\\Assets\\Game\\! Scenes\\",
+            "color": "foldercustomization.AnsiColor239"
+        },
+        {
+            "path": "Choose-A-Path\\Assets\\Settings\\",
+            "color": "foldercustomization.AnsiColor238"
+        },
+        {
+            "path": "Choose-A-Path\\Assets\\Temp\\",
+            "color": "foldercustomization.AnsiColor238"
+        },
+        {
+            "path": "Choose-A-Path\\Assets\\Game\\Entities\\Player\\Animation\\",
+            "color": "foldercustomization.AnsiColor22"
+        }
+    ]
 }
