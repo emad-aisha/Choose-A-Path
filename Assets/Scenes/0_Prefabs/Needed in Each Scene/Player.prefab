@@ -622,6 +622,14 @@ PrefabInstance:
       propertyPath: cooldown
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 2290274126323465346, guid: b67be319b2838984095c01ab079a7e09, type: 3}
+      propertyPath: knockback
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2290274126323465346, guid: b67be319b2838984095c01ab079a7e09, type: 3}
+      propertyPath: knockbackTime
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 6438438336999259699, guid: b67be319b2838984095c01ab079a7e09, type: 3}
       propertyPath: m_Name
       value: Weapon

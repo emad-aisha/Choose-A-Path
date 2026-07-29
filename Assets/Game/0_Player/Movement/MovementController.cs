@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -34,6 +35,7 @@ public class MovementController : Input {
     Vector3 moveDirection;
     Vector3 jumpVelocity;
 
+    Vector3 knockback;
     bool isGrounded;
 
 
@@ -69,7 +71,7 @@ public class MovementController : Input {
         if (!resetMovement) AnimationManager.instance.SetRunSpeed(moveInput.x);
 
         moveDirection = new Vector3(moveInput.x, jumpVelocity.y, 0); // moveInput.x * transform.right + 0 * transform.forward + jumpVelocity.y * transform.up;
-        if (!resetMovement) controller.Move(moveDirection * (speed * Time.deltaTime));
+        if (!resetMovement) controller.Move((moveDirection + knockback) * (speed * Time.deltaTime));
 
 
         GravityLogic();
@@ -151,9 +153,28 @@ public class MovementController : Input {
         isGrounded = Physics.Raycast(transform.position, Vector3.down, 1, ~ignoreLayer);
     }
 
+    IEnumerator DecreaseKnockback(float time) {
+        while (time > 0) {
+            if (knockback.x < 0) knockback.x += speed * Time.deltaTime;
+            if (knockback.x > 0) knockback.x -= speed * Time.deltaTime;
+
+            if (knockback.y < 0) knockback.y += speed / 2 * Time.deltaTime;
+            if (knockback.y > 0) knockback.y -= speed / 2 * Time.deltaTime;
+            time -= Time.deltaTime;
+            jumpVelocity = Vector3.zero;
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+
+        knockback = Vector3.zero;
+    }
+
 
 
     public void ResetJumpVelocity() { jumpVelocity = Vector3.zero; }
+    public void SetKnockback(Vector3 velocity, float time) {
+        knockback = velocity;
+        StartCoroutine(DecreaseKnockback(time));
+    }
 
     public void LockMovement() { resetMovement = true; }
     public void UnlockMovement() { resetMovement = false; }

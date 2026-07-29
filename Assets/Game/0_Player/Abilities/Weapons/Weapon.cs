@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,6 +11,10 @@ public class Weapon : Input {
     [SerializeField] int damage;
     bool isAttacking;
     [SerializeField] float distance;
+
+    [Header("Knockbacl")]
+    [SerializeField] float knockback;
+    [SerializeField] float knockbackTime;
 
     InputAction attackAction;
 
@@ -31,7 +36,27 @@ public class Weapon : Input {
 
         hitbox.transform.position = transform.position + (FacingDirectionManager.instance.GetAttackDirection() * distance);
         hitbox.SetActive(true);
-        yield return new WaitForSeconds(damageImage);
+
+        float time = 0;
+        bool hit = false;
+        while (time < cooldown) {
+            time += Time.deltaTime;
+
+            if (hitbox.GetComponent<Hitbox>().GetHitSomething() && !hit) {
+                Vector3 direction = hitbox.GetComponent<Hitbox>().GetHitDirection();
+                direction = (direction - PlayerManager.instance.GetTransform().position) * -knockback;
+                //if (math.abs(direction.y) > 1) direction = new Vector3(direction.x, direction.y * 2, direction.z);
+                Debug.Log(direction);
+                // make up boosted?
+
+                PlayerManager.instance.GetMovementController().SetKnockback(direction, knockbackTime);
+                hit = true;
+            }
+
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+
+
         hitbox.SetActive(false);
 
 
