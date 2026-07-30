@@ -3,6 +3,13 @@ using UnityEngine;
 public class CameraWaypointManager : MonoBehaviour {
     public static CameraWaypointManager instance;
 
+    [Header("Bounds")]
+    [SerializeField] GameObject rightBounds;
+    [SerializeField] GameObject leftBounds;
+    [SerializeField] GameObject upBounds;
+    [SerializeField] GameObject downBounds;
+    [SerializeField] float distanceFromBounds;
+
     [Header("Waypoints")]
     [SerializeField] GameObject waypoint;
 
