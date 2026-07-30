@@ -1,4 +1,5 @@
 using System.Collections;
+using NUnit.Framework;
 using UnityEngine;
 
 public class Health : MonoBehaviour {
@@ -17,11 +18,15 @@ public class Health : MonoBehaviour {
 
     void Update() {
         if (isDead) {
-            // TODO: do somethign when the player dies
             Debug.Log(name + " died");
 
-            // TODO: play a flashy animation idk
             if (gameObject.CompareTag("Enemy")) Destroy(gameObject);
+            if (gameObject.CompareTag("Player")) {
+                // TODO: play a flashy animation idk
+                ResetHealth();
+                StartCoroutine(PlayerManager.instance.Respawn(1));
+                return;
+            }
 
             enabled = false;
         }
@@ -52,12 +57,17 @@ public class Health : MonoBehaviour {
     public int GetHealth() { return currentHealth; }
     public int GetMaxHealth() { return maxHealth; }
 
+    void ResetHealth() {
+        currentHealth = maxHealth;
+        isDead = false;
+        canBeHurt = true;
+    }
 
     bool isTimePaused;
     IEnumerator IFrames() {
         if (gameObject.CompareTag("Player")) {
             if (!isTimePaused) StartCoroutine(PauseTime());
-            PlayerManager.instance.GetMovementController().SetKnockback(RandomDirection(), 0.2f);
+            if (!isDead) PlayerManager.instance.GetMovementController().SetKnockback(RandomDirection(), 0.2f);
         }
 
         canBeHurt = false;

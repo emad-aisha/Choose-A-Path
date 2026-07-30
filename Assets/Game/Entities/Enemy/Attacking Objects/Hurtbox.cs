@@ -11,9 +11,9 @@ public class Hurtbox : MonoBehaviour {
 
     void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Player")) {
-            Health playerHealth;
-            other.TryGetComponent(out playerHealth);
+            other.TryGetComponent(out Health playerHealth);
             if (!playerHealth) return;
+
             playerHealth.Hurt(damage);
             if (isDestroyedOnHit) Destroy(gameObject);
         }
