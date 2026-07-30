@@ -15,7 +15,7 @@ public class Hitbox : MonoBehaviour {
     public Vector3 GetHitDirection() { return hitDirection; }
 
     void OnTriggerEnter(Collider other) {
-        if (!other.CompareTag("Player")) {
+        if (!other.CompareTag("Player") || !other.CompareTag("Player Parent")) {
             other.TryGetComponent(out Health health);
             if (!health) return;
 
