@@ -142,7 +142,7 @@ GameObject:
   - component: {fileID: 1926367934984520139}
   - component: {fileID: 5363425096462236641}
   m_Layer: 0
-  m_Name: Player Collider
+  m_Name: Player Health
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -314,6 +314,7 @@ MonoBehaviour:
   playerMovementController: {fileID: 3569442743921773138}
   playerCharacterController: {fileID: 1891227952646080204}
   capsuleCollider: {fileID: 8834189975292969697}
+  healthCollider: {fileID: 5363425096462236641}
 --- !u!114 &771139096646261770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -455,7 +456,7 @@ Transform:
   m_GameObject: {fileID: 6201687970635313904}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.55, z: 0}
+  m_LocalPosition: {x: 0, y: 0.6, z: 0}
   m_LocalScale: {x: 0.57, y: 0.16, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []

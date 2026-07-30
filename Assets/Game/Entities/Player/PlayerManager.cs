@@ -1,20 +1,35 @@
 using System.Collections;
 using UnityEngine;
+
 // TODO: organize
 public class PlayerManager : MonoBehaviour {
     public static PlayerManager instance;
 
     [SerializeField] MovementController playerMovementController;
+
+    [Header("Capsules")]
     [SerializeField] CharacterController playerCharacterController;
     [SerializeField] CapsuleCollider capsuleCollider;
+    [SerializeField] CapsuleCollider healthCollider;
+    float radius;
+    float height;
+    Vector3 center;
 
     Vector3 respawnPoint;
 
     void Awake() {
         if (instance == null) instance = this;
-        capsuleCollider.radius = playerCharacterController.radius;
-        capsuleCollider.height = playerCharacterController.height;
-        capsuleCollider.center = playerCharacterController.center;
+        radius = playerCharacterController.radius;
+        height = playerCharacterController.height;
+        center = playerCharacterController.center;
+
+        capsuleCollider.radius = radius;
+        capsuleCollider.height = height;
+        capsuleCollider.center = center;
+
+        healthCollider.radius = radius;
+        healthCollider.height = height;
+        healthCollider.center = center;
 
         respawnPoint = GameObject.FindGameObjectWithTag("Respawn").transform.position;
     }
@@ -33,6 +48,29 @@ public class PlayerManager : MonoBehaviour {
     public Transform GetTransform() { return transform; }
     public CharacterController GetCharacterController() { return playerCharacterController; }
     public MovementController GetMovementController() { return playerMovementController; }
+
+    public void UpdateCharacterCapsule(float height, Vector3 center) {
+        playerCharacterController.height = height;
+        playerCharacterController.center = center;
+
+        capsuleCollider.height = height;
+        capsuleCollider.center = center;
+
+        healthCollider.height = height;
+        healthCollider.center = center;
+    }
+    public void ResetCharacterCapsule() {
+        playerCharacterController.height = height;
+        playerCharacterController.center = center;
+
+        capsuleCollider.height = height;
+        capsuleCollider.center = center;
+
+        healthCollider.height = height;
+        healthCollider.center = center;
+    }
+
+
 
     public void ResetJumpVelocity() { playerMovementController.ResetJumpVelocity(); }
     public void StopPlayer() { playerMovementController.GetComponent<CharacterController>().Move(Vector3.zero); }
