@@ -19,8 +19,11 @@ public class Health : MonoBehaviour {
         if (isDead) {
             // TODO: do somethign when the player dies
             Debug.Log(name + " died");
+
             // TODO: play a flashy animation idk
             if (gameObject.CompareTag("Enemy")) Destroy(gameObject);
+
+            enabled = false;
         }
     }
 
