@@ -16,7 +16,10 @@ public class Hitbox : MonoBehaviour {
 
     void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Enemy") || other.CompareTag("Lever")) {
-            other.GetComponent<Health>().Hurt(damage);
+            other.TryGetComponent(out Health health);
+            if (!health) return;
+
+            health.Hurt(damage);
             hitSomething = true;
             hitDirection = other.transform.position;
         }

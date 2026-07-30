@@ -6,9 +6,10 @@ public class Lever : MonoBehaviour {
 
 
     void Update() {
-        if (health.IsDead()) {
+        if (health && health.IsDead()) {
             door.SetOpen(true);
             health.enabled = false;
+            Destroy(health);
         }
     }
 
