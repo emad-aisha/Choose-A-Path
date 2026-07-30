@@ -8,6 +8,7 @@ TagManager:
   - Door
   - Trigger
   - Lever
+  - Player Parent
   layers:
   - Default
   - TransparentFX

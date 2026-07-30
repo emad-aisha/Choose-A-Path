@@ -98,6 +98,7 @@ MonoBehaviour:
   - Enemy
   - Door
   - Trigger
+  - Player Parent
   timeToWait: 0.01
 --- !u!33 &8456925016651440438
 MeshFilter:
@@ -223,8 +224,8 @@ GameObject:
   - component: {fileID: 451982224349952498}
   - component: {fileID: 1477288285784942536}
   m_Layer: 0
-  m_Name: Player
-  m_TagString: Player
+  m_Name: All Abilities Player
+  m_TagString: Player Parent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

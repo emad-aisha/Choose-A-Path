@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5430616893153996741}
   - component: {fileID: 6514873362608502032}
   m_Layer: 3
-  m_Name: Size Grapple
+  m_Name: Grapple Dash
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,13 +46,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Grapple
   actionName: Player
-  playerLayer:
+  ignoreLayer:
     serializedVersion: 2
-    m_Bits: 8
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 76
   distance: 5
+  pause: 0.2
   time: 0.5
 --- !u!114 &6514873362608502032
 MonoBehaviour:

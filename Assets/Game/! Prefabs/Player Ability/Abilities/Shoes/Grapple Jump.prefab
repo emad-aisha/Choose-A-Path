@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9030577879220102457}
   - component: {fileID: 2026599695637741668}
   m_Layer: 3
-  m_Name: Top Grapple
+  m_Name: Grapple Jump
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,13 +46,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Grapple
   actionName: Player
-  playerLayer:
+  ignoreLayer:
     serializedVersion: 2
-    m_Bits: 8
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 76
   distance: 5
+  pause: 0.2
   time: 0.5
 --- !u!114 &2026599695637741668
 MonoBehaviour:
