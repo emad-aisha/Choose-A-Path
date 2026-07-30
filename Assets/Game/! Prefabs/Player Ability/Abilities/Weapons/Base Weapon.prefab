@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
   actionName: Player
   hitbox: {fileID: 8079788790296840581}
-  cooldown: 1
+  cooldown: 0.2
   damageImage: 0.2
   damage: 2
   distance: 1.1

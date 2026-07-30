@@ -10,6 +10,9 @@ public class Door : MonoBehaviour {
         if (isOpen) {
             gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
         }
+        else {
+            gameObject.layer = LayerMask.NameToLayer("Default");
+        }
     }
 
 

@@ -476,6 +476,7 @@ MonoBehaviour:
   - Door
   - Trigger
   - Player Parent
+  - Lever
   timeToWait: 0.01
 --- !u!33 &6046627734277275510
 MeshFilter:
