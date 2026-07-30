@@ -5,6 +5,7 @@ public class Door : MonoBehaviour {
 
     void Update() {
         gameObject.GetComponent<BoxCollider>().isTrigger = isOpen;
+        gameObject.GetComponent<MeshRenderer>().enabled = !isOpen;
     }
 
 
