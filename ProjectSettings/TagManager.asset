@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 3
   tags:
   - Enemy
+  - Door
+  - Trigger
+  - Lever
   layers:
   - Default
   - TransparentFX

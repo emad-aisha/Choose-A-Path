@@ -295,7 +295,7 @@ MonoBehaviour:
   actionName: Player
   ignoreLayer:
     serializedVersion: 2
-    m_Bits: 72
+    m_Bits: 76
   speed: 5
   maxSprint: 2
   sprintTimer: 0.2

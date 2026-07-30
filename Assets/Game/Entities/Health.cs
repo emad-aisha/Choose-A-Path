@@ -45,6 +45,11 @@ public class Health : MonoBehaviour {
         }
     }
 
+    public bool IsDead() { return isDead; }
+    public int GetHealth() { return currentHealth; }
+    public int GetMaxHealth() { return maxHealth; }
+
+
     bool isTimePaused;
     IEnumerator IFrames() {
         if (gameObject.CompareTag("Player")) {
