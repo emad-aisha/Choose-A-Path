@@ -101,6 +101,17 @@
         {
             "path": "Choose-A-Path\\Assets\\Game\\Entities\\Player\\Animation\\",
             "color": "foldercustomization.AnsiColor22"
+        },
+        {
+            "path": "Choose-A-Path\\Assets\\Game\\Entities\\Player\\Movement\\Abilities\\Abilities\\",
+            "color": "foldercustomization.AnsiColor178"
+        },
+        {
+            "path": "Choose-A-Path\\Assets\\Game\\Entities\\Player\\Weapons\\"
+        },
+        {
+            "path": "Choose-A-Path\\Assets\\Game\\Entities\\Enemy\\Attacking Objects\\",
+            "color": "foldercustomization.AnsiColor124"
         }
     ]
 }

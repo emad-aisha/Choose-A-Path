@@ -631,6 +631,10 @@ PrefabInstance:
       value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 2290274126323465346, guid: b67be319b2838984095c01ab079a7e09, type: 3}
+      propertyPath: distance
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2290274126323465346, guid: b67be319b2838984095c01ab079a7e09, type: 3}
       propertyPath: knockback
       value: 1
       objectReference: {fileID: 0}
