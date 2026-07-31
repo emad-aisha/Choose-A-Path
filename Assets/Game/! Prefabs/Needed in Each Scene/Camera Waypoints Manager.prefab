@@ -45,8 +45,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aff6a2180b4947e4782f0db58734e1c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraWaypointManager
+  rightBounds: {fileID: 0}
+  leftBounds: {fileID: 0}
+  upBounds: {fileID: 0}
+  downBounds: {fileID: 0}
+  distanceFromBounds: 0
   waypoint: {fileID: 7579274881258564015}
-  movePercentage: 0.121
+  distanceLimit: 2
+  yOffset: 0.6
+  XmovePercentage: 0.2
+  YmovePercentage: 0.025
 --- !u!1 &7579274881258564015
 GameObject:
   m_ObjectHideFlags: 0

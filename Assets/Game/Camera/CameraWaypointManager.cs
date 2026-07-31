@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 
 public class CameraWaypointManager : MonoBehaviour {
@@ -12,9 +13,12 @@ public class CameraWaypointManager : MonoBehaviour {
 
     [Header("Waypoints")]
     [SerializeField] GameObject waypoint;
+    [SerializeField] float distanceLimit;
+    [SerializeField] float yOffset;
 
     [Header("Tween")]
-    [SerializeField, Range(0, 0.2f)] float movePercentage;
+    [SerializeField, Range(0, 0.2f)] float XmovePercentage;
+    [SerializeField, Range(0, 0.2f)] float YmovePercentage;
 
     Vector3 playerPosition;
     Vector3 movePosition;
@@ -29,10 +33,25 @@ public class CameraWaypointManager : MonoBehaviour {
 
     void WaypointMovement() {
         playerPosition = PlayerManager.instance.GetTransform().position;
+        if (!PlayerManager.instance.GetMovementController().GetIsGrounded()) {
+            // if player is too far, move
+            Debug.Log(math.distance(playerPosition.y, waypoint.transform.position.y));
+            if (math.distance(playerPosition.y, waypoint.transform.position.y) > distanceLimit) playerPosition.y += yOffset;
+            else playerPosition.y = waypoint.transform.position.y;
+        }
+        else {
+            playerPosition.y += yOffset;
+        }
 
-        movePosition = (playerPosition - waypoint.transform.position) * movePercentage;
+        //playerPosition.y += yOffset;
+        movePosition = playerPosition - waypoint.transform.position;
+
+        movePosition.x *= XmovePercentage;
+        movePosition.y *= YmovePercentage;
+
         waypoint.transform.position += movePosition;
     }
+
 
     // getters
     public Vector3 GetWaypointPosition() { return waypoint.transform.position; }
