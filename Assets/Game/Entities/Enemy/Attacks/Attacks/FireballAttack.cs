@@ -9,6 +9,7 @@ public class FireballAttack : BasicAttack {
     [SerializeField] Type type;
     [SerializeField] int numberOfFireballs;
     [SerializeField] float speed;
+    [SerializeField] float acceleration;
     [SerializeField] float lifespan;
 
     Vector3 fireballDirection;
@@ -83,7 +84,7 @@ public class FireballAttack : BasicAttack {
         yield return new WaitForSeconds(lifespan / 2);
         if (type == Type.Boomerang) {
             for (int i = 0; i < fireballs.Count; i++) {
-                fireballs[i].GetComponent<Fireball>().SetSpeed(speed);
+                //if (fireballs[i]) fireballs[i].GetComponent<Fireball>().SetSpeed(speed);
             }
         }
         canComeback = true;
@@ -100,6 +101,7 @@ public class FireballAttack : BasicAttack {
             Fireball newFireballComponent = newFireball.GetComponent<Fireball>();
             newFireballComponent.SetDirection(fireballDirection);
             newFireballComponent.SetSpeed(speed);
+            newFireballComponent.SetAcceleration(acceleration);
             newFireballComponent.SetDamage(damage);
             newFireballComponent.SetLifeSpan(lifespan);
 

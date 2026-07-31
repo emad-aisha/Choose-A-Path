@@ -95,6 +95,7 @@ MonoBehaviour:
   type: 0
   numberOfFireballs: 3
   speed: 8
+  acceleration: 2
   lifespan: 3
 --- !u!33 &3244097495374264880
 MeshFilter:
