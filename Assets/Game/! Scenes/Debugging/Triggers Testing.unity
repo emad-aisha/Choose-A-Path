@@ -1558,6 +1558,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2918597411528873599, guid: 85b444da2a564a345a042fa0a0c04382, type: 3}
+      propertyPath: deadRed.b
+      value: 0.36232737
+      objectReference: {fileID: 0}
+    - target: {fileID: 2918597411528873599, guid: 85b444da2a564a345a042fa0a0c04382, type: 3}
+      propertyPath: deadRed.g
+      value: 0.36232737
+      objectReference: {fileID: 0}
+    - target: {fileID: 2918597411528873599, guid: 85b444da2a564a345a042fa0a0c04382, type: 3}
+      propertyPath: deadRed.r
+      value: 0.5031446
+      objectReference: {fileID: 0}
     - target: {fileID: 5319395981286496797, guid: 85b444da2a564a345a042fa0a0c04382, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

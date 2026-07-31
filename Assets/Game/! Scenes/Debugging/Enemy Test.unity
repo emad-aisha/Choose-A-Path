@@ -269,6 +269,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 458833331}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &504889146 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 783465030916781773, guid: ddee9cc0d9ad18f418b58e86ffb731b4, type: 3}
+  m_PrefabInstance: {fileID: 664782280}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &543709246
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,6 +310,63 @@ Transform:
   - {fileID: 1514830780}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &664782280
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1255009079}
+    m_Modifications:
+    - target: {fileID: 783465030916781773, guid: ddee9cc0d9ad18f418b58e86ffb731b4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 783465030916781773, guid: ddee9cc0d9ad18f418b58e86ffb731b4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 783465030916781773, guid: ddee9cc0d9ad18f418b58e86ffb731b4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 783465030916781773, guid: ddee9cc0d9ad18f418b58e86ffb731b4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 783465030916781773, guid: ddee9cc0d9ad18f418b58e86ffb731b4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 783465030916781773, guid: ddee9cc0d9ad18f418b58e86ffb731b4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 783465030916781773, guid: ddee9cc0d9ad18f418b58e86ffb731b4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 783465030916781773, guid: ddee9cc0d9ad18f418b58e86ffb731b4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 783465030916781773, guid: ddee9cc0d9ad18f418b58e86ffb731b4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 783465030916781773, guid: ddee9cc0d9ad18f418b58e86ffb731b4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6236950163933328367, guid: ddee9cc0d9ad18f418b58e86ffb731b4, type: 3}
+      propertyPath: m_Name
+      value: Grapple Dash
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ddee9cc0d9ad18f418b58e86ffb731b4, type: 3}
 --- !u!1001 &692052267
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1150,6 +1212,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1245372897}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1255009079 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5319395981286496797, guid: 85b444da2a564a345a042fa0a0c04382, type: 3}
+  m_PrefabInstance: {fileID: 1584417135}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1402318830
 GameObject:
   m_ObjectHideFlags: 0
@@ -1727,7 +1794,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 5319395981286496797, guid: 85b444da2a564a345a042fa0a0c04382, type: 3}
+      insertIndex: 4
+      addedObject: {fileID: 504889146}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 85b444da2a564a345a042fa0a0c04382, type: 3}
 --- !u!1 &1651180850
@@ -2119,6 +2189,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boomerang Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 6846139009627671239, guid: 82272782061bb2b4c92d351302547056, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2176,6 +2250,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fireball Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 3634378819783561870, guid: 24c8b0e75ab954b43a6486efdb81b5d4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2192,6 +2270,10 @@ PrefabInstance:
     - target: {fileID: 2475597644764677840, guid: fd01ba17422c0834f9fe9bcfa783a97d, type: 3}
       propertyPath: m_Name
       value: Dash Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 2475597644764677840, guid: fd01ba17422c0834f9fe9bcfa783a97d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2749547793804801559, guid: fd01ba17422c0834f9fe9bcfa783a97d, type: 3}
       propertyPath: m_LocalPosition.x
