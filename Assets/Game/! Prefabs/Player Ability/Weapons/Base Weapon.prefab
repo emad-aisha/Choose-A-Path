@@ -68,6 +68,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SlashAnimationManager
   animator: {fileID: 4545806728867536161}
   sprite: {fileID: 4586451357215158847}
+  hitboxCollider: {fileID: 0}
 --- !u!1 &8079788790296840581
 GameObject:
   m_ObjectHideFlags: 0
@@ -87,7 +88,7 @@ GameObject:
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8917149601310639239
 Transform:
   m_ObjectHideFlags: 0
