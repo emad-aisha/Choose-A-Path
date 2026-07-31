@@ -19,13 +19,17 @@ public class FollowPlayer : MonoBehaviour {
     [SerializeField] BasicAttack attack;
     [SerializeField] float cooldown;
     bool canAttack;
+    bool isAttacking;
 
     NavMeshAgent agent;
     bool isUp;
 
+    Vector2 originalPosition;
+
 
     void Start() {
         canAttack = true;
+        attack = GetComponent<BasicAttack>();
         agent = GetComponent<NavMeshAgent>();
 
         agent.speed = speed;
@@ -47,9 +51,14 @@ public class FollowPlayer : MonoBehaviour {
         if (hovering == null && !canAttack) hovering = StartCoroutine(Hover());
     }
 
+    void LateUpdate() {
+        if (isAttacking && attack is FireballAttack && ((FireballAttack)attack).CompareType(FireballAttack.Type.Boomerang)) {
+            transform.position = originalPosition;
+        }
+    }
+
     void TryAttack() {
-        attack.Attack();
-        StartCoroutine(AttackCooldown());
+        if (attack.Attack()) StartCoroutine(AttackCooldown());
     }
 
     void Follow() {
@@ -87,9 +96,12 @@ public class FollowPlayer : MonoBehaviour {
 
     // COOLDOWN
     IEnumerator AttackCooldown() {
+        originalPosition = transform.position;
+        isAttacking = true;
         canAttack = false;
         yield return new WaitForSeconds(cooldown);
         canAttack = true;
+        isAttacking = false;
     }
 
 

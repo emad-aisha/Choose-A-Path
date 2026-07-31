@@ -826,6 +826,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Base Weapon
       objectReference: {fileID: 0}
+    - target: {fileID: 6538783647256623811, guid: b67be319b2838984095c01ab079a7e09, type: 3}
+      propertyPath: hitboxCollider
+      value: 
+      objectReference: {fileID: 7721825807490410043}
     - target: {fileID: 8079788790296840581, guid: b67be319b2838984095c01ab079a7e09, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -838,5 +842,10 @@ PrefabInstance:
 --- !u!4 &2689865681390606040 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 189566540057348368, guid: b67be319b2838984095c01ab079a7e09, type: 3}
+  m_PrefabInstance: {fileID: 2879255187181412296}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &7721825807490410043 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 5538377501774903795, guid: b67be319b2838984095c01ab079a7e09, type: 3}
   m_PrefabInstance: {fileID: 2879255187181412296}
   m_PrefabAsset: {fileID: 0}

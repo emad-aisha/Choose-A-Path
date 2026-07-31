@@ -11,11 +11,12 @@ public class Slash : BasicAttack {
         hurtBox.GetComponent<Hurtbox>().SetDestroyOnHit(false);
     }
 
-    public override void Attack() {
-        if (!canAttack) return;
+    public override bool Attack() {
+        if (!canAttack) return false;
 
         StartCoroutine(OnScreen());
         StartCoroutine(AttackCooldown());
+        return true;
     }
 
     IEnumerator OnScreen() {

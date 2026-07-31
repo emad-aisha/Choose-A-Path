@@ -13,11 +13,7 @@ public abstract class BasicAttack : MonoBehaviour {
         canAttack = true;
     }
 
-    void Update() {
-        // if withing range, dash to attack
-    }
-
-    public abstract void Attack();
+    public abstract bool Attack();
 
     protected IEnumerator AttackCooldown() {
         canAttack = false;

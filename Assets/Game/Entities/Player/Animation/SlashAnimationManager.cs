@@ -4,10 +4,12 @@ public class SlashAnimationManager : MonoBehaviour {
     public static SlashAnimationManager instance;
     [SerializeField] Animator animator;
     [SerializeField] SpriteRenderer sprite;
+    [SerializeField] BoxCollider hitboxCollider;
 
     bool isAttacking;
     int upOrDown; // 0 is neither
     int leftOrRight; // flips sprite renderer accordingly
+
 
     void Awake() {
         if (instance == null) instance = this;
@@ -28,13 +30,15 @@ public class SlashAnimationManager : MonoBehaviour {
     public void SetUpOrDown(int value) { upOrDown = value; }
     public void SetLeftOrRight(int value) { leftOrRight = value; }
 
-
+    bool facingLeft;
     void FlipSprite() {
-        if (leftOrRight < 0) {
-            sprite.flipX = true;
+        if (leftOrRight < 0 && facingLeft == false) {
+            facingLeft = true;
+            hitboxCollider.transform.Rotate(0, 180, 0);
         }
-        else if (leftOrRight > 0) {
-            sprite.flipX = false;
+        else if (leftOrRight > 0 && facingLeft == true) {
+            facingLeft = false;
+            hitboxCollider.transform.Rotate(0, 180, 0);
         }
     }
 }

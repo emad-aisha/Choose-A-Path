@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FireballAttack : BasicAttack {
-    enum Type { None, Honing, Boomerang };
+    public enum Type { None, Honing, Boomerang };
     [Header("Fireball Stats")]
     [SerializeField] GameObject fireball;
     [SerializeField] Type type;
@@ -42,12 +42,17 @@ public class FireballAttack : BasicAttack {
         }
     }
 
-    public override void Attack() {
-        if (!canAttack) return;
+    public override bool Attack() {
+        if (!canAttack) return false;
         fireballs = new List<GameObject>();
 
         StartCoroutine(SpawnFireballs());
         StartCoroutine(AttackCooldown());
+        return true;
+    }
+
+    public bool CompareType(Type _type) {
+        return type == _type;
     }
 
     void UpdateDirections(Vector3 direction) {
@@ -75,7 +80,7 @@ public class FireballAttack : BasicAttack {
 
     IEnumerator Comeback() {
         canComeback = false;
-        yield return new WaitForSeconds(cooldown / 2);
+        yield return new WaitForSeconds(lifespan / 2);
         canComeback = true;
     }
 
@@ -88,9 +93,9 @@ public class FireballAttack : BasicAttack {
             fireballDirection = PlayerManager.instance.GetTransform().position;
             GameObject newFireball = Instantiate(fireball, transform.position, Quaternion.identity);
             newFireball.GetComponent<Fireball>().SetDirection(fireballDirection);
-            newFireball.GetComponent<Fireball>().SetLifeSpan(lifespan);
             newFireball.GetComponent<Fireball>().SetSpeed(speed);
             newFireball.GetComponent<Fireball>().SetDamage(damage);
+            newFireball.GetComponent<Fireball>().SetLifeSpan(lifespan);
             if (type == Type.Boomerang) StartCoroutine(Comeback());
 
 

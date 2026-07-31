@@ -30,14 +30,14 @@ public class Dash : BasicAttack {
         transform.position += endPoint;
     }
 
-    public override void Attack() {
-        if (!canAttack) return;
-        Debug.Log("dash");
+    public override bool Attack() {
+        if (!canAttack) return false;
         currentSeed = speed;
         playerPosition = PlayerManager.instance.GetTransform().position;
 
         StartCoroutine(DashCooldown());
         StartCoroutine(AttackCooldown());
+        return true;
     }
 
     IEnumerator DashCooldown() {

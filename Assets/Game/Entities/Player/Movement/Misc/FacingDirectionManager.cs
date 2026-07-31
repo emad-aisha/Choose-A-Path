@@ -12,7 +12,6 @@ public class FacingDirectionManager : Input {
 
     [SerializeField, Range(0, 1080 / 2)] float upperBounds;
     [SerializeField, Range(0, 1080 / 2)] float lowerBounds;
-    float negativeLowerBounds;
     [SerializeField] Color boundsColor;
     [SerializeField] bool isDebugging;
 
@@ -115,7 +114,6 @@ public class FacingDirectionManager : Input {
     void UpdateBoundsVisualizer() {
         upBounds.GetComponent<RectTransform>().sizeDelta = new Vector2(0, upperBounds);
         lowBounds.GetComponent<RectTransform>().sizeDelta = new Vector2(0, lowerBounds);
-        negativeLowerBounds = -lowerBounds;
 
         if (!isDebugging) {
             upBounds.color = new Color(0, 0, 0, 0);
