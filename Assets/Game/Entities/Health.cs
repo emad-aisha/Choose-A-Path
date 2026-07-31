@@ -2,6 +2,8 @@ using System.Collections;
 using UnityEngine;
 
 public class Health : MonoBehaviour {
+    [SerializeField] SpriteRenderer sprite;
+    [SerializeField] Color deadRed = Color.darkRed;
     [SerializeField] int maxHealth;
     int currentHealth;
 
@@ -21,6 +23,7 @@ public class Health : MonoBehaviour {
         isDead = false;
         canBeHurt = true;
     }
+
 
     void Update() {
         if (isDead) {
@@ -44,10 +47,14 @@ public class Health : MonoBehaviour {
         Debug.Log(name + " got hurt " + damangeAmount);
         currentHealth -= damangeAmount;
 
-        StartCoroutine(IFrameTime());
         if (currentHealth <= 0) {
+            if (sprite) sprite.color = deadRed;
+
             currentHealth = 0;
             isDead = true;
+        }
+        else {
+            StartCoroutine(IFrameTime());
         }
     }
 
@@ -70,10 +77,10 @@ public class Health : MonoBehaviour {
     }
 
     bool isTimePaused;
-    IEnumerator IFrameTime() {
+    public IEnumerator IFrameTime(bool ignoreKnockback = false) {
         if (gameObject.CompareTag("Player")) {
             if (!isTimePaused) StartCoroutine(PauseTime());
-            if (!isDead) PlayerManager.instance.GetMovementController().SetKnockback(RandomDirection(), 0.2f);
+            if (!isDead && !ignoreKnockback) PlayerManager.instance.GetMovementController().SetKnockback(RandomDirection(), 0.2f);
         }
         canBeHurt = false;
 

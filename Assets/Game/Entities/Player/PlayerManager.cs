@@ -7,6 +7,7 @@ public class PlayerManager : MonoBehaviour {
 
     [SerializeField] MovementController playerMovementController;
     [SerializeField] SpriteRenderer playerSprite;
+    [SerializeField] Health health;
 
     [Header("Capsules")]
     [SerializeField] CharacterController playerCharacterController;
@@ -86,11 +87,12 @@ public class PlayerManager : MonoBehaviour {
     public bool IsPlayerGrounded() { return playerMovementController.GetComponent<CharacterController>().isGrounded; }
 
     public IEnumerator Respawn(float waitTime) {
-        instance.LockPlayerMovement();
+        LockPlayerMovement();
         yield return new WaitForSeconds(waitTime);
 
         respawn = true;
         yield return new WaitForSeconds(0.02f);
+        StartCoroutine(health.IFrameTime(true));
         respawn = false;
         UnlockPlayerMovement();
     }

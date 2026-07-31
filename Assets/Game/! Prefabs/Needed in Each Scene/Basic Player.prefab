@@ -98,6 +98,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a5d1d047818f344791224399b06528f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
+  sprite: {fileID: 5369568530636744173}
+  deadRed: {r: 0.5450981, g: 0, b: 0, a: 1}
   maxHealth: 5
   IFrames: 2
   flashTimes: 5
@@ -423,6 +425,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   playerMovementController: {fileID: 6408968896645145219}
   playerSprite: {fileID: 5369568530636744173}
+  health: {fileID: 2918597411528873599}
   playerCharacterController: {fileID: 5822296637401734918}
   capsuleCollider: {fileID: 8120574369606515826}
   healthCollider: {fileID: 8515037590764462918}
