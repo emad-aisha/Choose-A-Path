@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class Hurtbox : MonoBehaviour {
@@ -6,7 +5,6 @@ public class Hurtbox : MonoBehaviour {
     bool isDestroyedOnHit = true;
 
     public void SetDestroyOnHit(bool onHit) { isDestroyedOnHit = onHit; }
-
     public void SetDamage(int newDamage) { damage = newDamage; }
 
     void OnTriggerEnter(Collider other) {

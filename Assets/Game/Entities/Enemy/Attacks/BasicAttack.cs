@@ -14,6 +14,9 @@ public abstract class BasicAttack : MonoBehaviour {
     }
 
     public abstract bool Attack();
+    public bool IsAttacking() {
+        return !canAttack;
+    }
 
     protected IEnumerator AttackCooldown() {
         canAttack = false;

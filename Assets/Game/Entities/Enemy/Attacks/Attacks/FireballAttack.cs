@@ -81,6 +81,11 @@ public class FireballAttack : BasicAttack {
     IEnumerator Comeback() {
         canComeback = false;
         yield return new WaitForSeconds(lifespan / 2);
+        if (type == Type.Boomerang) {
+            for (int i = 0; i < fireballs.Count; i++) {
+                fireballs[i].GetComponent<Fireball>().SetSpeed(speed);
+            }
+        }
         canComeback = true;
     }
 
@@ -92,10 +97,12 @@ public class FireballAttack : BasicAttack {
 
             fireballDirection = PlayerManager.instance.GetTransform().position;
             GameObject newFireball = Instantiate(fireball, transform.position, Quaternion.identity);
-            newFireball.GetComponent<Fireball>().SetDirection(fireballDirection);
-            newFireball.GetComponent<Fireball>().SetSpeed(speed);
-            newFireball.GetComponent<Fireball>().SetDamage(damage);
-            newFireball.GetComponent<Fireball>().SetLifeSpan(lifespan);
+            Fireball newFireballComponent = newFireball.GetComponent<Fireball>();
+            newFireballComponent.SetDirection(fireballDirection);
+            newFireballComponent.SetSpeed(speed);
+            newFireballComponent.SetDamage(damage);
+            newFireballComponent.SetLifeSpan(lifespan);
+
             if (type == Type.Boomerang) StartCoroutine(Comeback());
 
 

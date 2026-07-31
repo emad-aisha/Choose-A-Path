@@ -8,7 +8,6 @@ public class Fireball : MonoBehaviour {
     float speed;
 
     float lifeSpan;
-
     Vector3 endDirection;
 
     void Start() {
@@ -25,20 +24,13 @@ public class Fireball : MonoBehaviour {
         transform.position += endPoint;
     }
 
-    public void ResetOriginalPosition() {
-        originalPosition = transform.position;
-    }
-    public void SetDirection(Vector3 newDirection) {
-        direction = newDirection;
-    }
-    public void SetEndDirection(Vector3 newDirection) {
-        endDirection = new Vector3((float)Math.Round(newDirection.x, 2), (float)Math.Round(newDirection.y, 2), (float)Math.Round(newDirection.z, 2));
-    }
+    public void ResetOriginalPosition() { originalPosition = transform.position; }
+    public void SetDirection(Vector3 newDirection) { direction = newDirection; }
+    public void SetEndDirection(Vector3 newDirection) { endDirection = new Vector3((float)Math.Round(newDirection.x, 2), (float)Math.Round(newDirection.y, 2), (float)Math.Round(newDirection.z, 2)); }
 
     public void SetLifeSpan(float newLifeSpan) { lifeSpan = newLifeSpan; }
     public void SetSpeed(float newSpeed) { speed = newSpeed; }
     public void SetDamage(int damage) { GetComponent<Hurtbox>().SetDamage(damage); }
-
 
     IEnumerator StartLife() {
         yield return new WaitForSeconds(lifeSpan);
