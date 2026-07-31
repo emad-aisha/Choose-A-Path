@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Hitbox : MonoBehaviour {
@@ -20,9 +21,22 @@ public class Hitbox : MonoBehaviour {
             if (!health) return;
 
             health.Hurt(damage);
+            StartCoroutine(PauseTime());
             hitSomething = true;
             hitDirection = other.transform.position;
         }
+    }
+
+
+    bool isTimePaused;
+    IEnumerator PauseTime() {
+        if (isTimePaused) yield break;
+        float originalTimeScale = Time.timeScale;
+        Time.timeScale = 0f;
+        isTimePaused = true;
+        yield return new WaitForSecondsRealtime(0.1f);
+        Time.timeScale = originalTimeScale;
+        isTimePaused = false;
     }
 
 }
