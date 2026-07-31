@@ -99,10 +99,6 @@
             "color": "foldercustomization.AnsiColor238"
         },
         {
-            "path": "Choose-A-Path\\Assets\\Game\\Entities\\Player\\Animation\\",
-            "color": "foldercustomization.AnsiColor22"
-        },
-        {
             "path": "Choose-A-Path\\Assets\\Game\\Entities\\Player\\Movement\\Abilities\\Abilities\\",
             "color": "foldercustomization.AnsiColor178"
         },

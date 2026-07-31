@@ -6,17 +6,21 @@ public class AnimationManager : MonoBehaviour {
     [SerializeField] Animator animator;
     [SerializeField] SpriteRenderer sprite;
 
+    // MOVEMENT
     float runSpeed;
     bool isGrounded;
     bool isJumping;
 
+    // GRAPPLING
     bool isGrappling;
     bool isHorizontal;
     bool isVertical;
-
-
     bool hitTarget;
 
+    // ATTACKING
+    bool isAttcking;
+    int leftOrRight;
+    int upOrDown;
 
     void Awake() {
         if (instance == null) instance = this;
@@ -33,6 +37,11 @@ public class AnimationManager : MonoBehaviour {
         animator.SetBool("Is Horizontal", isHorizontal);
         animator.SetBool("Is Vertical", isVertical);
         animator.SetBool("Hit Target", hitTarget);
+
+
+        animator.SetBool("Is Attacking", isAttcking);
+        animator.SetInteger("Left or Right", leftOrRight);
+        animator.SetInteger("Up or Down", upOrDown);
     }
 
     public void SetRunSpeed(float newSpeed) { runSpeed = newSpeed; }
@@ -44,7 +53,9 @@ public class AnimationManager : MonoBehaviour {
     public void SetIsVertical(bool boolValue) { isVertical = boolValue; }
     public void SetHitTarget(bool boolValue) { hitTarget = boolValue; }
 
-
+    public void SetUpOrDown(int value) { upOrDown = value; }
+    public void SetLeftOrRight(int value) { leftOrRight = value; }
+    public void SetIsAttacking(bool value) { isAttcking = value; }
 
     // helpers
     void FlipSprite() {

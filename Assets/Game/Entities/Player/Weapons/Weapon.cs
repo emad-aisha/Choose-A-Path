@@ -31,6 +31,8 @@ public class Weapon : Input {
 
     IEnumerator AttackCooldown() {
         if (!attackAction.WasPressedThisFrame()) yield break;
+        AnimationManager.instance.SetIsAttacking(true);
+        SlashAnimationManager.instance.SetIsAttacking(true);
         isAttacking = true;
 
         hitbox.transform.position = transform.position + (FacingDirectionManager.instance.GetAttackDirection() * distance);
@@ -52,12 +54,19 @@ public class Weapon : Input {
             yield return new WaitForSeconds(Time.deltaTime);
         }
 
-
+        AnimationManager.instance.SetIsAttacking(false);
+        SlashAnimationManager.instance.SetIsAttacking(false);
         hitbox.SetActive(false);
 
 
         yield return new WaitForSeconds(cooldown - damageImage);
         isAttacking = false;
+    }
+
+
+    void ResetDirections() {
+        AnimationManager.instance.SetUpOrDown(0);
+        SlashAnimationManager.instance.SetUpOrDown(0);
     }
 
 }

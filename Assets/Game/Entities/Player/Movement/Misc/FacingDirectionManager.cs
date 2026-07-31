@@ -52,13 +52,34 @@ public class FacingDirectionManager : Input {
 
     public Vector3 GetAttackDirection() {
         if (PlayerManager.instance.GetMovementController().GetIsGrounded()) {
-            if (math.round((verticalPosition - playerPosition).y) == 1) return PlayerManager.instance.GetTransform().up.normalized;
-            else return (horizontalPosition - playerPosition).normalized;
+            if (math.round((verticalPosition - playerPosition).y) == 1) {
+                SetAnimationDirection((int)math.round((horizontalPosition - playerPosition).x), 1);
+                return PlayerManager.instance.GetTransform().up.normalized;
+            }
+            else {
+                SetAnimationDirection((int)math.round((horizontalPosition - playerPosition).x), (int)math.round((horizontalPosition - playerPosition).y));
+                return (horizontalPosition - playerPosition).normalized;
+            }
         }
         else {
-            if ((verticalPosition - playerPosition).y != 0) return (verticalPosition - playerPosition).normalized;
-            else return (horizontalPosition - playerPosition).normalized;
+            if ((verticalPosition - playerPosition).y != 0) {
+                SetAnimationDirection((int)math.round((horizontalPosition - playerPosition).x), (int)math.round((verticalPosition - playerPosition).y));
+                return (verticalPosition - playerPosition).normalized;
+            }
+            else {
+                SetAnimationDirection((int)math.round((horizontalPosition - playerPosition).x), (int)math.round((horizontalPosition - playerPosition).y));
+                return (horizontalPosition - playerPosition).normalized;
+            }
         }
+    }
+
+
+    void SetAnimationDirection(int leftOrRight, int upOrDown) {
+        AnimationManager.instance.SetUpOrDown(upOrDown);
+        SlashAnimationManager.instance.SetUpOrDown(upOrDown);
+
+        AnimationManager.instance.SetLeftOrRight(leftOrRight);
+        SlashAnimationManager.instance.SetLeftOrRight(leftOrRight);
     }
 
 }
