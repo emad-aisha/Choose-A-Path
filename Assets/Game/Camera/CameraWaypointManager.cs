@@ -36,7 +36,7 @@ public class CameraWaypointManager : MonoBehaviour {
         if (!PlayerManager.instance.GetMovementController().GetIsGrounded()) {
             // if player is too far, move
             if (math.distance(playerPosition.y, waypoint.transform.position.y) > distanceLimit) playerPosition.y += yOffset;
-            if (math.distance(playerPosition.y, waypoint.transform.position.y) > distanceLimit * distanceLimit) playerPosition.y += yOffset * distanceLimit;
+            else if (math.distance(playerPosition.y, waypoint.transform.position.y) > distanceLimit * distanceLimit) playerPosition.y += yOffset * distanceLimit;
             else playerPosition.y = waypoint.transform.position.y;
         }
         else {

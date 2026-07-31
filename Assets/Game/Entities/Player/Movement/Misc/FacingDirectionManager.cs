@@ -1,11 +1,19 @@
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class FacingDirectionManager : Input {
     public static FacingDirectionManager instance;
-    [SerializeField] float upperBounds;
-    [SerializeField] float lowerBounds;
+
+    [Header("Bounds")]
+    [SerializeField] Image upBounds;
+    [SerializeField] Image lowBounds;
+    [SerializeField, Range(0, 1080 / 2)] float upperBounds;
+    [SerializeField, Range(0, 1080 / 2)] float lowerBounds;
+    float negativeLowerBounds;
+    [SerializeField] bool isDebugging;
+
     Vector3 playerPosition;
 
     InputAction mousePos;
@@ -17,32 +25,28 @@ public class FacingDirectionManager : Input {
 
     void Awake() {
         if (instance == null) instance = this;
+        UpdateBounds();
+
         mousePos = InputManager.instance.GetAction(actionName, "Mouse Position");
         moveAction = InputManager.instance.GetAction(actionName, "Move");
 
         playerPosition = PlayerManager.instance.GetTransform().position;
-
         moveDirection.x = 1;
     }
 
     void Update() {
         if (Time.timeScale == 0) return;
+        UpdateBounds();
         playerPosition = PlayerManager.instance.GetTransform().position;
 
         moveDirection.y = mousePos.ReadValue<Vector2>().y;
         moveDirection.y -= Screen.height / 2;
         if (moveAction.ReadValue<Vector2>().x != 0) moveDirection.x = moveAction.ReadValue<Vector2>().x;
+        ClampMoveDirection();
 
-        if (moveDirection.y < lowerBounds) moveDirection.y = -1;
-        else if (moveDirection.y < upperBounds) moveDirection.y = 0;
-        else moveDirection.y = 1;
-
-        if (moveDirection.x < 0) moveDirection.x = -1;
-        else if (moveDirection.x > 0) moveDirection.x = 1;
-
-        transform.position = new Vector3(moveDirection.x, moveDirection.y, 0) + playerPosition;
-        horizontalPosition = new Vector3(moveDirection.x, 0, 0) + playerPosition;
-        verticalPosition = new Vector3(0, moveDirection.y, 0) + playerPosition;
+        transform.position = new Vector3(moveDirection.x, moveDirection.y) + playerPosition;
+        horizontalPosition = new Vector3(moveDirection.x, 0) + playerPosition;
+        verticalPosition = new Vector3(0, moveDirection.y) + playerPosition;
     }
 
 
@@ -73,13 +77,37 @@ public class FacingDirectionManager : Input {
         }
     }
 
-
     void SetAnimationDirection(int leftOrRight, int upOrDown) {
         AnimationManager.instance.SetUpOrDown(upOrDown);
         SlashAnimationManager.instance.SetUpOrDown(upOrDown);
 
         AnimationManager.instance.SetLeftOrRight(leftOrRight);
         SlashAnimationManager.instance.SetLeftOrRight(leftOrRight);
+    }
+
+
+
+    void ClampMoveDirection() {
+        if (moveDirection.y < negativeLowerBounds) moveDirection.y = -1;
+        else if (moveDirection.y < upperBounds) moveDirection.y = 0;
+        else moveDirection.y = 1;
+
+        if (moveDirection.x < 0) moveDirection.x = -1;
+        else if (moveDirection.x > 0) moveDirection.x = 1;
+    }
+
+    void UpdateBounds() {
+        if (isDebugging) {
+            upBounds.GetComponent<RectTransform>().sizeDelta = new Vector2(0, upperBounds);
+            if (lowerBounds > 0) {
+                lowBounds.GetComponent<RectTransform>().sizeDelta = new Vector2(0, lowerBounds);
+                negativeLowerBounds = -lowerBounds;
+            }
+        }
+        else {
+            upBounds.GetComponent<RectTransform>().sizeDelta = Vector2.zero;
+            lowBounds.GetComponent<RectTransform>().sizeDelta = Vector2.zero;
+        }
     }
 
 }
