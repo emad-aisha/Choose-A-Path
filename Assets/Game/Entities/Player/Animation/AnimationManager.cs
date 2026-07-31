@@ -27,6 +27,7 @@ public class AnimationManager : MonoBehaviour {
     }
 
     void Update() {
+        if (Time.timeScale == 0) return;
         FlipSprite();
 
         animator.SetFloat("Run Speed", math.abs(runSpeed));

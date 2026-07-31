@@ -14,6 +14,7 @@ public class SlashAnimationManager : MonoBehaviour {
     }
 
     void Update() {
+        if (Time.timeScale == 0) return;
         FlipSprite();
         if (!animator.gameObject.activeSelf) return; // if inactive, dont do anything
 
