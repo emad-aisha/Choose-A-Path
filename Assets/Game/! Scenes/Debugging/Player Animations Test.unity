@@ -540,6 +540,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Camera Waypoints Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 6610626358934027675, guid: a47c54853fe6c1848ab4d1bbc44a1829, type: 3}
+      propertyPath: distanceLimit
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6892104080127125667, guid: a47c54853fe6c1848ab4d1bbc44a1829, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -769,11 +773,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2764167872142788308, guid: b63030055cc767f4fb19e3f48e7080e7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.75
+      value: -6.5
       objectReference: {fileID: 0}
     - target: {fileID: 2764167872142788308, guid: b63030055cc767f4fb19e3f48e7080e7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 2764167872142788308, guid: b63030055cc767f4fb19e3f48e7080e7, type: 3}
       propertyPath: m_LocalPosition.z

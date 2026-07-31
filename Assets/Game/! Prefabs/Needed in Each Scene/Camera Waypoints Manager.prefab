@@ -51,7 +51,7 @@ MonoBehaviour:
   downBounds: {fileID: 0}
   distanceFromBounds: 0
   waypoint: {fileID: 7579274881258564015}
-  distanceLimit: 2
+  distanceLimit: 1.5
   yOffset: 0.6
   XmovePercentage: 0.2
   YmovePercentage: 0.025
