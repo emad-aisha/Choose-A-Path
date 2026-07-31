@@ -153,7 +153,6 @@ public class MovementController : Input {
     }
 
     void CheckGrounded() {
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.05f, ~ignoreLayer);
         AnimationManager.instance.SetIsGrounded(isGrounded);
     }
 
@@ -183,12 +182,14 @@ public class MovementController : Input {
     public void LockMovement() { resetMovement = true; }
     public void UnlockMovement() { resetMovement = false; }
 
+    public void SetGrounded(bool _isGrounded) { isGrounded = _isGrounded; }
     public bool GetIsGrounded() { return isGrounded; }
 
     public float GetMovementSpeed() { return speed; }
     public void SetMovementSpeed(float newSpeed) { speed = newSpeed; }
 
     public void SetMaxJumps(int newJumps) { maxJumps = newJumps; }
+
 
 
 }
