@@ -45,6 +45,7 @@ public class PlayerManager : MonoBehaviour {
         transform.position = position;
     }
 
+    public void SetRespawnPoint(Vector3 newposition) { respawnPoint = newposition; }
     public Vector3 GetRespawnPoint() { return respawnPoint; }
     public Transform GetTransform() { return transform; }
     public CharacterController GetCharacterController() { return playerCharacterController; }
