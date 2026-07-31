@@ -11,7 +11,6 @@ public class HitFloor : MonoBehaviour {
     void OnTriggerEnter(Collider other) {
         bool comparison = NotTags(other);
         if (canCheckCollision && comparison) {
-            Debug.Log("floor");
             PlayerManager.instance.GetMovementController().SetGrounded(true);
             StartCoroutine(Wait());
         }
@@ -20,7 +19,6 @@ public class HitFloor : MonoBehaviour {
     void OnTriggerExit(Collider other) {
         bool comparison = NotTags(other);
         if (canCheckCollision && comparison) {
-            Debug.Log("no floor");
             PlayerManager.instance.GetMovementController().SetGrounded(false);
             StartCoroutine(Wait());
         }
