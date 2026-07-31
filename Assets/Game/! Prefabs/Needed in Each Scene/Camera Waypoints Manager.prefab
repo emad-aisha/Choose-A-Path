@@ -49,7 +49,8 @@ MonoBehaviour:
   leftBounds: {fileID: 0}
   upBounds: {fileID: 0}
   downBounds: {fileID: 0}
-  distanceFromBounds: 0
+  horizontalDistanceFromBounds: 7
+  verticalDistanceFromBounds: 3.5
   waypoint: {fileID: 7579274881258564015}
   distanceLimit: 1.5
   yOffset: 0.6

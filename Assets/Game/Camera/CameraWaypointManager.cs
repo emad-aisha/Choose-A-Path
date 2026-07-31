@@ -9,7 +9,8 @@ public class CameraWaypointManager : MonoBehaviour {
     [SerializeField] GameObject leftBounds;
     [SerializeField] GameObject upBounds;
     [SerializeField] GameObject downBounds;
-    [SerializeField] float distanceFromBounds;
+    [SerializeField, InspectorName("Horizontal Clamp")] float horizontalDistanceFromBounds;
+    [SerializeField, InspectorName("Vertical Clamp")] float verticalDistanceFromBounds;
 
     [Header("Waypoints")]
     [SerializeField] GameObject waypoint;
@@ -28,11 +29,13 @@ public class CameraWaypointManager : MonoBehaviour {
     }
 
     void Update() {
-        WaypointMovement();
+        UpdatePlayerPosition();
+        UpdatePosition();
     }
 
-    void WaypointMovement() {
+    void UpdatePlayerPosition() {
         playerPosition = PlayerManager.instance.GetTransform().position;
+
         if (!PlayerManager.instance.GetMovementController().GetIsGrounded()) {
             // if player is too far, move
             if (math.distance(playerPosition.y, waypoint.transform.position.y) > distanceLimit) playerPosition.y += yOffset;
@@ -42,14 +45,39 @@ public class CameraWaypointManager : MonoBehaviour {
         else {
             playerPosition.y += yOffset;
         }
+    }
 
-        //playerPosition.y += yOffset;
+    void ClampFromBounds() {
+        ClampHorizontal(rightBounds);
+        ClampHorizontal(leftBounds);
+
+        ClampVertical(upBounds);
+        ClampVertical(downBounds);
+    }
+
+
+    void UpdatePosition() {
         movePosition = playerPosition - waypoint.transform.position;
 
         movePosition.x *= XmovePercentage;
         movePosition.y *= YmovePercentage;
 
+        ClampFromBounds();
         waypoint.transform.position += movePosition;
+    }
+
+    void ClampHorizontal(GameObject bound) {
+        if (math.distance(bound.transform.position.x, playerPosition.x) > horizontalDistanceFromBounds) { }
+        else if (math.distance(bound.transform.position.x, waypoint.transform.position.x) < horizontalDistanceFromBounds) {
+            movePosition.x = 0; // dont move right
+        }
+    }
+
+    void ClampVertical(GameObject bound) {
+        if (math.distance(bound.transform.position.y, playerPosition.y) > verticalDistanceFromBounds) { }
+        else if (math.distance(bound.transform.position.y, waypoint.transform.position.y) < verticalDistanceFromBounds) {
+            movePosition.y = 0; // dont move right
+        }
     }
 
 
