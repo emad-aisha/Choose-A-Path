@@ -343,12 +343,12 @@ MonoBehaviour:
   ignoreLayer:
     serializedVersion: 2
     m_Bits: 76
-  speed: 5
-  maxSprint: 2
+  speed: 6
+  maxSprint: 1.5
   sprintTimer: 0.2
-  jumpSpeed: 2.5
+  jumpSpeed: 1.6
   gravity: 8
-  jumpMod: 5
+  jumpMod: 9
   jumpTimer: 0.2
   coyoteTime: 0.18
 --- !u!143 &5822296637401734918
@@ -560,6 +560,10 @@ PrefabInstance:
     - target: {fileID: 6438438336999259699, guid: b67be319b2838984095c01ab079a7e09, type: 3}
       propertyPath: m_Name
       value: Base Weapon
+      objectReference: {fileID: 0}
+    - target: {fileID: 8079788790296840581, guid: b67be319b2838984095c01ab079a7e09, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
