@@ -20,6 +20,7 @@ public class MovementController : Input {
     [Header("Jump Stats")]
     [SerializeField] float jumpSpeed;
     [SerializeField] float gravity;
+    [SerializeField] float maxfallVelocity;
 
     [Header("Jump Variation")]
     [SerializeField] float jumpMod;
@@ -141,9 +142,8 @@ public class MovementController : Input {
             jumpVelocity = Vector3.zero;
             internalJumpTimer = 0;
             jumps = 0;
-            //PlayerManager.instance.ResetCharacterCapsule();
         }
-        else {
+        else if (jumpVelocity.y > -maxfallVelocity) {
             jumpVelocity.y -= gravity * Time.deltaTime;
         }
 

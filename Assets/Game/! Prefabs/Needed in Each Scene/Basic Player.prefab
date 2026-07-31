@@ -348,6 +348,7 @@ MonoBehaviour:
   sprintTimer: 0.2
   jumpSpeed: 1.6
   gravity: 8
+  maxfallVelocity: 6
   jumpMod: 9
   jumpTimer: 0.2
   coyoteTime: 0.18
