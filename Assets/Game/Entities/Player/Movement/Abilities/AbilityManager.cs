@@ -6,6 +6,7 @@ public class AbilityManager : MonoBehaviour {
     MovementController playerMovementController;
     [SerializeField] GameObject grapple;
     [SerializeField] GameObject top;
+    [SerializeField] GameObject weapon;
 
     bool hitSomething = false;
     Vector3 originalPosition = Vector3.zero;
@@ -77,13 +78,13 @@ public class AbilityManager : MonoBehaviour {
 
     public void SetGrappleAbility(GameObject _grapple) { grapple = _grapple; }
     public void SetTopAbility(GameObject _top) { top = _top; }
+    public void SetWeaponAbility(GameObject _weapon) { weapon = _weapon; }
 
     public IEnumerator DisableAbilities(float time) {
-        if (grapple && !grapple.activeSelf) yield break;
-        if (top && !top.activeSelf) yield break;
-
-        if (grapple) grapple.SetActive(false);
-        if (top) top.SetActive(false);
+        // TODO: should this disable weaopn?
+        // TODO: update?
+        if (grapple && !grapple.activeSelf) grapple.SetActive(false);
+        if (top && !top.activeSelf) top.SetActive(false);
         yield return new WaitForSeconds(time);
         if (grapple) grapple.SetActive(true);
         if (top) top.SetActive(true);

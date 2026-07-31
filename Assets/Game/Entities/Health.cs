@@ -1,13 +1,19 @@
 using System.Collections;
-using NUnit.Framework;
 using UnityEngine;
 
 public class Health : MonoBehaviour {
     [SerializeField] int maxHealth;
-    [SerializeField] float Iframes;
     int currentHealth;
-    bool isDead;
 
+    [Header("IFrame Stats")]
+    [SerializeField] float IFrames;
+    [SerializeField] float flashTimes;
+
+    [Header("IFrame Colors")]
+    [SerializeField] Color grayedOut;
+    [SerializeField] Color lightGrayedOut;
+
+    bool isDead;
     bool canBeHurt;
 
     void Start() {
@@ -38,7 +44,7 @@ public class Health : MonoBehaviour {
         Debug.Log(name + " got hurt " + damangeAmount);
         currentHealth -= damangeAmount;
 
-        StartCoroutine(IFrames());
+        StartCoroutine(IFrameTime());
         if (currentHealth <= 0) {
             currentHealth = 0;
             isDead = true;
@@ -64,14 +70,26 @@ public class Health : MonoBehaviour {
     }
 
     bool isTimePaused;
-    IEnumerator IFrames() {
+    IEnumerator IFrameTime() {
         if (gameObject.CompareTag("Player")) {
             if (!isTimePaused) StartCoroutine(PauseTime());
             if (!isDead) PlayerManager.instance.GetMovementController().SetKnockback(RandomDirection(), 0.2f);
         }
-
         canBeHurt = false;
-        yield return new WaitForSeconds(Iframes);
+
+        float time = 0;
+        float flashTime = IFrames / flashTimes;
+        while (time < IFrames) {
+            PlayerManager.instance.SetSpriteRendererColor(lightGrayedOut);
+            yield return new WaitForSeconds(flashTime);
+            time += flashTime;
+
+            PlayerManager.instance.SetSpriteRendererColor(grayedOut);
+            yield return new WaitForSeconds(flashTime);
+            time += flashTime;
+        }
+
+        PlayerManager.instance.ResetSpriteRendererColor();
         canBeHurt = true;
     }
 

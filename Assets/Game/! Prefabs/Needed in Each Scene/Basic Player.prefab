@@ -50,6 +50,7 @@ MonoBehaviour:
   lowBounds: {fileID: 2349863331259193030}
   upperBounds: 135
   lowerBounds: 275
+  isDebugging: 0
 --- !u!1 &3464964895757619900
 GameObject:
   m_ObjectHideFlags: 0
@@ -97,7 +98,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
   maxHealth: 5
-  Iframes: 2
+  IFrames: 2
+  flashTimes: 5
+  grayedOut: {r: 0.46540874, g: 0.46540874, b: 0.46540874, a: 1}
+  lightGrayedOut: {r: 0.735849, g: 0.735849, b: 0.735849, a: 1}
 --- !u!33 &762385736963168699
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -417,6 +421,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   playerMovementController: {fileID: 6408968896645145219}
+  playerSprite: {fileID: 5369568530636744173}
   playerCharacterController: {fileID: 5822296637401734918}
   capsuleCollider: {fileID: 8120574369606515826}
   healthCollider: {fileID: 8515037590764462918}
@@ -434,6 +439,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AbilityManager
   grapple: {fileID: 0}
   top: {fileID: 0}
+  weapon: {fileID: 0}
 --- !u!114 &6408968896645145219
 MonoBehaviour:
   m_ObjectHideFlags: 0

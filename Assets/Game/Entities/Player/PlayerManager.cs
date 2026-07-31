@@ -6,6 +6,7 @@ public class PlayerManager : MonoBehaviour {
     public static PlayerManager instance;
 
     [SerializeField] MovementController playerMovementController;
+    [SerializeField] SpriteRenderer playerSprite;
 
     [Header("Capsules")]
     [SerializeField] CharacterController playerCharacterController;
@@ -48,6 +49,9 @@ public class PlayerManager : MonoBehaviour {
     public Transform GetTransform() { return transform; }
     public CharacterController GetCharacterController() { return playerCharacterController; }
     public MovementController GetMovementController() { return playerMovementController; }
+
+    public void SetSpriteRendererColor(Color color) { playerSprite.color = color; }
+    public void ResetSpriteRendererColor() { playerSprite.color = Color.white; }
 
     public void UpdateCharacterCapsule(float height, Vector3 center) {
         playerCharacterController.height = height;
