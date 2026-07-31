@@ -48,8 +48,9 @@ MonoBehaviour:
   actionName: Player
   upBounds: {fileID: 4870363088051382161}
   lowBounds: {fileID: 2349863331259193030}
-  upperBounds: 135
-  lowerBounds: 275
+  upperBounds: 140
+  lowerBounds: 220
+  boundsColor: {r: 0.38307658, g: 0.6415094, b: 0.34496254, a: 0.40392157}
   isDebugging: 0
 --- !u!1 &3464964895757619900
 GameObject:

@@ -52,7 +52,7 @@ MonoBehaviour:
   horizontalDistanceFromBounds: 7
   verticalDistanceFromBounds: 3.5
   waypoint: {fileID: 7579274881258564015}
-  distanceLimit: 1.5
+  distanceLimit: 1.2
   yOffset: 0.6
   XmovePercentage: 0.2
   YmovePercentage: 0.025

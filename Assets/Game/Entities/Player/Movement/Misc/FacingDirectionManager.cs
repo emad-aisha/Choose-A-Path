@@ -9,9 +9,11 @@ public class FacingDirectionManager : Input {
     [Header("Bounds")]
     [SerializeField] Image upBounds;
     [SerializeField] Image lowBounds;
+
     [SerializeField, Range(0, 1080 / 2)] float upperBounds;
     [SerializeField, Range(0, 1080 / 2)] float lowerBounds;
     float negativeLowerBounds;
+    [SerializeField] Color boundsColor;
     [SerializeField] bool isDebugging;
 
     Vector3 playerPosition;
@@ -25,7 +27,7 @@ public class FacingDirectionManager : Input {
 
     void Awake() {
         if (instance == null) instance = this;
-        UpdateBounds();
+        UpdateBoundsVisualizer();
 
         mousePos = InputManager.instance.GetAction(actionName, "Mouse Position");
         moveAction = InputManager.instance.GetAction(actionName, "Move");
@@ -36,12 +38,12 @@ public class FacingDirectionManager : Input {
 
     void Update() {
         if (Time.timeScale == 0) return;
-        UpdateBounds();
         playerPosition = PlayerManager.instance.GetTransform().position;
 
-        moveDirection.y = mousePos.ReadValue<Vector2>().y;
-        moveDirection.y -= Screen.height / 2;
         if (moveAction.ReadValue<Vector2>().x != 0) moveDirection.x = moveAction.ReadValue<Vector2>().x;
+        UpdateBoundsY(playerPosition.y);
+        UpdateBoundsVisualizer();
+
         ClampMoveDirection();
 
         transform.position = new Vector3(moveDirection.x, moveDirection.y) + playerPosition;
@@ -85,28 +87,43 @@ public class FacingDirectionManager : Input {
         SlashAnimationManager.instance.SetLeftOrRight(leftOrRight);
     }
 
+    void ClampYMoveDirection() {
+        Vector3 mousePosition = mousePos.ReadValue<Vector2>();
 
+        bool inBounds = RectTransformUtility.RectangleContainsScreenPoint(upBounds.GetComponent<RectTransform>(), mousePosition) ||
+            RectTransformUtility.RectangleContainsScreenPoint(lowBounds.GetComponent<RectTransform>(), mousePosition);
+        bool isOverBounds = mousePosition.y > upBounds.GetComponent<RectTransform>().rect.yMax + upBounds.GetComponent<RectTransform>().position.y;
+
+        if (inBounds) moveDirection.y = 0;
+        else if (isOverBounds) moveDirection.y = 1;
+        else moveDirection.y = -1;
+    }
 
     void ClampMoveDirection() {
-        if (moveDirection.y < negativeLowerBounds) moveDirection.y = -1;
-        else if (moveDirection.y < upperBounds) moveDirection.y = 0;
-        else moveDirection.y = 1;
-
+        ClampYMoveDirection();
         if (moveDirection.x < 0) moveDirection.x = -1;
         else if (moveDirection.x > 0) moveDirection.x = 1;
     }
 
-    void UpdateBounds() {
-        if (isDebugging) {
-            upBounds.GetComponent<RectTransform>().sizeDelta = new Vector2(0, upperBounds);
-            if (lowerBounds > 0) {
-                lowBounds.GetComponent<RectTransform>().sizeDelta = new Vector2(0, lowerBounds);
-                negativeLowerBounds = -lowerBounds;
-            }
+    void UpdateBoundsY(float y) {
+        Vector3 position = new Vector3(Camera.main.WorldToScreenPoint(playerPosition).x, Camera.main.WorldToScreenPoint(playerPosition).y, 0);
+
+        upBounds.GetComponent<RectTransform>().position = position;
+        lowBounds.GetComponent<RectTransform>().position = position;
+    }
+
+    void UpdateBoundsVisualizer() {
+        upBounds.GetComponent<RectTransform>().sizeDelta = new Vector2(0, upperBounds);
+        lowBounds.GetComponent<RectTransform>().sizeDelta = new Vector2(0, lowerBounds);
+        negativeLowerBounds = -lowerBounds;
+
+        if (!isDebugging) {
+            upBounds.color = new Color(0, 0, 0, 0);
+            lowBounds.color = new Color(0, 0, 0, 0);
         }
         else {
-            upBounds.GetComponent<RectTransform>().sizeDelta = Vector2.zero;
-            lowBounds.GetComponent<RectTransform>().sizeDelta = Vector2.zero;
+            upBounds.color = boundsColor;
+            lowBounds.color = boundsColor;
         }
     }
 
