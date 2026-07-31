@@ -15,6 +15,7 @@ public class SlashAnimationManager : MonoBehaviour {
 
     void Update() {
         FlipSprite();
+        if (!animator.gameObject.activeSelf) return; // if inactive, dont do anything
 
         animator.SetBool("Is Attacking", isAttacking);
         animator.SetInteger("Up or Down", upOrDown);
