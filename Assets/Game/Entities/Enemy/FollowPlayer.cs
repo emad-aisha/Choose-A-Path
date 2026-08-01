@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class FollowPlayer : MonoBehaviour {
+    [SerializeField] EnemyAnimationManager animationManager;
+
     [Header("Bob Stats")]
     [SerializeField, Range(0, 0.1f)] float range;
     [SerializeField, Range(0, 0.1f)] float wait;
@@ -30,6 +32,7 @@ public class FollowPlayer : MonoBehaviour {
     void Start() {
         canAttack = true;
         attack = GetComponent<BasicAttack>();
+        attack.SetAnimationMangaer(animationManager);
         agent = GetComponent<NavMeshAgent>();
         originalRotation = transform.rotation;
 

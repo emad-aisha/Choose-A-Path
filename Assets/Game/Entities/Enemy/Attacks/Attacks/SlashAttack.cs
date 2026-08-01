@@ -23,6 +23,7 @@ public class Slash : BasicAttack {
         yield return new WaitForSeconds(windup);
         hurtBox.SetActive(true);
         yield return new WaitForSeconds(timeOnScreen);
+        animationManager.SetAttacking(false);
         hurtBox.SetActive(false);
     }
 }

@@ -82,11 +82,7 @@ public class FireballAttack : BasicAttack {
     IEnumerator Comeback() {
         canComeback = false;
         yield return new WaitForSeconds(lifespan / 2);
-        if (type == Type.Boomerang) {
-            for (int i = 0; i < fireballs.Count; i++) {
-                //if (fireballs[i]) fireballs[i].GetComponent<Fireball>().SetSpeed(speed);
-            }
-        }
+        animationManager.SetAttacking(false);
         canComeback = true;
     }
 

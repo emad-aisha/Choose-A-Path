@@ -41,9 +41,13 @@ public class Dash : BasicAttack {
     }
 
     IEnumerator DashCooldown() {
+        animationManager.SetAttacking(true);
+        animationManager.SetWinding(true);
         yield return new WaitForSeconds(windup);
+        animationManager.SetWinding(false);
         isDashing = true;
         yield return new WaitForSeconds(dashDuration);
+        animationManager.SetAttacking(false);
         isDashing = false;
     }
 
