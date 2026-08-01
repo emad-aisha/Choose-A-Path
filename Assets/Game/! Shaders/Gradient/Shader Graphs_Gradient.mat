@@ -54,11 +54,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Power: 1.68
+    - _Power: 4.56
     m_Colors:
     - White: {r: 1, g: 1, b: 1, a: 1}
-    - _Bottom_Color: {r: 0.899371, g: 0.17817716, b: 0.8475918, a: 1}
+    - _Bottom_Color: {r: 0.14763623, g: 0.074759625, b: 0.6792453, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Top_Color: {r: 0.88328636, g: 0.9622642, b: 0.06959764, a: 1}
+    - _Top_Color: {r: 0.9607843, g: 0.070588246, b: 0.9295346, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
