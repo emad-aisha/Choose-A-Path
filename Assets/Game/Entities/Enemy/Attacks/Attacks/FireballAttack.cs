@@ -8,6 +8,7 @@ public class FireballAttack : BasicAttack {
     [SerializeField] GameObject fireball;
     [SerializeField] Type type;
     [SerializeField] int numberOfFireballs;
+    [SerializeField] float wait;
     [SerializeField] float speed;
     [SerializeField] float acceleration;
     [SerializeField] float lifespan;
@@ -87,7 +88,10 @@ public class FireballAttack : BasicAttack {
     }
 
     IEnumerator SpawnFireballs() {
+        animationManager.SetWinding(true);
+        animationManager.SetAttacking(false);
         yield return new WaitForSeconds(windup);
+        animationManager.SetWinding(false);
         int currentNumberOfFireballs = 0;
         while (currentNumberOfFireballs < numberOfFireballs) {
             currentNumberOfFireballs++;
@@ -105,7 +109,8 @@ public class FireballAttack : BasicAttack {
 
 
             fireballs.Add(newFireball);
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(wait);
         }
+        animationManager.SetAttacking(false);
     }
 }
