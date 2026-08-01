@@ -26,14 +26,16 @@ public class FollowPlayer : MonoBehaviour {
 
     Vector2 originalPosition;
 
-
+    Quaternion originalRotation;
     void Start() {
         canAttack = true;
         attack = GetComponent<BasicAttack>();
         agent = GetComponent<NavMeshAgent>();
+        originalRotation = transform.rotation;
 
         agent.speed = speed;
         agent.stoppingDistance = hoverDistance;
+        agent.updateRotation = false;
         isUp = false;
     }
 
@@ -55,6 +57,8 @@ public class FollowPlayer : MonoBehaviour {
         if (isAttacking && attack is FireballAttack && ((FireballAttack)attack).CompareType(FireballAttack.Type.Boomerang)) {
             transform.position = originalPosition;
         }
+
+        transform.rotation = originalRotation;
     }
 
     void TryAttack() {
