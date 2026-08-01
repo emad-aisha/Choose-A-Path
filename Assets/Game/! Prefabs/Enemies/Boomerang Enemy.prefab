@@ -291,6 +291,7 @@ MonoBehaviour:
   fireball: {fileID: 4218354466306079085, guid: 921c38fec8d0ac34f80dd5b457badf56, type: 3}
   type: 2
   numberOfFireballs: 1
+  wait: 0
   speed: 3
   acceleration: 10
   lifespan: 2

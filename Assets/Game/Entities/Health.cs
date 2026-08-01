@@ -46,6 +46,8 @@ public class Health : MonoBehaviour {
         if (!canBeHurt) return;
         Debug.Log(name + " got hurt " + damangeAmount);
         currentHealth -= damangeAmount;
+        StartCoroutine(FlashRed(0.01f));
+
 
         if (currentHealth <= 0) {
             if (sprite) sprite.color = deadRed;
@@ -98,6 +100,14 @@ public class Health : MonoBehaviour {
 
         PlayerManager.instance.ResetSpriteRendererColor();
         canBeHurt = true;
+    }
+
+    public IEnumerator FlashRed(float wait) {
+        if (gameObject.CompareTag("Player")) yield break;
+
+        if (sprite) sprite.color = deadRed; // temp for fx
+        yield return new WaitForSeconds(wait);
+        if (sprite) sprite.color = Color.white;
     }
 
     IEnumerator PauseTime() {
