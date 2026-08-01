@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_Gradient
+  m_Name: Pink To Purple
   m_Shader: {fileID: -6465566751694194690, guid: 0aa5c1151c9bf75448cf0eab8581b9aa, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
