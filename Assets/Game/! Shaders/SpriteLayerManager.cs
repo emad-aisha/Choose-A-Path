@@ -6,7 +6,7 @@ public class SpriteLayerManager : MonoBehaviour {
         SpriteRenderer[] sprites = GetComponentsInChildren<SpriteRenderer>();
 
         for (int i = 0; i < sprites.Length; i++) {
-            sprites[i].sortingOrder = (int)(sprites[i].transform.position.z / 100);
+            sprites[i].sortingOrder = (int)-sprites[i].transform.position.z;
         }
     }
 
