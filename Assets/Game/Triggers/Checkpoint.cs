@@ -5,7 +5,7 @@ public class Checkpoint : MonoBehaviour {
 
     void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Player Parent")) {
-            PlayerManager.instance.SetRespawnPoint(respawnPoint.position);
+            PlayerManager.instance.SetCheckPoint(respawnPoint.position);
             Debug.Log("Checkpoint Got");
         }
     }

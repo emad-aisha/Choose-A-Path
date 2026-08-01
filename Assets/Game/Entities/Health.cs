@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Health : MonoBehaviour {
     [SerializeField] SpriteRenderer sprite;
@@ -17,30 +18,29 @@ public class Health : MonoBehaviour {
 
     bool isDead;
     bool canBeHurt;
+    UnityEvent die;
 
     void Start() {
         currentHealth = maxHealth;
         isDead = false;
         canBeHurt = true;
+
+        die = new UnityEvent();
+        die.AddListener(Die);
     }
 
 
-    void Update() {
-        if (isDead) {
-            Debug.Log(name + " died");
+    public void Die() {
+        Debug.Log(name + " died");
 
-            if (gameObject.CompareTag("Enemy")) Destroy(gameObject);
-            if (gameObject.CompareTag("Player")) {
-                // TODO: play a flashy animation idk
-                ResetHealth();
-                StartCoroutine(PlayerManager.instance.Respawn(1));
-                return;
-            }
-
-            enabled = false;
+        if (gameObject.CompareTag("Enemy")) Destroy(gameObject);
+        if (gameObject.CompareTag("Player")) {
+            // TODO: play a flashy animation idk
+            ResetHealth();
+            StartCoroutine(PlayerManager.instance.Respawn(1));
+            return;
         }
     }
-
 
     public void Hurt(int damangeAmount) {
         if (!canBeHurt) return;
@@ -54,6 +54,7 @@ public class Health : MonoBehaviour {
 
             currentHealth = 0;
             isDead = true;
+            die.Invoke();
         }
         else {
             StartCoroutine(IFrameTime());

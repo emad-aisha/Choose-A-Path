@@ -18,6 +18,7 @@ public class PlayerManager : MonoBehaviour {
     Vector3 center;
 
     Vector3 respawnPoint;
+    Vector3 checkPoint;
 
     void Awake() {
         if (instance == null) instance = this;
@@ -34,19 +35,23 @@ public class PlayerManager : MonoBehaviour {
         healthCollider.center = center;
 
         respawnPoint = GameObject.FindGameObjectWithTag("Respawn").transform.position;
+        checkPoint = respawnPoint;
     }
 
     bool respawn = false;
+    bool lastCheckpoint = false;
 
     void LateUpdate() {
         Vector3 position = transform.position;
         if (respawn) position = respawnPoint;
+        if (lastCheckpoint) position = checkPoint;
 
         position.z = 0;
         transform.position = position;
     }
 
     public void SetRespawnPoint(Vector3 newposition) { respawnPoint = newposition; }
+    public void SetCheckPoint(Vector3 newposition) { checkPoint = newposition; }
     public Vector3 GetRespawnPoint() { return respawnPoint; }
     public Transform GetTransform() { return transform; }
     public CharacterController GetCharacterController() { return playerCharacterController; }
@@ -94,6 +99,17 @@ public class PlayerManager : MonoBehaviour {
         yield return new WaitForSeconds(0.02f);
         StartCoroutine(health.IFrameTime(true));
         respawn = false;
+        UnlockPlayerMovement();
+    }
+
+    public IEnumerator GoToLastCheckpoint(float waitTime) {
+        LockPlayerMovement();
+        yield return new WaitForSeconds(waitTime);
+
+        lastCheckpoint = true;
+        yield return new WaitForSeconds(0.02f);
+        StartCoroutine(health.IFrameTime(true));
+        lastCheckpoint = false;
         UnlockPlayerMovement();
     }
 }
