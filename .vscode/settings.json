@@ -76,7 +76,7 @@
         },
         {
             "path": "Choose-A-Path\\Assets\\Game\\Entities\\Enemy\\",
-            "color": "foldercustomization.AnsiColor167"
+            "color": "foldercustomization.AnsiColor39"
         },
         {
             "path": "Choose-A-Path\\Assets\\Game\\Entities\\Player\\",
@@ -107,7 +107,7 @@
         },
         {
             "path": "Choose-A-Path\\Assets\\Game\\Entities\\Enemy\\Attacking Objects\\",
-            "color": "foldercustomization.AnsiColor161"
+            "color": "foldercustomization.AnsiColor69"
         }
     ]
 }
