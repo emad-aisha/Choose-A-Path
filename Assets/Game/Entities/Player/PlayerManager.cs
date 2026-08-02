@@ -89,8 +89,6 @@ public class PlayerManager : MonoBehaviour {
     public void LockPlayerMovement() { playerMovementController.LockMovement(); }
     public void UnlockPlayerMovement() { playerMovementController.UnlockMovement(); }
 
-    public bool IsPlayerGrounded() { return playerMovementController.GetComponent<CharacterController>().isGrounded; }
-
     public IEnumerator Respawn(float waitTime) {
         LockPlayerMovement();
         yield return new WaitForSeconds(waitTime);

@@ -52,6 +52,7 @@ public class FacingDirectionManager : Input {
 
 
     public Vector3 GetFacingDirection() { return (transform.position - playerPosition).normalized; }
+    public Vector3 GetVerticalDirection() { return (verticalPosition - playerPosition).normalized; }
     public Vector3 GetHorizontalDirection() { return (horizontalPosition - playerPosition).normalized; }
     public Vector3 GetUpwardsDirection() { return PlayerManager.instance.GetTransform().up.normalized; }
 
