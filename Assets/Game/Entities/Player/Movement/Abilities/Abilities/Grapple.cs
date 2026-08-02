@@ -2,8 +2,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Unity.Mathematics;
-using System;
-using UnityEditor.Experimental.GraphView;
 
 public class Grapple : Input {
     InputAction interactAction;
@@ -86,6 +84,12 @@ public class Grapple : Input {
         int xDirection = (int)FacingDirectionManager.instance.GetHorizontalDirection().x;
         Vector3 size;
         if (grapplePoint.x == 0) grapplePoint.x = (distance * xDirection) + PlayerManager.instance.GetTransform().position.x;
+        float offset = 0.2f * xDirection;
+
+        grappleCursor.gameObject.SetActive(true);
+        grappleCursor.transform.position = new Vector2(grapplePoint.x - offset, PlayerManager.instance.GetTransform().position.y);
+        grappleCursor.transform.rotation = Quaternion.Euler(0, 0, 90 * -xDirection);
+
 
         while (!hitWall && safety < 90) {
             size = grapplePoint - PlayerManager.instance.GetTransform().position;
@@ -96,13 +100,19 @@ public class Grapple : Input {
             yield return new WaitForSeconds(Time.deltaTime);
         }
         grappleSprite.sizeDelta = Vector2.zero;
+        grappleCursor.gameObject.SetActive(false);
     }
 
     IEnumerator VerticalGrappleAnimation(Vector3 grapplePoint) {
         bool hitWall = false;
         int safety = 0;
         Vector3 size;
-        if (grapplePoint.y == 0) grapplePoint.y = distance;
+        if (grapplePoint.y == 0) grapplePoint.y = distance + PlayerManager.instance.GetTransform().position.y;
+        float offset = 0.5f;
+
+        grappleCursor.gameObject.SetActive(true);
+        grappleCursor.transform.position = new Vector2(PlayerManager.instance.GetTransform().position.x, grapplePoint.y - offset);
+
 
         while (!hitWall && safety < 90) {
             size = grapplePoint - PlayerManager.instance.GetTransform().position;
@@ -113,6 +123,7 @@ public class Grapple : Input {
             yield return new WaitForSeconds(Time.deltaTime);
         }
         grappleSprite.sizeDelta = Vector2.zero;
+        grappleCursor.gameObject.SetActive(false);
     }
 
 
