@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Unity.Mathematics;
 using System;
+using UnityEditor.Experimental.GraphView;
 
 public class Grapple : Input {
     InputAction interactAction;
@@ -55,13 +56,13 @@ public class Grapple : Input {
 
         if (shoes.CompareShoeType(Shoes.Type.Jump)) {
             AnimationManager.instance.SetIsVertical(true);
-            StartCoroutine(GrappleAnimation(jumpHit.point));
+            StartCoroutine(VerticalGrappleAnimation(jumpHit.point));
             yield return new WaitForSeconds(pause);
             AnimationManager.instance.SetIsVertical(false);
         }
         else {
             AnimationManager.instance.SetIsHorizontal(true);
-            StartCoroutine(GrappleAnimation(dashHit.point));
+            StartCoroutine(HorizontalGrappleAnimation(dashHit.point));
             yield return new WaitForSeconds(pause);
             AnimationManager.instance.SetIsHorizontal(false);
         }
@@ -79,31 +80,46 @@ public class Grapple : Input {
         isGrappling = false;
     }
 
-    IEnumerator GrappleAnimation(Vector3 grapplePoint) {
+    IEnumerator HorizontalGrappleAnimation(Vector3 grapplePoint) {
         bool hitWall = false;
         int safety = 0;
         int xDirection = (int)FacingDirectionManager.instance.GetHorizontalDirection().x;
         Vector3 size;
+        if (grapplePoint.x == 0) grapplePoint.x = (distance * xDirection) + PlayerManager.instance.GetTransform().position.x;
 
-        while (!hitWall && safety < 100) {
+        while (!hitWall && safety < 90) {
             size = grapplePoint - PlayerManager.instance.GetTransform().position;
-            if (Math.Round(size.y, 1) == 0) XCheck(size, grapplePoint, xDirection, ref hitWall); // go x
-            if (Math.Round(size.x, 1) == 0) YCheck(size, grapplePoint, ref hitWall); // go y
+            XCheck(size, grapplePoint, xDirection, ref hitWall);
 
             if (hitWall) { grappleSprite.sizeDelta = Vector2.zero; }
             safety++;
             yield return new WaitForSeconds(Time.deltaTime);
         }
+        grappleSprite.sizeDelta = Vector2.zero;
+    }
+
+    IEnumerator VerticalGrappleAnimation(Vector3 grapplePoint) {
+        bool hitWall = false;
+        int safety = 0;
+        Vector3 size;
+        if (grapplePoint.y == 0) grapplePoint.y = distance;
+
+        while (!hitWall && safety < 90) {
+            size = grapplePoint - PlayerManager.instance.GetTransform().position;
+            YCheck(size, grapplePoint, ref hitWall);
+
+            if (hitWall) { grappleSprite.sizeDelta = Vector2.zero; }
+            safety++;
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+        grappleSprite.sizeDelta = Vector2.zero;
     }
 
 
     void XCheck(Vector3 size, Vector3 grapplePoint, int direction, ref bool hitWall) {
         float xDistance = math.distance(grapplePoint.x, PlayerManager.instance.GetTransform().position.x);
+        grappleSprite.sizeDelta = new Vector2(math.abs(size.x), 0.3f);
 
-        grappleSprite.sizeDelta = new Vector2(math.abs(size.x), math.abs(size.y));
-        if (Math.Round(grappleSprite.sizeDelta.y, 1) == 0) grappleSprite.sizeDelta += new Vector2(0, 0.3f);
-
-        // fix position
         grappleSprite.position = new Vector2((direction * xDistance / 2) + PlayerManager.instance.GetTransform().position.x, grappleSprite.position.y);
 
         // -0.3 - 0.3  means I hit the wall
@@ -112,10 +128,8 @@ public class Grapple : Input {
 
     void YCheck(Vector3 size, Vector3 grapplePoint, ref bool hitWall) {
         float yDistance = math.distance(grapplePoint.y, PlayerManager.instance.GetTransform().position.y);
-        grappleSprite.sizeDelta = new Vector2(math.abs(size.x), math.abs(size.y));
-        if (Math.Round(grappleSprite.sizeDelta.x, 1) == 0) grappleSprite.sizeDelta += new Vector2(0.3f, 0);
+        grappleSprite.sizeDelta = new Vector2(0.3f, math.abs(size.y));
 
-        // fix position
         grappleSprite.position = new Vector2(grappleSprite.position.x, (yDistance / 2) + PlayerManager.instance.GetTransform().position.y);
 
         // 0.6  means I hit the wall

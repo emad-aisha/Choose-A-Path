@@ -167,13 +167,33 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 888940774783346973, guid: ddee9cc0d9ad18f418b58e86ffb731b4, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 888940774783346973, guid: ddee9cc0d9ad18f418b58e86ffb731b4, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6236950163933328367, guid: ddee9cc0d9ad18f418b58e86ffb731b4, type: 3}
       propertyPath: m_Name
       value: Grapple Dash
       objectReference: {fileID: 0}
     - target: {fileID: 6514873362608502032, guid: ddee9cc0d9ad18f418b58e86ffb731b4, type: 3}
       propertyPath: type
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187053100991042756, guid: ddee9cc0d9ad18f418b58e86ffb731b4, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187053100991042756, guid: ddee9cc0d9ad18f418b58e86ffb731b4, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187053100991042756, guid: ddee9cc0d9ad18f418b58e86ffb731b4, type: 3}
+      propertyPath: m_Color.r
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
