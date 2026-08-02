@@ -92,6 +92,7 @@ public class Grapple : Input {
 
 
         while (!hitWall && safety < 90) {
+            grappleCursor.transform.position = new Vector2(grapplePoint.x - offset, PlayerManager.instance.GetTransform().position.y);
             size = grapplePoint - PlayerManager.instance.GetTransform().position;
             XCheck(size, grapplePoint, xDirection, ref hitWall);
 
@@ -112,9 +113,10 @@ public class Grapple : Input {
 
         grappleCursor.gameObject.SetActive(true);
         grappleCursor.transform.position = new Vector2(PlayerManager.instance.GetTransform().position.x, grapplePoint.y - offset);
-
+        grappleCursor.transform.rotation = Quaternion.Euler(0, 0, 0);
 
         while (!hitWall && safety < 90) {
+            grappleCursor.transform.position = new Vector2(PlayerManager.instance.GetTransform().position.x, grapplePoint.y - offset);
             size = grapplePoint - PlayerManager.instance.GetTransform().position;
             YCheck(size, grapplePoint, ref hitWall);
 
