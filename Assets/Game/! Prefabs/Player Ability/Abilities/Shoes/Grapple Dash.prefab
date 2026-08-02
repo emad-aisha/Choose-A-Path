@@ -321,5 +321,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3965027f4132664d859d51f763da5af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Shoes
-  type: 1
+  type: 0
   distanceIncrement: 0.02

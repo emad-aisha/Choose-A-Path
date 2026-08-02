@@ -116,18 +116,18 @@ public class MovementController : Input {
 
         if (canDoubleJump && jumpAction.WasPressedThisFrame()) {
             AnimationManager.instance.SetIsJumping(true);
-            //PlayerManager.instance.UpdateCharacterCapsule(1.4f, new Vector3(0, -0.02f, 0));
 
             // dont allow double jump off air
             if (!controller.isGrounded && internalCoyoteTimer > coyoteTime) jumps++;
+            internalJumpTimer = 0;
             jumpVelocity.y = jumpSpeed;
             jumps++;
         }
         else if (jumpAction.WasPressedThisFrame() && (controller.isGrounded || internalCoyoteTimer < coyoteTime)) {
             AnimationManager.instance.SetIsJumping(true);
-            //PlayerManager.instance.UpdateCharacterCapsule(1.4f, new Vector3(0, -0.02f, 0));
 
             jumpVelocity.y = jumpSpeed;
+            internalJumpTimer = 0;
             jumps++;
         }
         else {
