@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -26,8 +27,7 @@ public class AbilityManager : MonoBehaviour {
     bool IsInRange(Vector3 endPoint, Vector3 pointToHit) {
         float radius = playerMovementController.GetComponent<CharacterController>().radius;
 
-
-        if (endPoint.normalized.x == 0) {
+        if (Math.Round(endPoint.normalized.x, 1) != 0) {
             if (pointToHit.x - transform.position.x < 0 && transform.position.x < pointToHit.x - radius) {
                 Debug.Log("X - too far to left");
                 return false;
@@ -37,7 +37,7 @@ public class AbilityManager : MonoBehaviour {
                 return false;
             }
         }
-        else if (endPoint.normalized.y == 0) {
+        else if (Math.Round(endPoint.normalized.y, 1) != 0) {
             if (pointToHit.y - transform.position.y < 0 && transform.position.y < pointToHit.y) {
                 Debug.Log("Y - too far to down");
                 return false;

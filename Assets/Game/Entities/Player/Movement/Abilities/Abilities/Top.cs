@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -33,7 +32,7 @@ public class Top : Input {
         distanceVisualizer.transform.position = pointToDash;
 
         if (canDash && !isDashing) {
-            pointToDash = transform.position + (FacingDirectionManager.instance.GetHorizontalDirection() * distance);
+            pointToDash = transform.position + (FacingDirectionManager.instance.GetHorizontalDirection().normalized * distance);
             StartCoroutine(Dash());
         }
 
