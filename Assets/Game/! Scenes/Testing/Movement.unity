@@ -242,6 +242,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3047661131872576543, guid: ddee9cc0d9ad18f418b58e86ffb731b4, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 3517341788492133604, guid: ddee9cc0d9ad18f418b58e86ffb731b4, type: 3}
       propertyPath: m_Name
       value: Grapple
@@ -994,6 +998,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4848770715975098276, guid: 85b444da2a564a345a042fa0a0c04382, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 5319395981286496797, guid: 85b444da2a564a345a042fa0a0c04382, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

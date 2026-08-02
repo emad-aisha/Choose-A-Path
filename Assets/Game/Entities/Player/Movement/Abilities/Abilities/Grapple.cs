@@ -35,7 +35,7 @@ public class Grapple : Input {
             PlayerManager.instance.ResetJumpVelocity();
         }
 
-        if (PlayerManager.instance.GetMovementController().GetIsGrounded()) canInteract = true;
+        if (!isGrappling && PlayerManager.instance.GetMovementController().GetIsGrounded()) canInteract = true;
     }
 
     IEnumerator Interact() {
